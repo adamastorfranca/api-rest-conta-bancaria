@@ -22,7 +22,18 @@ public class ClienteRest {
 	@Autowired
 	private ClienteService clienteService;
 	
-	@GetMapping(value = "/buscarPorCpf/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<List<ClienteDTO>> buscarTodosClientes() {
+		List<ClienteDTO> dto = clienteService.buscarTodosClientes();
+		
+		if (dto == null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/buscar-por-cpf/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<ClienteDTO> buscarClientePorCpf(@PathVariable String cpf) {
 		ClienteDTO dto = clienteService.buscarClientePorCpf(cpf);
 		
@@ -33,7 +44,7 @@ public class ClienteRest {
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/buscarPorNome/{nome}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/buscar-por-nome/{nome}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<List<ClienteDTO>> buscarCLientesPorNome(@PathVariable String nome){
 		
 		List<ClienteDTO> dto = clienteService.buscarClientesPorNome(nome);

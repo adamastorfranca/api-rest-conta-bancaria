@@ -43,4 +43,24 @@ public class ClienteService {
 
 		  return ClienteDTO.converter(clientes);
 	  }
+
+	public List<ClienteDTO> buscarTodosClientes() {
+		return ClienteDTO.converter(clienteRepository.findAll());
+	}
+	
+	public Cliente obterClientePorCpf(String cpf) {
+		boolean cpfValido = cpf != null && CpfUtil.validaCPF(cpf);
+
+		if (!cpfValido) {
+			return null;
+		}
+
+		Cliente c = clienteRepository.findByCpf(cpf);
+
+		if (c == null) {
+			return null;
+		}
+		
+		return c;
+	}
 }

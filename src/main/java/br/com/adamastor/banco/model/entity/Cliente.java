@@ -30,28 +30,4 @@ public class Cliente {
 	
 	private String observacoes;
 
-	public Long getId() {
-		return id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public boolean isAtivo() {
-		return ativo;
-	}
-
-	public String getObservacoes() {
-		return observacoes;
-	}
-
 }

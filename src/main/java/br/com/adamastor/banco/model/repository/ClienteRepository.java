@@ -8,6 +8,7 @@ import br.com.adamastor.banco.model.entity.Cliente;
 
 public interface ClienteRepository extends CrudRepository<Cliente, Long>{
 	
+	List<Cliente> findAll();
 	Cliente findByCpf(String cpf);
 	List<Cliente> findByNomeContains(String nome);
 
