@@ -10,12 +10,12 @@ import lombok.Data;
 @Data
 public class ExtratoDTO {
 
-	private String dataHora;
-	
 	private String tipo;
 	
 	private double valor;
 	
+	private String dataHora;
+
 	private String agenciaOrigem;
 	
 	private String numeroOrigem;
@@ -28,14 +28,13 @@ public class ExtratoDTO {
 		this.dataHora = transacao.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm"));
 		this.tipo = transacao.getTipo();
 		this.valor = transacao.getValor();
-		this.agenciaOrigem = transacao.getOrigem().getAgencia();
-		this.numeroOrigem = transacao.getOrigem().getNumero();
 		
-		if(transacao.getDestino() != null) {
+		if(transacao.getTipo().equals("TRANSFERÊNCIA")) {
+			this.agenciaOrigem = transacao.getOrigem().getAgencia();
+			this.numeroOrigem = transacao.getOrigem().getNumero();
 			this.agenciaDestino = transacao.getDestino().getAgencia();
 			this.numeroDestino = transacao.getDestino().getNumero();
-		}
-		
+		}	
 	}
 	
 	public static List<ExtratoDTO> converterEmExtrato(List<Transacao> transacoes){

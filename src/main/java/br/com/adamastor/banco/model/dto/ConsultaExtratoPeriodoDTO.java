@@ -7,7 +7,7 @@ public class ConsultaExtratoPeriodoDTO {
 
 	String agencia;
 	
-	String numero;
+	String numeroConta;
 	
 	int diaInicio;
 	

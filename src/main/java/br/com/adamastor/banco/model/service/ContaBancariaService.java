@@ -1,6 +1,7 @@
 package br.com.adamastor.banco.model.service;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,20 +103,32 @@ public class ContaBancariaService {
 		return listaContasRetorno;
 	}
 	
-	public List<ExtratoDTO> obterExtrato(String agencia, String numero){
-		ContaBancaria c = consultarConta(agencia, numero);
-		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorConta(c);
-		return ExtratoDTO.converterEmExtrato(transacoesDaConta);
-	}
 	
-	public List<ExtratoDTO> obterExtratoPorPeriodo(ConsultaExtratoPeriodoDTO form){
-		LocalDateTime inicioPeriodo = LocalDateTime.of(form.getAnoInicio(), form.getMesInicio(), form.getDiaInicio(), 0, 0);
-		LocalDateTime finalPeriodo = LocalDateTime.of(form.getAnoFinal(), form.getMesFinal(), form.getDiaFinal(), 29, 59);
+	
+	
+	
+	public List<ExtratoDTO> consultarExtrato(String agencia, String numero){
+		ContaBancaria c = consultarConta(agencia, numero);	
+		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorConta(c);
 		
-		ContaBancaria c = consultarConta(form.getAgencia(), form.getNumero());
-		
-		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorPeriodo(c, inicioPeriodo, finalPeriodo);
 		return ExtratoDTO.converterEmExtrato(transacoesDaConta);
 	}
 
+	public List<ExtratoDTO> obterExtratoPorMesAno(String agencia, String numero, int mes, int ano){
+		ContaBancaria c = consultarConta(agencia, numero);
+		LocalDateTime inicioPeriodo = LocalDateTime.of(ano, mes, 1, 0, 0, 0);
+		LocalDateTime finalPeriodo = LocalDateTime.of(ano, mes, Month.of(mes).maxLength(), 23, 59, 59);
+		List<Transacao> transacoesDoPerido = transacaoRepository.buscarTransacoesPorPeriodo(c, inicioPeriodo, finalPeriodo);
+
+		return ExtratoDTO.converterEmExtrato(transacoesDoPerido);
+	}
+	
+	public List<ExtratoDTO> obterExtratoPorPeriodoEspecifico(ConsultaExtratoPeriodoDTO form){
+		ContaBancaria c = consultarConta(form.getAgencia(), form.getNumeroConta());
+		LocalDateTime inicioPeriodo = LocalDateTime.of(form.getAnoInicio(), form.getMesInicio(), form.getDiaInicio(), 0, 0, 0);
+		LocalDateTime finalPeriodo = LocalDateTime.of(form.getAnoFinal(), form.getMesFinal(), form.getDiaFinal(), 23, 59, 59);
+		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorPeriodo(c, inicioPeriodo, finalPeriodo);
+		
+		return ExtratoDTO.converterEmExtrato(transacoesDaConta);
+	}
 }

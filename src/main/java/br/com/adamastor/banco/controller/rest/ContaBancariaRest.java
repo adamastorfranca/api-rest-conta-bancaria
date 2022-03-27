@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +31,8 @@ public class ContaBancariaRest {
 	private ContaBancariaService contaBancariaService;
 	
 	@GetMapping(value = "/consultar-saldo/{agencia}/{numero}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<Double> consultarSaldo(@PathVariable  String agencia, @PathVariable  String numero){
-		double saldo = contaBancariaService.consultarSaldo(agencia, numero);
+	public @ResponseBody ResponseEntity<Double> consultarSaldo(@PathVariable  String agencia, @PathVariable  String numeroConta){
+		double saldo = contaBancariaService.consultarSaldo(agencia, numeroConta);
 
 		return new ResponseEntity<>(saldo, HttpStatus.OK);
 	}
@@ -58,23 +59,37 @@ public class ContaBancariaRest {
 	}
 	
 	@PutMapping(value = "/transferencia", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<Void> sacar(@RequestBody TransferenciaBancariaDTO dto){
+	public @ResponseBody ResponseEntity<Void> transferir(@RequestBody TransferenciaBancariaDTO dto){
 		contaBancariaService.transferir(dto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/consultar-extrato/{agencia}/{numero}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<List<ExtratoDTO>> consultarExtrato(@PathVariable  String agencia, @PathVariable  String numero){
-		List<ExtratoDTO> dto = contaBancariaService.obterExtrato(agencia, numero);
+	
+	
+	
+	
+	@GetMapping(value = "/consultar-extrato/{agencia}/{numeroConta}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<List<ExtratoDTO>> consultarExtrato(@PathVariable  String agencia, @PathVariable  String numeroConta){
+		List<ExtratoDTO> dto = contaBancariaService.consultarExtrato(agencia, numeroConta);
 		if (dto == null || dto.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/consultar-extrato-por-periodo", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<List<ExtratoDTO>> consultarContasPorCpf(@RequestBody ConsultaExtratoPeriodoDTO form){
-		List<ExtratoDTO> dto = contaBancariaService.obterExtratoPorPeriodo(form);
+	@GetMapping(value = "/extrato-por-mes-ano/{agencia}/{numeroConta}/{mes}/{ano}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<List<ExtratoDTO>> consultarExtratoPorMesAno(@PathVariable  String agencia, @PathVariable  String numeroConta, 
+																					@PathVariable  int mes, @PathVariable  int ano){
+		List<ExtratoDTO> dto = contaBancariaService.obterExtratoPorMesAno(agencia, numeroConta, mes, ano);
+		if (dto == null || dto.isEmpty()) {
+			return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/extrato-por-periodo-especifico", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<List<ExtratoDTO>> consultarExtratoPorPeriodoEspecifico(@RequestBody ConsultaExtratoPeriodoDTO form){
+		List<ExtratoDTO> dto = contaBancariaService.obterExtratoPorPeriodoEspecifico(form);
 		if (dto == null || dto.isEmpty()) {
 			return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.NO_CONTENT);
 		}
