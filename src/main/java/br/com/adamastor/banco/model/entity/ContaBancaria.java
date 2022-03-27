@@ -2,6 +2,7 @@ package br.com.adamastor.banco.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +13,8 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-@Table(name = "contas")
 @Data
+@Table(name = "contas")
 public class ContaBancaria {
 
 	@Id	
@@ -29,7 +30,8 @@ public class ContaBancaria {
 	@Column(nullable = false)
 	private double saldo;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_cliente_id")
 	private Cliente cliente;
+	
 }

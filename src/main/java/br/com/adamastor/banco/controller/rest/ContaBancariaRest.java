@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.adamastor.banco.model.dto.ConsultaContaBancariaDTO;
+import br.com.adamastor.banco.model.dto.ConsultaExtratoPeriodoDTO;
 import br.com.adamastor.banco.model.dto.DepositoDTO;
+import br.com.adamastor.banco.model.dto.ExtratoDTO;
 import br.com.adamastor.banco.model.dto.SaqueDTO;
 import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
 import br.com.adamastor.banco.model.service.ContaBancariaService;
@@ -59,5 +61,23 @@ public class ContaBancariaRest {
 	public @ResponseBody ResponseEntity<Void> sacar(@RequestBody TransferenciaBancariaDTO dto){
 		contaBancariaService.transferir(dto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/consultar-extrato/{agencia}/{numero}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<List<ExtratoDTO>> consultarExtrato(@PathVariable  String agencia, @PathVariable  String numero){
+		List<ExtratoDTO> dto = contaBancariaService.obterExtrato(agencia, numero);
+		if (dto == null || dto.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/consultar-extrato-por-periodo", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<List<ExtratoDTO>> consultarContasPorCpf(@RequestBody ConsultaExtratoPeriodoDTO form){
+		List<ExtratoDTO> dto = contaBancariaService.obterExtratoPorPeriodo(form);
+		if (dto == null || dto.isEmpty()) {
+			return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.OK);
 	}
 }
