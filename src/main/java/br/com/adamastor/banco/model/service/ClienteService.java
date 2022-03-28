@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.adamastor.banco.model.dto.ClienteDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
+import br.com.adamastor.banco.model.form.CadastroClienteForm;
 import br.com.adamastor.banco.model.repository.ClienteRepository;
 import br.com.adamastor.banco.model.util.CpfUtil;
 
@@ -16,6 +17,18 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
+	public Cliente cadastrar(CadastroClienteForm form) {
+		Cliente teste = obterClientePorCpf(form.getCpf());
+		if (teste != null) {
+			return null;
+		}
+		
+		Cliente c = form.criarCliente();
+		clienteRepository.save(c);
+		return c;
+	}
+	
+	
 	public ClienteDTO buscarClientePorCpf(String cpf) {
 		boolean cpfValido = cpf != null && CpfUtil.validaCPF(cpf);
 
@@ -49,7 +62,7 @@ public class ClienteService {
 	}
 	
 	public Cliente obterClientePorCpf(String cpf) {
-		boolean cpfValido = cpf != null && CpfUtil.validaCPF(cpf);
+		boolean cpfValido = cpf != null && CpfUtil.validaCPF(cpf) && !cpf.isBlank();
 
 		if (!cpfValido) {
 			return null;

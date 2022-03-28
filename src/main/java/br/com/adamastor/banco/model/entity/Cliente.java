@@ -26,8 +26,18 @@ public class Cliente {
 	
 	private String email;
 	
-	private boolean ativo;
+	private boolean ativo = true;
 	
 	private String observacoes;
+
+	public Cliente() {}
+	
+	public Cliente(String nome, String cpf, String email) {
+		this.nome = nome;
+		this.cpf = cpf;
+		this.email = email;
+	}
+	
+	
 
 }

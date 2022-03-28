@@ -34,14 +34,24 @@ public class Transacao {
 	@OneToOne
 	@JoinColumn(name = "fk_conta_destino_id")
 	private ContaBancaria destino;
+	
+	private double saldoAposContaOrigem;
+	
+	private double saldoAposContaDestino;
 
-	public Transacao() {
-	}
+	public Transacao() {}
 	
 	public Transacao(String tipo, double valor, ContaBancaria origem, ContaBancaria destino) {
 		this.tipo = tipo;
 		this.valor = valor;
 		this.origem = origem;
 		this.destino = destino;
+		
+		if (origem != null) {
+			this.saldoAposContaOrigem = origem.getSaldo();
+		}
+		if (destino != null) {
+			this.saldoAposContaDestino = destino.getSaldo();
+		}	
 	}
 }

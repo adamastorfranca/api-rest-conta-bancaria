@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.adamastor.banco.model.dto.ConsultaContaBancariaDTO;
 import br.com.adamastor.banco.model.dto.ConsultaExtratoPeriodoDTO;
 import br.com.adamastor.banco.model.dto.DepositoDTO;
-import br.com.adamastor.banco.model.dto.ExtratoDTO;
 import br.com.adamastor.banco.model.dto.SaqueDTO;
+import br.com.adamastor.banco.model.dto.TransacaoDTO;
 import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
+import br.com.adamastor.banco.model.entity.ContaBancaria;
+import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.service.ContaBancariaService;
 
 @RestController
@@ -29,6 +31,15 @@ public class ContaBancariaRest {
 
 	@Autowired
 	private ContaBancariaService contaBancariaService;
+	
+	@PostMapping(value = "/cadastrar")
+	public ResponseEntity<Void> cadastrar(@RequestBody CadastroContaForm form) {
+		ContaBancaria conta = contaBancariaService.cadastrar(form);
+		if(conta == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
 	@GetMapping(value = "/consultar-saldo/{agencia}/{numero}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Double> consultarSaldo(@PathVariable  String agencia, @PathVariable  String numeroConta){
@@ -63,36 +74,32 @@ public class ContaBancariaRest {
 		contaBancariaService.transferir(dto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
+
 	@GetMapping(value = "/consultar-extrato/{agencia}/{numeroConta}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<List<ExtratoDTO>> consultarExtrato(@PathVariable  String agencia, @PathVariable  String numeroConta){
-		List<ExtratoDTO> dto = contaBancariaService.consultarExtrato(agencia, numeroConta);
+	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtrato(@PathVariable  String agencia, @PathVariable  String numeroConta){
+		List<TransacaoDTO> dto = contaBancariaService.consultarExtrato(agencia, numeroConta);
 		if (dto == null || dto.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.OK);
+		return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/extrato-por-mes-ano/{agencia}/{numeroConta}/{mes}/{ano}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<List<ExtratoDTO>> consultarExtratoPorMesAno(@PathVariable  String agencia, @PathVariable  String numeroConta, 
+	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtratoPorMesAno(@PathVariable  String agencia, @PathVariable  String numeroConta, 
 																					@PathVariable  int mes, @PathVariable  int ano){
-		List<ExtratoDTO> dto = contaBancariaService.obterExtratoPorMesAno(agencia, numeroConta, mes, ano);
+		List<TransacaoDTO> dto = contaBancariaService.obterExtratoPorMesAno(agencia, numeroConta, mes, ano);
 		if (dto == null || dto.isEmpty()) {
-			return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.OK);
+		return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/extrato-por-periodo-especifico", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<List<ExtratoDTO>> consultarExtratoPorPeriodoEspecifico(@RequestBody ConsultaExtratoPeriodoDTO form){
-		List<ExtratoDTO> dto = contaBancariaService.obterExtratoPorPeriodoEspecifico(form);
+	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtratoPorPeriodoEspecifico(@RequestBody ConsultaExtratoPeriodoDTO form){
+		List<TransacaoDTO> dto = contaBancariaService.obterExtratoPorPeriodoEspecifico(form);
 		if (dto == null || dto.isEmpty()) {
-			return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<ExtratoDTO>>(dto, HttpStatus.OK);
+		return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.OK);
 	}
 }

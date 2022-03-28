@@ -28,10 +28,17 @@ public class ContaBancaria {
 	private String numero;
 	
 	@Column(nullable = false)
-	private double saldo;
+	private double saldo = 0;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_cliente_id")
 	private Cliente cliente;
+
+	public ContaBancaria() {}
 	
+	public ContaBancaria(String agencia, String numero) {
+		this.agencia = agencia;
+		this.numero = numero;
+	}
+
 }

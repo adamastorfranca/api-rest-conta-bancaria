@@ -12,11 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adamastor.banco.model.dto.ConsultaContaBancariaDTO;
 import br.com.adamastor.banco.model.dto.ConsultaExtratoPeriodoDTO;
-import br.com.adamastor.banco.model.dto.ExtratoDTO;
+import br.com.adamastor.banco.model.dto.TransacaoDTO;
 import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
 import br.com.adamastor.banco.model.entity.ContaBancaria;
 import br.com.adamastor.banco.model.entity.Transacao;
+import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.repository.ContaBancariaRepository;
 import br.com.adamastor.banco.model.repository.TransacaoRepository;
 
@@ -29,6 +30,18 @@ public class ContaBancariaService {
 	private TransacaoRepository transacaoRepository;
 	@Autowired
 	private ClienteService clienteService;
+	
+	public ContaBancaria cadastrar(CadastroContaForm form) {
+		Cliente c = clienteService.obterClientePorCpf(form.getCpf());
+		
+		ContaBancaria cb = null;
+		if(!form.getAgencia().isBlank() || !form.getNumero().isBlank()) {
+			cb = form.criarConta();
+			cb.setCliente(c);
+			contaBancariaRepository.save(cb);
+		}
+		return cb;
+	}
 	
 	public double consultarSaldo(String agencia, String numero) {
 		ContaBancaria c = consultarConta(agencia, numero);
@@ -52,7 +65,7 @@ public class ContaBancariaService {
 		conta.setSaldo(conta.getSaldo() + valor);
 					
 		contaBancariaRepository.save(conta);
-		transacaoRepository.save(new Transacao("DEPÓSITO", valor, conta, null));
+		transacaoRepository.save(new Transacao("DEPÓSITO", valor, null, conta));
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
@@ -82,8 +95,7 @@ public class ContaBancariaService {
 		contaDestino.setSaldo(contaDestino.getSaldo() + dto.getValor());
 		
 		contaBancariaRepository.save(contaOrigem);
-		contaBancariaRepository.save(contaDestino);
-		
+		contaBancariaRepository.save(contaDestino);		
 		transacaoRepository.save(new Transacao("TRANSFERÊNCIA", dto.getValor(), contaOrigem, contaDestino));
 	}
 	
@@ -102,33 +114,30 @@ public class ContaBancariaService {
 
 		return listaContasRetorno;
 	}
-	
-	
-	
-	
-	
-	public List<ExtratoDTO> consultarExtrato(String agencia, String numero){
+
+	public List<TransacaoDTO> consultarExtrato(String agencia, String numero){
 		ContaBancaria c = consultarConta(agencia, numero);	
 		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorConta(c);
 		
-		return ExtratoDTO.converterEmExtrato(transacoesDaConta);
+		return TransacaoDTO.converterEmExtrato(transacoesDaConta);
 	}
 
-	public List<ExtratoDTO> obterExtratoPorMesAno(String agencia, String numero, int mes, int ano){
+	public List<TransacaoDTO> obterExtratoPorMesAno(String agencia, String numero, int mes, int ano){
 		ContaBancaria c = consultarConta(agencia, numero);
-		LocalDateTime inicioPeriodo = LocalDateTime.of(ano, mes, 1, 0, 0, 0);
+		LocalDateTime inicioPeriodo = LocalDateTime.of(ano, mes, 1, 0, 0, 00);
 		LocalDateTime finalPeriodo = LocalDateTime.of(ano, mes, Month.of(mes).maxLength(), 23, 59, 59);
 		List<Transacao> transacoesDoPerido = transacaoRepository.buscarTransacoesPorPeriodo(c, inicioPeriodo, finalPeriodo);
 
-		return ExtratoDTO.converterEmExtrato(transacoesDoPerido);
+		return TransacaoDTO.converterEmExtrato(transacoesDoPerido);
 	}
 	
-	public List<ExtratoDTO> obterExtratoPorPeriodoEspecifico(ConsultaExtratoPeriodoDTO form){
+	public List<TransacaoDTO> obterExtratoPorPeriodoEspecifico(ConsultaExtratoPeriodoDTO form){
 		ContaBancaria c = consultarConta(form.getAgencia(), form.getNumeroConta());
 		LocalDateTime inicioPeriodo = LocalDateTime.of(form.getAnoInicio(), form.getMesInicio(), form.getDiaInicio(), 0, 0, 0);
 		LocalDateTime finalPeriodo = LocalDateTime.of(form.getAnoFinal(), form.getMesFinal(), form.getDiaFinal(), 23, 59, 59);
 		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorPeriodo(c, inicioPeriodo, finalPeriodo);
 		
-		return ExtratoDTO.converterEmExtrato(transacoesDaConta);
+		return TransacaoDTO.converterEmExtrato(transacoesDaConta);
 	}
+
 }
