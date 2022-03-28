@@ -11,9 +11,13 @@ public class CadastroClienteForm {
 	private String cpf;
 	
 	private String email;
+	
+	private String telefone;
+	
+	private String observacoes;
 
 	public Cliente criarCliente() {
-		return new Cliente(nome, cpf, email);
+		return new Cliente(nome, cpf, email, telefone, observacoes);
 	}
 	
 }

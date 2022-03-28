@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.adamastor.banco.model.dto.ConsultaContaBancariaDTO;
 import br.com.adamastor.banco.model.dto.ConsultaExtratoPeriodoDTO;
+import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
 import br.com.adamastor.banco.model.dto.DepositoDTO;
 import br.com.adamastor.banco.model.dto.SaqueDTO;
 import br.com.adamastor.banco.model.dto.TransacaoDTO;
 import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
-import br.com.adamastor.banco.model.entity.ContaBancaria;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.service.ContaBancariaService;
 
@@ -32,10 +33,19 @@ public class ContaBancariaRest {
 	@Autowired
 	private ContaBancariaService contaBancariaService;
 	
-	@PostMapping(value = "/cadastrar")
-	public ResponseEntity<Void> cadastrar(@RequestBody CadastroContaForm form) {
-		ContaBancaria conta = contaBancariaService.cadastrar(form);
-		if(conta == null) {
+	@PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<ContaBancariaDTO> cadastrar(@RequestBody CadastroContaForm form) {
+		ContaBancariaDTO dto = contaBancariaService.cadastrar(form);
+		if(dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<ContaBancariaDTO>(dto, HttpStatus.OK);
+	}
+	
+	@DeleteMapping(value = "/deletar/{agencia}/{numeroConta}")
+	public ResponseEntity<Void> deletar(String agencia, @PathVariable  String numeroConta){
+		boolean deletou = contaBancariaService.deletar(agencia, numeroConta);
+		if (!deletou) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(HttpStatus.OK);

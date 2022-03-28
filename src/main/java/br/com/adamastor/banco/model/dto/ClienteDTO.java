@@ -12,10 +12,13 @@ public class ClienteDTO {
 	private String nome;
 	
 	private String email;
+	
+	private String telefone;
 
 	public ClienteDTO(Cliente c) {
 		this.nome = c.getNome();
 		this.email = c.getEmail();
+		this.telefone = c.getTelefone();
 	}
 
 	public static List<ClienteDTO> converter(List<Cliente> clientes) {

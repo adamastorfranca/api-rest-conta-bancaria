@@ -12,12 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adamastor.banco.model.dto.ConsultaContaBancariaDTO;
 import br.com.adamastor.banco.model.dto.ConsultaExtratoPeriodoDTO;
+import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
 import br.com.adamastor.banco.model.dto.TransacaoDTO;
 import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
 import br.com.adamastor.banco.model.entity.ContaBancaria;
 import br.com.adamastor.banco.model.entity.Transacao;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
+import br.com.adamastor.banco.model.repository.ClienteRepository;
 import br.com.adamastor.banco.model.repository.ContaBancariaRepository;
 import br.com.adamastor.banco.model.repository.TransacaoRepository;
 
@@ -27,12 +29,23 @@ public class ContaBancariaService {
 	@Autowired
 	private ContaBancariaRepository contaBancariaRepository;
 	@Autowired
-	private TransacaoRepository transacaoRepository;
+	private ClienteRepository clienteRepository;
 	@Autowired
-	private ClienteService clienteService;
+	private TransacaoRepository transacaoRepository;
 	
-	public ContaBancaria cadastrar(CadastroContaForm form) {
-		Cliente c = clienteService.obterClientePorCpf(form.getCpf());
+	@Transactional(rollbackFor = Exception.class)
+	public ContaBancariaDTO cadastrar(CadastroContaForm form) {
+		Cliente c = clienteRepository.findByCpf(form.getCpf());
+		
+		if (c == null) {
+			return null;
+		}
+		
+		ContaBancaria conta = contaBancariaRepository.findByAgenciaAndNumero(form.getAgencia(), form.getNumero());
+		
+		if (conta != null) {
+			return null;
+		}
 		
 		ContaBancaria cb = null;
 		if(!form.getAgencia().isBlank() || !form.getNumero().isBlank()) {
@@ -40,9 +53,19 @@ public class ContaBancariaService {
 			cb.setCliente(c);
 			contaBancariaRepository.save(cb);
 		}
-		return cb;
+		return new ContaBancariaDTO(cb);
 	}
 	
+	public boolean deletar(String agencia, String numero) {
+		ContaBancaria conta = contaBancariaRepository.findByAgenciaAndNumero(agencia, numero);
+		if (conta == null) {
+			return false;
+		}
+		contaBancariaRepository.delete(conta);
+		return true;
+		
+	}
+
 	public double consultarSaldo(String agencia, String numero) {
 		ContaBancaria c = consultarConta(agencia, numero);
 		return c.getSaldo();
@@ -101,8 +124,12 @@ public class ContaBancariaService {
 	
 	public List<ConsultaContaBancariaDTO> obterContasPorCpf(String cpf){
 		List<ConsultaContaBancariaDTO> listaContasRetorno = new ArrayList<>();
-		Cliente cli = clienteService.obterClientePorCpf(cpf);
+		Cliente cli = clienteRepository.findByCpf(cpf);
 
+		if (cli == null) {
+			return null;
+		}
+		
 		List<ContaBancaria> listaContasCliente = contaBancariaRepository.findByCliente(cli);
 		for (ContaBancaria conta : listaContasCliente) {
 			ConsultaContaBancariaDTO dtoConta = new ConsultaContaBancariaDTO();

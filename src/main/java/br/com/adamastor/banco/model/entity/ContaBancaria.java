@@ -30,6 +30,8 @@ public class ContaBancaria {
 	@Column(nullable = false)
 	private double saldo = 0;
 	
+	private boolean ativa = true;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_cliente_id")
 	private Cliente cliente;
