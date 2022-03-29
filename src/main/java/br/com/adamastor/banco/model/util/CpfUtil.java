@@ -4,6 +4,10 @@ import java.util.InputMismatchException;
 
 public class CpfUtil {
 
+	private CpfUtil() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	public static boolean validaCPF(final String cpf) {
 		if (cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222")
 				|| cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555")

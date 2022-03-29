@@ -80,38 +80,22 @@ public class ClienteService {
 			return null;
 		}
 
-		ClienteDTO dto = new ClienteDTO(c);
 
-		return dto;
+		return new ClienteDTO(c);
 	}
 
 	public List<ClienteDTO> buscarClientesPorNome(String nome) {
 		List<Cliente> clientes = clienteRepository.findByNomeContains(nome);
-
-		if (clientes == null || clientes.isEmpty()) {
-			return null;
-		}
-
 		return ClienteDTO.converter(clientes);
 	}
 
 	private boolean cpfAptoParaCadastro(String cpf) {
 		Cliente c = clienteRepository.findByCpf(cpf);
-
-		if (c == null && CpfUtil.validaCPF(cpf)) {
-			return true;
-		}
-		
-		return false;
+		return c == null && CpfUtil.validaCPF(cpf);
 	}
 	
 	private boolean cpfAptoParaAtualizacaoCadastral(String cpf) {
 		Cliente c = clienteRepository.findByCpf(cpf);
-		
-		if( c != null && CpfUtil.validaCPF(cpf)) {
-			return true;
-		}
-		
-		return false;
+		return  c != null && CpfUtil.validaCPF(cpf);
 	}
 }

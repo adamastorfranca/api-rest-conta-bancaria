@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,7 @@ public class ClienteRest {
 		if(dto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<ClienteDTO>(dto, HttpStatus.OK);
+		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/deletar/{cpf}")
@@ -82,7 +83,7 @@ public class ClienteRest {
 		
 		List<ClienteDTO> dto = clienteService.buscarClientesPorNome(nome);
 		
-		if (dto == null) {
+		if (ObjectUtils.isEmpty(dto)) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		

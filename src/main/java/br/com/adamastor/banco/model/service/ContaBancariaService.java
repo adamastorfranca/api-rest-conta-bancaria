@@ -81,6 +81,26 @@ public class ContaBancariaService {
 		return c;
 	}
 	
+	public List<ConsultaContaBancariaDTO> obterContasPorCpf(String cpf){
+		List<ConsultaContaBancariaDTO> listaContasRetorno = new ArrayList<>();
+		Cliente cli = clienteRepository.findByCpf(cpf);
+
+		if (cli == null) {
+			return null;
+		}
+		
+		List<ContaBancaria> listaContasCliente = contaBancariaRepository.findByCliente(cli);
+		for (ContaBancaria conta : listaContasCliente) {
+			ConsultaContaBancariaDTO dtoConta = new ConsultaContaBancariaDTO();
+			BeanUtils.copyProperties(conta, dtoConta);
+			dtoConta.setCpf(conta.getCliente().getCpf());
+			dtoConta.setNomeTitular(conta.getCliente().getNome());
+			listaContasRetorno.add(dtoConta);
+		}
+
+		return listaContasRetorno;
+	}
+
 	@Transactional(rollbackFor = Exception.class)
 	public void depositar (String agencia, String numeroConta, double valor) {
 		ContaBancaria conta = consultarConta(agencia, numeroConta);
@@ -111,7 +131,8 @@ public class ContaBancariaService {
 		ContaBancaria contaDestino = consultarConta(dto.getAgenciaDestino(), dto.getNumeroContaDestino());
 		
 		if (contaOrigem.getSaldo() < dto.getValor()) {
-			throw new RuntimeException("Saldo insuficiente!");
+
+			throw new RuntimeException("Saldo insuficiente!"); 
 		}
 		
 		contaOrigem.setSaldo(contaOrigem.getSaldo() - dto.getValor());
@@ -121,50 +142,30 @@ public class ContaBancariaService {
 		contaBancariaRepository.save(contaDestino);		
 		transacaoRepository.save(new Transacao("TRANSFERÊNCIA", dto.getValor(), contaOrigem, contaDestino));
 	}
-	
-	public List<ConsultaContaBancariaDTO> obterContasPorCpf(String cpf){
-		List<ConsultaContaBancariaDTO> listaContasRetorno = new ArrayList<>();
-		Cliente cli = clienteRepository.findByCpf(cpf);
-
-		if (cli == null) {
-			return null;
-		}
-		
-		List<ContaBancaria> listaContasCliente = contaBancariaRepository.findByCliente(cli);
-		for (ContaBancaria conta : listaContasCliente) {
-			ConsultaContaBancariaDTO dtoConta = new ConsultaContaBancariaDTO();
-			BeanUtils.copyProperties(conta, dtoConta);
-			dtoConta.setCpf(conta.getCliente().getCpf());
-			dtoConta.setNomeTitular(conta.getCliente().getNome());
-			listaContasRetorno.add(dtoConta);
-		}
-
-		return listaContasRetorno;
-	}
 
 	public List<TransacaoDTO> consultarExtrato(String agencia, String numero){
-		ContaBancaria c = consultarConta(agencia, numero);	
-		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorConta(c);
-		
-		return TransacaoDTO.converterEmExtrato(transacoesDaConta);
+		ContaBancaria contaSolicitadora = consultarConta(agencia, numero);	
+		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorConta(contaSolicitadora);
+	
+		return TransacaoDTO.converterEmListaExtratoDTO(transacoesDaConta, contaSolicitadora);
 	}
 
 	public List<TransacaoDTO> obterExtratoPorMesAno(String agencia, String numero, int mes, int ano){
-		ContaBancaria c = consultarConta(agencia, numero);
+		ContaBancaria contaSolicitadora = consultarConta(agencia, numero);
 		LocalDateTime inicioPeriodo = LocalDateTime.of(ano, mes, 1, 0, 0, 00);
 		LocalDateTime finalPeriodo = LocalDateTime.of(ano, mes, Month.of(mes).maxLength(), 23, 59, 59);
-		List<Transacao> transacoesDoPerido = transacaoRepository.buscarTransacoesPorPeriodo(c, inicioPeriodo, finalPeriodo);
+		List<Transacao> transacoesDoPeriodo = transacaoRepository.buscarTransacoesPorPeriodo(contaSolicitadora, inicioPeriodo, finalPeriodo);
 
-		return TransacaoDTO.converterEmExtrato(transacoesDoPerido);
+		return TransacaoDTO.converterEmListaExtratoDTO(transacoesDoPeriodo, contaSolicitadora);
 	}
 	
 	public List<TransacaoDTO> obterExtratoPorPeriodoEspecifico(ConsultaExtratoPeriodoDTO form){
-		ContaBancaria c = consultarConta(form.getAgencia(), form.getNumeroConta());
+		ContaBancaria contaSolicitadora = consultarConta(form.getAgencia(), form.getNumeroConta());
 		LocalDateTime inicioPeriodo = LocalDateTime.of(form.getAnoInicio(), form.getMesInicio(), form.getDiaInicio(), 0, 0, 0);
 		LocalDateTime finalPeriodo = LocalDateTime.of(form.getAnoFinal(), form.getMesFinal(), form.getDiaFinal(), 23, 59, 59);
-		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorPeriodo(c, inicioPeriodo, finalPeriodo);
+		List<Transacao> transacoesDoPeriodo = transacaoRepository.buscarTransacoesPorPeriodo(contaSolicitadora, inicioPeriodo, finalPeriodo);
 		
-		return TransacaoDTO.converterEmExtrato(transacoesDaConta);
+		return TransacaoDTO.converterEmListaExtratoDTO(transacoesDoPeriodo, contaSolicitadora);
 	}
 
 }

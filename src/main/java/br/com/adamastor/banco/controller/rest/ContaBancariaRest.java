@@ -43,7 +43,7 @@ public class ContaBancariaRest {
 	}
 	
 	@DeleteMapping(value = "/deletar/{agencia}/{numeroConta}")
-	public ResponseEntity<Void> deletar(String agencia, @PathVariable  String numeroConta){
+	public ResponseEntity<Void> deletar(@PathVariable String agencia, @PathVariable  String numeroConta){
 		boolean deletou = contaBancariaService.deletar(agencia, numeroConta);
 		if (!deletou) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -82,9 +82,12 @@ public class ContaBancariaRest {
 	@PutMapping(value = "/transferencia", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Void> transferir(@RequestBody TransferenciaBancariaDTO dto){
 		contaBancariaService.transferir(dto);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	
+	
+	
 	@GetMapping(value = "/consultar-extrato/{agencia}/{numeroConta}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtrato(@PathVariable  String agencia, @PathVariable  String numeroConta){
 		List<TransacaoDTO> dto = contaBancariaService.consultarExtrato(agencia, numeroConta);
@@ -101,15 +104,15 @@ public class ContaBancariaRest {
 		if (dto == null || dto.isEmpty()) {
 			return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.OK);
+		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/extrato-por-periodo-especifico", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtratoPorPeriodoEspecifico(@RequestBody ConsultaExtratoPeriodoDTO form){
 		List<TransacaoDTO> dto = contaBancariaService.obterExtratoPorPeriodoEspecifico(form);
 		if (dto == null || dto.isEmpty()) {
-			return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(dto, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.OK);
+		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 }
