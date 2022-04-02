@@ -3,6 +3,8 @@ package br.com.adamastor.banco.model.entity;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +25,8 @@ public class Transacao {
 	
 	private LocalDateTime dataHora = LocalDateTime.now();
 	
-	private String tipo;
+	@Enumerated(EnumType.STRING)
+	private TipoTransacao tipo;
 	
 	private double valor;
 	
@@ -39,19 +42,4 @@ public class Transacao {
 	
 	private double saldoAposContaDestino;
 
-	public Transacao() {}
-	
-	public Transacao(String tipo, double valor, ContaBancaria origem, ContaBancaria destino) {
-		this.tipo = tipo;
-		this.valor = valor;
-		this.origem = origem;
-		this.destino = destino;
-		
-		if (origem != null) {
-			this.saldoAposContaOrigem = origem.getSaldo();
-		}
-		if (destino != null) {
-			this.saldoAposContaDestino = destino.getSaldo();
-		}	
-	}
 }

@@ -13,6 +13,9 @@ public class CadastroContaForm {
 	private String numero;
 	
 	public ContaBancaria criarConta() {
-		return new ContaBancaria(agencia, numero);
+		ContaBancaria conta = new ContaBancaria();
+		conta.setAgencia(agencia);
+		conta.setNumero(numero);
+		return conta;
 	}
 }

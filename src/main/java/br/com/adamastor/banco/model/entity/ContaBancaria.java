@@ -36,11 +36,4 @@ public class ContaBancaria {
 	@JoinColumn(name = "fk_cliente_id")
 	private Cliente cliente;
 
-	public ContaBancaria() {}
-	
-	public ContaBancaria(String agencia, String numero) {
-		this.agencia = agencia;
-		this.numero = numero;
-	}
-
 }

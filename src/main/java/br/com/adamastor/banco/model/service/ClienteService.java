@@ -24,7 +24,11 @@ public class ClienteService {
 			return null;
 		}
 
-		Cliente c = form.criarCliente();
+		Cliente c = new Cliente();
+		c.setNome(form.getNome());
+		c.setCpf(form.getCpf());
+		c.setEmail(form.getEmail());
+		c.setTelefone(form.getTelefone());
 		clienteRepository.save(c);
 
 		return new ClienteDTO(c);
@@ -50,7 +54,7 @@ public class ClienteService {
 		if (form.getObservacoes() != null && !form.getObservacoes().isBlank()){
 			c.setObservacoes(form.getObservacoes());
 		}		
-		c.setAtivo(form.getAtivo());
+		c.setAtivo(form.isAtivo());
 		
 		clienteRepository.save(c);
 		

@@ -17,7 +17,10 @@ import br.com.adamastor.banco.model.dto.TransacaoDTO;
 import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
 import br.com.adamastor.banco.model.entity.ContaBancaria;
+import br.com.adamastor.banco.model.entity.TipoTransacao;
 import br.com.adamastor.banco.model.entity.Transacao;
+import br.com.adamastor.banco.model.exception.AplicacaoException;
+import br.com.adamastor.banco.model.exception.ExceptionValidacoes;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.repository.ClienteRepository;
 import br.com.adamastor.banco.model.repository.ContaBancariaRepository;
@@ -32,6 +35,8 @@ public class ContaBancariaService {
 	private ClienteRepository clienteRepository;
 	@Autowired
 	private TransacaoRepository transacaoRepository;
+	@Autowired
+	private TransacaoService transacaoService;
 	
 	@Transactional(rollbackFor = Exception.class)
 	public ContaBancariaDTO cadastrar(CadastroContaForm form) {
@@ -107,8 +112,8 @@ public class ContaBancariaService {
 		
 		conta.setSaldo(conta.getSaldo() + valor);
 					
-		contaBancariaRepository.save(conta);
-		transacaoRepository.save(new Transacao("DEPÓSITO", valor, null, conta));
+		contaBancariaRepository.save(conta);		
+		transacaoService.salvar(TipoTransacao.DEPOSITO, valor, null, conta);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
@@ -116,13 +121,13 @@ public class ContaBancariaService {
 		ContaBancaria conta = consultarConta(agencia, numeroConta);
 
 		if (conta.getSaldo() < valor) {
-			throw new RuntimeException("Saldo insuficiente!");
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_INSUFICIENTE);
 		}
 		
 		conta.setSaldo(conta.getSaldo() - valor);
 			
 		contaBancariaRepository.save(conta);
-		transacaoRepository.save(new Transacao("SAQUE", valor, conta, null));	
+		transacaoService.salvar(TipoTransacao.SAQUE, valor, conta, null);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
@@ -131,41 +136,15 @@ public class ContaBancariaService {
 		ContaBancaria contaDestino = consultarConta(dto.getAgenciaDestino(), dto.getNumeroContaDestino());
 		
 		if (contaOrigem.getSaldo() < dto.getValor()) {
-
-			throw new RuntimeException("Saldo insuficiente!"); 
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_INSUFICIENTE); 
 		}
 		
 		contaOrigem.setSaldo(contaOrigem.getSaldo() - dto.getValor());
 		contaDestino.setSaldo(contaDestino.getSaldo() + dto.getValor());
 		
 		contaBancariaRepository.save(contaOrigem);
-		contaBancariaRepository.save(contaDestino);		
-		transacaoRepository.save(new Transacao("TRANSFERÊNCIA", dto.getValor(), contaOrigem, contaDestino));
-	}
-
-	public List<TransacaoDTO> consultarExtrato(String agencia, String numero){
-		ContaBancaria contaSolicitadora = consultarConta(agencia, numero);	
-		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorConta(contaSolicitadora);
-	
-		return TransacaoDTO.converterEmListaExtratoDTO(transacoesDaConta, contaSolicitadora);
-	}
-
-	public List<TransacaoDTO> obterExtratoPorMesAno(String agencia, String numero, int mes, int ano){
-		ContaBancaria contaSolicitadora = consultarConta(agencia, numero);
-		LocalDateTime inicioPeriodo = LocalDateTime.of(ano, mes, 1, 0, 0, 00);
-		LocalDateTime finalPeriodo = LocalDateTime.of(ano, mes, Month.of(mes).maxLength(), 23, 59, 59);
-		List<Transacao> transacoesDoPeriodo = transacaoRepository.buscarTransacoesPorPeriodo(contaSolicitadora, inicioPeriodo, finalPeriodo);
-
-		return TransacaoDTO.converterEmListaExtratoDTO(transacoesDoPeriodo, contaSolicitadora);
-	}
-	
-	public List<TransacaoDTO> obterExtratoPorPeriodoEspecifico(ConsultaExtratoPeriodoDTO form){
-		ContaBancaria contaSolicitadora = consultarConta(form.getAgencia(), form.getNumeroConta());
-		LocalDateTime inicioPeriodo = LocalDateTime.of(form.getAnoInicio(), form.getMesInicio(), form.getDiaInicio(), 0, 0, 0);
-		LocalDateTime finalPeriodo = LocalDateTime.of(form.getAnoFinal(), form.getMesFinal(), form.getDiaFinal(), 23, 59, 59);
-		List<Transacao> transacoesDoPeriodo = transacaoRepository.buscarTransacoesPorPeriodo(contaSolicitadora, inicioPeriodo, finalPeriodo);
-		
-		return TransacaoDTO.converterEmListaExtratoDTO(transacoesDoPeriodo, contaSolicitadora);
+		contaBancariaRepository.save(contaDestino);
+		transacaoService.salvar(TipoTransacao.TRANSFERENCIA, dto.getValor(), contaOrigem, contaDestino);
 	}
 
 }

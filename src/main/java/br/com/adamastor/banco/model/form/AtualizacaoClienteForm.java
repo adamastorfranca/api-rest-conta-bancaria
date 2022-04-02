@@ -17,8 +17,5 @@ public class AtualizacaoClienteForm {
 	
 	private String observacoes;
 
-	public boolean getAtivo() {
-		return ativo;
-	}
 
 }

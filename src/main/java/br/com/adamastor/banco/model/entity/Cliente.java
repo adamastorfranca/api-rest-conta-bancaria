@@ -31,17 +31,4 @@ public class Cliente {
 	private boolean ativo = true;
 	
 	private String observacoes;
-
-	public Cliente() {}
-	
-	public Cliente(String nome, String cpf, String email, String telefone, String observacoes) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.email = email;
-		this.telefone = telefone;
-		this.observacoes = observacoes;
-	}
-	
-	
-
 }
