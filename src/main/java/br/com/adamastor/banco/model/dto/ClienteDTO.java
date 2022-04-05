@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class ClienteDTO {
 
+	private Long id;
+	
 	private String nome;
 	
 	private String email;
@@ -16,6 +18,7 @@ public class ClienteDTO {
 	private String telefone;
 
 	public ClienteDTO(Cliente c) {
+		this.id = c.getId();
 		this.nome = c.getNome();
 		this.email = c.getEmail();
 		this.telefone = c.getTelefone();

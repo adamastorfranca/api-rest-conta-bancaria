@@ -25,6 +25,7 @@ import br.com.adamastor.banco.model.dto.TransacaoDTO;
 import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.service.ContaBancariaService;
+import br.com.adamastor.banco.model.service.TransacaoService;
 
 @RestController
 @RequestMapping("rest/contas")
@@ -32,6 +33,8 @@ public class ContaBancariaRest {
 
 	@Autowired
 	private ContaBancariaService contaBancariaService;
+	@Autowired
+	private TransacaoService transacaoService;
 	
 	@PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<ContaBancariaDTO> cadastrar(@RequestBody CadastroContaForm form) {
@@ -39,7 +42,7 @@ public class ContaBancariaRest {
 		if(dto == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<ContaBancariaDTO>(dto, HttpStatus.OK);
+		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 	@DeleteMapping(value = "/deletar/{agencia}/{numeroConta}")
@@ -62,21 +65,21 @@ public class ContaBancariaRest {
 	public @ResponseBody ResponseEntity<List<ConsultaContaBancariaDTO>> consultarContasPorCpf(@PathVariable String cpf){
 		List<ConsultaContaBancariaDTO> contas = contaBancariaService.obterContasPorCpf(cpf);
 		if (contas == null || contas.isEmpty()) {
-			return new ResponseEntity<List<ConsultaContaBancariaDTO>>(contas, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(contas, HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<ConsultaContaBancariaDTO>>(contas, HttpStatus.OK);
+		return new ResponseEntity<>(contas, HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/deposito", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Void> depositar(@RequestBody DepositoDTO dto){
 		contaBancariaService.depositar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/saque", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Void> sacar(@RequestBody SaqueDTO dto){
 		contaBancariaService.sacar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@PutMapping(value = "/transferencia", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -85,31 +88,28 @@ public class ContaBancariaRest {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	
-	
-	
 	@GetMapping(value = "/consultar-extrato/{agencia}/{numeroConta}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtrato(@PathVariable  String agencia, @PathVariable  String numeroConta){
-		List<TransacaoDTO> dto = contaBancariaService.consultarExtrato(agencia, numeroConta);
+		List<TransacaoDTO> dto = transacaoService.consultarExtrato(agencia, numeroConta);
 		if (dto == null || dto.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.OK);
+		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/extrato-por-mes-ano/{agencia}/{numeroConta}/{mes}/{ano}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtratoPorMesAno(@PathVariable  String agencia, @PathVariable  String numeroConta, 
 																					@PathVariable  int mes, @PathVariable  int ano){
-		List<TransacaoDTO> dto = contaBancariaService.obterExtratoPorMesAno(agencia, numeroConta, mes, ano);
+		List<TransacaoDTO> dto = transacaoService.obterExtratoPorMesAno(agencia, numeroConta, mes, ano);
 		if (dto == null || dto.isEmpty()) {
-			return new ResponseEntity<List<TransacaoDTO>>(dto, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(dto, HttpStatus.NO_CONTENT);
 		}
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "/extrato-por-periodo-especifico", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtratoPorPeriodoEspecifico(@RequestBody ConsultaExtratoPeriodoDTO form){
-		List<TransacaoDTO> dto = contaBancariaService.obterExtratoPorPeriodoEspecifico(form);
+		List<TransacaoDTO> dto = transacaoService.obterExtratoPorPeriodoEspecifico(form);
 		if (dto == null || dto.isEmpty()) {
 			return new ResponseEntity<>(dto, HttpStatus.NO_CONTENT);
 		}
