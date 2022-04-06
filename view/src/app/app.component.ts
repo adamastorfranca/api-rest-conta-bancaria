@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'view';
+  transferencia: any;
+  erro: string;
+
+  transferir($event){
+    this.transferencia = $event;
+  }
+
+  exibirModalErro($event){
+    this.erro = $event;
+  }
 }

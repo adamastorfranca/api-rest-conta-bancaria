@@ -1,7 +1,5 @@
 package br.com.adamastor.banco.model.service;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,20 +9,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adamastor.banco.model.dto.ConsultaContaBancariaDTO;
-import br.com.adamastor.banco.model.dto.ConsultaExtratoPeriodoDTO;
 import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
-import br.com.adamastor.banco.model.dto.TransacaoDTO;
 import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
 import br.com.adamastor.banco.model.entity.ContaBancaria;
 import br.com.adamastor.banco.model.entity.TipoTransacao;
-import br.com.adamastor.banco.model.entity.Transacao;
 import br.com.adamastor.banco.model.exception.AplicacaoException;
 import br.com.adamastor.banco.model.exception.ExceptionValidacoes;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.repository.ClienteRepository;
 import br.com.adamastor.banco.model.repository.ContaBancariaRepository;
-import br.com.adamastor.banco.model.repository.TransacaoRepository;
 
 @Service
 public class ContaBancariaService {
@@ -33,8 +27,6 @@ public class ContaBancariaService {
 	private ContaBancariaRepository contaBancariaRepository;
 	@Autowired
 	private ClienteRepository clienteRepository;
-	@Autowired
-	private TransacaoRepository transacaoRepository;
 	@Autowired
 	private TransacaoService transacaoService;
 	
@@ -67,8 +59,11 @@ public class ContaBancariaService {
 			return false;
 		}
 		contaBancariaRepository.delete(conta);
-		return true;
-		
+		return true;	
+	}
+	
+	public List<ContaBancariaDTO> buscarTodasContas() {
+		return ContaBancariaDTO.converter(contaBancariaRepository.findAll());
 	}
 
 	public double consultarSaldo(String agencia, String numero) {

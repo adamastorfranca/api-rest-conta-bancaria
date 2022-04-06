@@ -17,15 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.adamastor.banco.model.dto.ConsultaContaBancariaDTO;
-import br.com.adamastor.banco.model.dto.ConsultaExtratoPeriodoDTO;
 import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
 import br.com.adamastor.banco.model.dto.DepositoDTO;
 import br.com.adamastor.banco.model.dto.SaqueDTO;
-import br.com.adamastor.banco.model.dto.TransacaoDTO;
 import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.service.ContaBancariaService;
-import br.com.adamastor.banco.model.service.TransacaoService;
 
 @RestController
 @RequestMapping("rest/contas")
@@ -33,8 +30,6 @@ public class ContaBancariaRest {
 
 	@Autowired
 	private ContaBancariaService contaBancariaService;
-	@Autowired
-	private TransacaoService transacaoService;
 	
 	@PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<ContaBancariaDTO> cadastrar(@RequestBody CadastroContaForm form) {
@@ -87,32 +82,15 @@ public class ContaBancariaRest {
 		contaBancariaService.transferir(dto);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-
-	@GetMapping(value = "/consultar-extrato/{agencia}/{numeroConta}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtrato(@PathVariable  String agencia, @PathVariable  String numeroConta){
-		List<TransacaoDTO> dto = transacaoService.consultarExtrato(agencia, numeroConta);
-		if (dto == null || dto.isEmpty()) {
+	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<List<ContaBancariaDTO>> buscarTodasContas() {
+		List<ContaBancariaDTO> dto = contaBancariaService.buscarTodasContas();
+		
+		if (dto == null) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<>(dto, HttpStatus.OK);
-	}
-	
-	@GetMapping(value = "/extrato-por-mes-ano/{agencia}/{numeroConta}/{mes}/{ano}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtratoPorMesAno(@PathVariable  String agencia, @PathVariable  String numeroConta, 
-																					@PathVariable  int mes, @PathVariable  int ano){
-		List<TransacaoDTO> dto = transacaoService.obterExtratoPorMesAno(agencia, numeroConta, mes, ano);
-		if (dto == null || dto.isEmpty()) {
-			return new ResponseEntity<>(dto, HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<>(dto, HttpStatus.OK);
-	}
-	
-	@PostMapping(value = "/extrato-por-periodo-especifico", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtratoPorPeriodoEspecifico(@RequestBody ConsultaExtratoPeriodoDTO form){
-		List<TransacaoDTO> dto = transacaoService.obterExtratoPorPeriodoEspecifico(form);
-		if (dto == null || dto.isEmpty()) {
-			return new ResponseEntity<>(dto, HttpStatus.NO_CONTENT);
-		}
+		
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 }

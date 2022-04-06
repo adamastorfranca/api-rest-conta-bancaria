@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-transferencia',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransferenciaComponent implements OnInit {
 
-  agencia: string = '';
-  numeroConta: string = '';
-  valor: number = 0;
+  @Output() aoTransferir = new EventEmitter<any>();
+  @Output() valoresComErro = new EventEmitter<string>();
+
+  agencia: string;
+  numeroConta: string;
+  valor: number;
 
   constructor() { }
 
@@ -17,10 +20,26 @@ export class TransferenciaComponent implements OnInit {
   }
 
   transferir(){
-    console.log('Transferência realizada!');
-    console.log('Agência: ', this.agencia);
-    console.log('Conta: ', this.numeroConta);
-    console.log('Valor: R$ ', this.valor);
+    if (this.ehValido()) {
+      const valorEmitir = {agencia: this.agencia, numeroConta: this.numeroConta, valor: this.valor};
+      this.aoTransferir.emit(valorEmitir);
+    }
   }
+
+  private ehValido() {
+    const valido = this.valor > 0;
+    if (!valido) {
+        this.valoresComErro.emit('Informe um valor válido');
+    }
+    return valido;
+  }
+
+
+
+  /*limparCampos(){
+    this.agencia = "0000";
+    this.numeroConta = "0000-0"
+    this.valor = 0.00
+  } */
 
 }

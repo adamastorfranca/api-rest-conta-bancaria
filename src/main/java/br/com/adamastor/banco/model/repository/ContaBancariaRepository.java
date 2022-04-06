@@ -9,6 +9,7 @@ import br.com.adamastor.banco.model.entity.ContaBancaria;
 
 public interface ContaBancariaRepository extends CrudRepository<ContaBancaria, Long>{
 		
+	List<ContaBancaria> findAll();
 	List<ContaBancaria> findByCliente(Cliente cliente);
 	ContaBancaria findByAgenciaAndNumero(String agencia, String numero);
 	

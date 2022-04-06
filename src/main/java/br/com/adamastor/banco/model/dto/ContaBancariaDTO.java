@@ -1,5 +1,8 @@
 package br.com.adamastor.banco.model.dto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import br.com.adamastor.banco.model.entity.ContaBancaria;
 import lombok.Data;
 
@@ -16,6 +19,10 @@ public class ContaBancariaDTO {
 		this.agencia = conta.getAgencia();
 		this.numero = conta.getNumero();
 		this.nomeCliente = conta.getCliente().getNome();
+	}
+	
+	public static List<ContaBancariaDTO> converter(List<ContaBancaria> contas){
+		return contas.stream().map(ContaBancariaDTO::new).collect(Collectors.toList());
 	}
 
 }

@@ -1,3 +1,8 @@
 <app-header></app-header>
+<app-transferencia (aoTransferir)="transferir($event)" (valoresComErro)="exibirModalErro($event)"></app-transferencia>
+
+<p>Agência: {{transferencia?.agencia}}</p>
+<p>Conta: {{transferencia?.numeroConta}}</p>
+<p>Valor: R$ {{transferencia?.valor}}</p>
 
 <router-outlet></router-outlet>
