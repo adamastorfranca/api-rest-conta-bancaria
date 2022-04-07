@@ -13,11 +13,4 @@ export class AppComponent {
   constructor(private transferenciaService: TransferenciaService,
               private clienteService: ClientesService) { }
 
-  transferir($event){
-    this.transferenciaService.adicionar($event);
-  }
-
-  cadastrarCliente($event){
-    this.clienteService.cadastrar($event);
-  }
 }

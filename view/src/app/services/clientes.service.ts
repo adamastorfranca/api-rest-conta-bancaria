@@ -23,13 +23,13 @@ export class ClientesService {
     return this.clientes;
   }
 
-  listarTodosClientes(): Observable<Cliente[]>{
-    return this.http.get<Cliente[]>(`${this.api}/${this.endpoint}/`);
-  }
-
   cadastrar(cliente: Cliente): Observable<Cliente> {
     this.clientes.push(cliente);
     return this.http.post<Cliente>(`${this.api}/${this.endpoint}/${this.cadastro}/`, cliente);
+  }
+
+  listarTodosClientes(): Observable<Cliente[]>{
+    return this.http.get<Cliente[]>(`${this.api}/${this.endpoint}/`);
   }
 
 }

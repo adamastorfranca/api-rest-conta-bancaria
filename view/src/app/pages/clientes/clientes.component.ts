@@ -17,20 +17,24 @@ export class ClientesComponent implements OnInit {
   telefone: string;
   observacoes: string;
 
+  clientes: Cliente[];
+
   constructor(private clientesService: ClientesService) { }
 
-  clientes: Cliente[] = [];
-
   ngOnInit(): void {
-
   }
 
   cadastrar(){
-    const cadastroEmitir = {nome: this.nome, cpf: this.cpf, email: this.email, telefone: this.telefone, observacoes: this.observacoes};
-    this.aoCadastrar.emit(cadastroEmitir);
+    const cadastroEmitir: Cliente = {nome: this.nome, cpf: this.cpf, email: this.email, telefone: this.telefone, observacoes: this.observacoes};
+    this.clientesService.cadastrar(cadastroEmitir).subscribe(
+      (resultado) => {
+        console.log(resultado);
+      },
+      (error) => console.error(error)
+    );
   }
 
-  listarTodos() {
+  listarTodos(): void {
     this.clientesService.listarTodosClientes().subscribe((clientes: Cliente[]) => {
       this.clientes = clientes;
       console.table(this.clientes);

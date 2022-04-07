@@ -1,32 +1,50 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="" style="font-weight: bold; font-size: 30px;">BR Bank</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+
+      <a class="btn btn-secondary" href="#" role="button">Entrar</a>
+
+    </div>
+  </div>
+</nav>
+
 <div class="container">
-<form (ngSubmit)="cadastrar()">
-  <h2 class="formulario__titulo">CADASTRO DE CLIENTE</h2>
+  <form (ngSubmit)="cadastrar()">
+    <h2 class="formulario__titulo">CADASTRO DE CLIENTE</h2>
 
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Nome</label>
-    <input type="text" class="form-control" id="nome" [(ngModel)]="nome" name="nome">
-  </div>
+    <div class="mb-3 mt-4">
+      <label class="form-label">Nome</label>
+      <input type="text" class="form-control" id="nome" [(ngModel)]="nome" name="nome">
+    </div>
 
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">CPF</label>
-    <input type="text" class="form-control" id="cpf" [(ngModel)]="cpf" name="cpf">
-  </div>
+    <div class="mb-3">
+      <label class="form-label">CPF</label>
+      <input type="text" class="form-control" id="cpf" [(ngModel)]="cpf" name="cpf">
+    </div>
 
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email</label>
-    <input type="string" class="form-control" id="email" [(ngModel)]="email" name="email">
-  </div>
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="string" class="form-control" id="email" [(ngModel)]="email" name="email">
+    </div>
 
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Telefone</label>
-    <input type="text" class="form-control" id="telefone" [(ngModel)]="telefone" name="telefone">
-  </div>
+    <div class="mb-3">
+      <label class="form-label">Telefone</label>
+      <input type="text" class="form-control" id="telefone" [(ngModel)]="telefone" name="telefone">
+    </div>
 
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Observações</label>
-    <input type="text" class="form-control" id="observacoes" [(ngModel)]="observacoes" name="observacoes">
-  </div>
+    <div class="mb-3">
+      <label class="form-label">Observações</label>
+      <input type="text" class="form-control" id="observacoes" [(ngModel)]="observacoes" name="observacoes">
+    </div>
 
-  <button type="submit" class="btn btn-primary">Cadastrar</button>
-</form>
+    <blockquote class="blockquote text-center mt-5">
+      <button type="submit" class="btn btn-secondary">Cadastrar</button>
+    </blockquote>
+
+  </form>
 </div>

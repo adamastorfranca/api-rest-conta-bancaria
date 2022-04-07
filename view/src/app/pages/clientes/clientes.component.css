@@ -1,4 +1,11 @@
-.mb-3
-{
+h2 {
+  margin-top: 100px;
   color: white;
+  text-align: center;
+}
+.mb-3 {
+  color: white;
+}
+.container{
+  width: 500px;
 }

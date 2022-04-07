@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TransferenciaComponent } from './pages/transferencia/transferencia.component';
-import { HeaderComponent } from './components/header-inicio/header-inicio.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
 import { ContasComponent } from './pages/contas/contas.component';
 import { ClientesComponent } from './pages/clientes/clientes.component';
 import { HeaderLogadoComponent } from './components/header-logado/header-logado.component';
@@ -21,7 +21,7 @@ registerLocaleData(localePt, 'pt');
   declarations: [
     AppComponent,
     TransferenciaComponent,
-    HeaderComponent,
+    InicioComponent,
     ContasComponent,
     ClientesComponent,
     HeaderLogadoComponent,
