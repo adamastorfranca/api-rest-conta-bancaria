@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">BR Bank</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Clientes
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Buscar por CPF</a></li>
+            <li><a class="dropdown-item" href="#">Buscar por nome</a></li>
+            <li><a class="dropdown-item" routerLink="clientes" routerLinkActive="active">Listar todos</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Contas
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Buscar por agência e número</a></li>
+            <li><a class="dropdown-item" href="#">Buscar por CPF</a></li>
+            <li><a class="dropdown-item" routerLink="contas" routerLinkActive="active">Listar todas</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Extratos
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Buscar por mês/ano</a></li>
+            <li><a class="dropdown-item" href="#">Buscar por período específico</a></li>
+            <li><a class="dropdown-item" href="#">Completo</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Transações
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Depósito</a></li>
+            <li><a class="dropdown-item" href="#">Saque</a></li>
+            <li><a class="dropdown-item" routerLink="transferencia" routerLinkActive="active">Transferência</a></li>
+          </ul>
+        </li>
+
+      </ul>
+      <a class="btn btn-secondary" href="#" role="button">Sair</a>
+    </div>
+  </div>
+</nav>

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ClientesService } from './services/clientes.service';
+import { TransferenciaService } from './services/transferencia.service';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +9,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'view';
-  transferencia: any;
-  erro: string;
+
+  constructor(private transferenciaService: TransferenciaService,
+              private clienteService: ClientesService) { }
 
   transferir($event){
-    this.transferencia = $event;
+    this.transferenciaService.adicionar($event);
   }
 
-  exibirModalErro($event){
-    this.erro = $event;
+  cadastrarCliente($event){
+    this.clienteService.cadastrar($event);
   }
 }

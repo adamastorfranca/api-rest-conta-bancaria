@@ -1,8 +1,7 @@
-<app-header></app-header>
-<app-transferencia (aoTransferir)="transferir($event)" (valoresComErro)="exibirModalErro($event)"></app-transferencia>
+<app-header-inicio></app-header-inicio>
 
-<p>Agência: {{transferencia?.agencia}}</p>
-<p>Conta: {{transferencia?.numeroConta}}</p>
-<p>Valor: R$ {{transferencia?.valor}}</p>
+<app-clientes
+  (aoCadastrar)="cadastrarCliente($event)">
+</app-clientes>
 
 <router-outlet></router-outlet>

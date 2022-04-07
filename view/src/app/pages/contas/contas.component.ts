@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Conta } from 'src/app/models/conta.model';
 import { ContasService } from 'src/app/services/contas.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ContasService } from 'src/app/services/contas.service';
 })
 export class ContasComponent implements OnInit {
 
-  contas: any[] = [];
+  contas: Conta[] = [];
 
   constructor(private contasService: ContasService) { }
 
@@ -17,9 +18,9 @@ export class ContasComponent implements OnInit {
   }
 
   listarTodasContas(){
-    this.contasService.listarTodasContas().subscribe((result: any) => {
-      this.contas = result;
-      console.log(this.contas);
+    this.contasService.listarTodasContas().subscribe((contas: Conta[]) => {
+      this.contas = contas;
+      console.table(this.contas);
     });
   }
 }

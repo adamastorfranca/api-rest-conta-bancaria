@@ -8,7 +8,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class TransferenciaComponent implements OnInit {
 
   @Output() aoTransferir = new EventEmitter<any>();
-  @Output() valoresComErro = new EventEmitter<string>();
 
   agencia: string;
   numeroConta: string;
@@ -20,26 +19,15 @@ export class TransferenciaComponent implements OnInit {
   }
 
   transferir(){
-    if (this.ehValido()) {
-      const valorEmitir = {agencia: this.agencia, numeroConta: this.numeroConta, valor: this.valor};
-      this.aoTransferir.emit(valorEmitir);
-    }
+    const valorEmitir = {agencia: this.agencia, numeroConta: this.numeroConta, valor: this.valor};
+    this.aoTransferir.emit(valorEmitir);
+    this.limparCampos();
   }
 
-  private ehValido() {
-    const valido = this.valor > 0;
-    if (!valido) {
-        this.valoresComErro.emit('Informe um valor válido');
-    }
-    return valido;
+  limparCampos(){
+    this.agencia = ' ';
+    this.numeroConta = ' ';
+    this.valor =  0;
   }
-
-
-
-  /*limparCampos(){
-    this.agencia = "0000";
-    this.numeroConta = "0000-0"
-    this.valor = 0.00
-  } */
 
 }

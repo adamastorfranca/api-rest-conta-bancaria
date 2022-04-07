@@ -1,20 +1,32 @@
-<h1>CLIENTES: </h1>
+<div class="container">
+<form (ngSubmit)="cadastrar()">
+  <h2 class="formulario__titulo">CADASTRO DE CLIENTE</h2>
 
-<table class="table table-dark table-striped">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nome</th>
-      <th scope="col">E-mail</th>
-      <th scope="col">Telefone</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cliente of clientes">
-      <th scope="row">{{ cliente.id }}</th>
-      <td>{{ cliente.nome }}</td>
-      <td>{{ cliente.email }}</td>
-      <td>{{ cliente.telefone }}</td>
-    </tr>
-  </tbody>
-</table>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Nome</label>
+    <input type="text" class="form-control" id="nome" [(ngModel)]="nome" name="nome">
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">CPF</label>
+    <input type="text" class="form-control" id="cpf" [(ngModel)]="cpf" name="cpf">
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email</label>
+    <input type="string" class="form-control" id="email" [(ngModel)]="email" name="email">
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Telefone</label>
+    <input type="text" class="form-control" id="telefone" [(ngModel)]="telefone" name="telefone">
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Observações</label>
+    <input type="text" class="form-control" id="observacoes" [(ngModel)]="observacoes" name="observacoes">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>
+</div>
