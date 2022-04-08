@@ -1,5 +1,6 @@
 package br.com.adamastor.banco.model.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,15 +14,21 @@ public class ClienteDTO {
 	
 	private String nome;
 	
+	private String cpf;
+	
 	private String email;
 	
 	private String telefone;
+	
+	private LocalDate dataNascimento;
 
 	public ClienteDTO(Cliente c) {
 		this.id = c.getId();
 		this.nome = c.getNome();
+		this.cpf = c.getCpf();
 		this.email = c.getEmail();
 		this.telefone = c.getTelefone();
+		this.dataNascimento = c.getDataNascimento();
 	}
 
 	public static List<ClienteDTO> converter(List<Cliente> clientes) {

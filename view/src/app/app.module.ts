@@ -12,8 +12,7 @@ import { HeaderLogadoComponent } from './components/header-logado/header-logado.
 import { ExtratoComponent } from './pages/extrato/extrato.component';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
-
-import  localePt  from '@angular/common/locales/pt';
+import localePt from '@angular/common/locales/pt';
 
 registerLocaleData(localePt, 'pt');
 
@@ -25,7 +24,7 @@ registerLocaleData(localePt, 'pt');
     ContasComponent,
     ClientesComponent,
     HeaderLogadoComponent,
-    ExtratoComponent
+    ExtratoComponent,
   ],
   imports: [
     BrowserModule,

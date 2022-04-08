@@ -27,9 +27,14 @@
       <input type="text" class="form-control" id="cpf" [(ngModel)]="cpf" name="cpf">
     </div>
 
+     <div class="mb-3">
+      <label class="form-label">Data de nascimento</label>
+      <input type="text" class="form-control" id="dataNascimento" [(ngModel)]="dataNascimento" name="dataNascimento">
+    </div>
+
     <div class="mb-3">
       <label class="form-label">Email</label>
-      <input type="string" class="form-control" id="email" [(ngModel)]="email" name="email">
+      <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email">
     </div>
 
     <div class="mb-3">
@@ -38,9 +43,15 @@
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Observações</label>
-      <input type="text" class="form-control" id="observacoes" [(ngModel)]="observacoes" name="observacoes">
+      <label class="form-label">Senha</label>
+      <input type="password" class="form-control" id="senha" [(ngModel)]="senha" name="senha">
     </div>
+
+    <div class="mb-3">
+      <label class="form-label">Confirmar senha</label>
+      <input type="password" class="form-control" id="senhaConfirmar" [(ngModel)]="senhaConfirmar" name="senhaConfirmar">
+    </div>
+
 
     <blockquote class="blockquote text-center mt-5">
       <button type="submit" class="btn btn-secondary">Cadastrar</button>

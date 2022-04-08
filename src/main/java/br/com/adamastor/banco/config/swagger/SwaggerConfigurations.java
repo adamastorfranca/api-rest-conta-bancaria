@@ -1,4 +1,4 @@
-package br.com.adamastor.banco.controller.swagger;
+package br.com.adamastor.banco.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

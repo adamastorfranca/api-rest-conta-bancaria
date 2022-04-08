@@ -3,5 +3,7 @@ export interface Cliente {
   cpf: string;
   email: string;
   telefone: string;
-  observacoes?: string;
+  dataNascimento: string;
+  senha: string;
+  senhaConfirmar: string;
 }

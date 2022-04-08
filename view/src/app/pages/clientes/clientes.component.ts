@@ -15,7 +15,9 @@ export class ClientesComponent implements OnInit {
   cpf: string;
   email: string;
   telefone: string;
-  observacoes: string;
+  dataNascimento: string;
+  senha: string;
+  senhaConfirmar: string;
 
   clientes: Cliente[];
 
@@ -25,7 +27,7 @@ export class ClientesComponent implements OnInit {
   }
 
   cadastrar(){
-    const cadastroEmitir: Cliente = {nome: this.nome, cpf: this.cpf, email: this.email, telefone: this.telefone, observacoes: this.observacoes};
+    const cadastroEmitir: Cliente = {nome: this.nome, cpf: this.cpf, email: this.email, telefone: this.telefone, dataNascimento: this.dataNascimento, senha: this.senha, senhaConfirmar: this.senhaConfirmar};
     this.clientesService.cadastrar(cadastroEmitir).subscribe(
       (resultado) => {
         console.log(resultado);

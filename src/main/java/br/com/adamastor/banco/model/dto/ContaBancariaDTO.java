@@ -10,14 +10,14 @@ import lombok.Data;
 public class ContaBancariaDTO {
 	
 	private String agencia;
-
+	
 	private String numero;
 
 	private String nomeCliente;
 	
 	public ContaBancariaDTO(ContaBancaria conta) {
 		this.agencia = conta.getAgencia();
-		this.numero = conta.getNumero();
+		this.numero = conta.getNumeroConta();
 		this.nomeCliente = conta.getCliente().getNome();
 	}
 	

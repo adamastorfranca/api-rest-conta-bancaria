@@ -1,35 +1,31 @@
 package br.com.adamastor.banco.model.entity;
 
-import java.time.LocalDate;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import lombok.Data;
 
 @Entity
-@Table(name = "clientes")
 @Data
-public class Cliente {
+@Table(name = "autorizacoes")
+public class Autorizacao implements GrantedAuthority {
 	
+	private static final long serialVersionUID = -6060922571867363450L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	private String nomeAutorizacao;
 
-	@Column(length = 50)
-	private String nome;
-	
-	@Column(length = 11, unique = true)
-	private String cpf;
-	
-	private String email;
-	
-	private String telefone;
-	
-	private LocalDate dataNascimento;
-	
+	@Override
+	public String getAuthority() {
+		return this.nomeAutorizacao;
+	}
+
 }

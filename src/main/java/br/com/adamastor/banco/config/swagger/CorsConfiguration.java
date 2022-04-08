@@ -1,4 +1,4 @@
-package br.com.adamastor.banco.controller.config;
+package br.com.adamastor.banco.config.swagger;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
