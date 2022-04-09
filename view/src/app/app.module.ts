@@ -13,6 +13,8 @@ import { ExtratoComponent } from './pages/extrato/extrato.component';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { CadastroComponent } from './pages/cadastro/cadastro.component';
+import { LoginComponent } from './pages/login/login.component';
 
 registerLocaleData(localePt, 'pt');
 
@@ -25,6 +27,8 @@ registerLocaleData(localePt, 'pt');
     ClientesComponent,
     HeaderLogadoComponent,
     ExtratoComponent,
+    CadastroComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

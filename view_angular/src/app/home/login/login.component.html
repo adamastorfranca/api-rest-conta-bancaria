@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="" style="font-weight: bold; font-size: 30px;">BlackBank</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="">Página incial</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <form (ngSubmit)="login()">
+    <h2 class="formulario__titulo">Login</h2>
+
+    <div class="mb-3 mt-4">
+      <input class="form-control" type="text" placeholder="Agência"
+      [(ngModel)]="agencia"
+      name="agencia"
+      />
+    </div>
+
+    <div class="mb-3">
+      <input class="form-control" placeholder="Número da conta"
+      [(ngModel)]="numeroConta"
+      name="numeroConta"
+      />
+    </div>
+
+    <div class="mb-3">
+      <input type="password" class="form-control" placeholder="Senha"
+      [(ngModel)]="senha"
+      name="senha"
+      />
+    </div>
+
+    <blockquote class="blockquote text-center mt-4">
+      <button type="submit" class="btn btn-secondary">Entrar</button>
+    </blockquote>
+
+    <blockquote class="blockquote text-center mt-5">
+      <p>Ainda não tem conta?</p>
+      <a class="btn btn-secondary me-2" role="button">Cadastrar</a>
+    </blockquote>
+
+  </form>
+</div>

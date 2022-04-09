@@ -11,10 +11,11 @@ export class ContasService {
 
   api = environment.api;
   endpoint = 'contas';
+  login = 'auth'
 
   constructor(private http: HttpClient) { }
 
-  listarTodasContas(): Observable<Conta[]>{
-    return this.http.get<Conta[]>(`${this.api}/${this.endpoint}/`);
+  logar(conta: Conta): Observable<Conta> {
+    return this.http.post<Conta>(`${this.api}/${this.login}/`, conta);
   }
 }

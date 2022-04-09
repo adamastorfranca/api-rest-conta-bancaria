@@ -13,23 +13,9 @@ export class ClientesService {
   endpoint = 'clientes';
   cadastro = 'cadastrar';
 
-  private clientes: Cliente[];
-
-  constructor(private http: HttpClient) {
-    this.clientes = [];
-  }
-
-  get listaClientes() {
-    return this.clientes;
-  }
+  constructor(private http: HttpClient) {  }
 
   cadastrar(cliente: Cliente): Observable<Cliente> {
-    this.clientes.push(cliente);
     return this.http.post<Cliente>(`${this.api}/${this.endpoint}/${this.cadastro}/`, cliente);
   }
-
-  listarTodosClientes(): Observable<Cliente[]>{
-    return this.http.get<Cliente[]>(`${this.api}/${this.endpoint}/`);
-  }
-
 }

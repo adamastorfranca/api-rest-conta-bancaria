@@ -18,7 +18,7 @@ import br.com.adamastor.banco.model.dto.TokenDTO;
 import br.com.adamastor.banco.model.form.LoginForm;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("rest/auth")
 public class AutenticacaoRest {
 	
 	@Autowired
