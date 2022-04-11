@@ -44,7 +44,7 @@ public class ClienteService {
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public Cliente criar(String nome, String cpf, String email, String telefone, String dataNascimento) {
+	public Cliente cadastrar(String nome, String cpf, String email, String telefone, String dataNascimento) {
 		Optional<Cliente> resultado1 = clienteRepository.findByCpf(cpf);
 		if (resultado1.isPresent()){
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_JA_CADASTRADO);
@@ -58,7 +58,7 @@ public class ClienteService {
 		}
 
 		Cliente c = new Cliente();
-		c.setNome(nome);
+		c.setNome(nome.toUpperCase());
 		c.setCpf(cpf);
 		c.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		c.setEmail(email);
@@ -68,15 +68,15 @@ public class ClienteService {
 		return c;
 	}
 	
-	public Cliente buscarPorCpf(String cpf) {	
+	public boolean jaExiste(String cpf) {
 		if (!CpfUtil.validaCPF(cpf)){
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
 		}
 		Optional<Cliente> resultado = clienteRepository.findByCpf(cpf);
-		if (resultado.isPresent()){
-			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_NAO_CADASTRADO);
+		if(resultado.isPresent()) {
+			return true;
 		}
-		return resultado.get();
+		return false;
 	}
 
 

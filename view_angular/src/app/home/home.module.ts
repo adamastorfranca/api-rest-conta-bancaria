@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MensagemModule } from '../componentes/mensagem/mensagem.module';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { InicialComponent } from './inicial/inicial.component';
+import { DepositoComponent } from './deposito/deposito.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { InicialComponent } from './inicial/inicial.component';
     LoginComponent,
     CadastroComponent,
     InicialComponent,
+    DepositoComponent,
   ],
   imports: [
     CommonModule,

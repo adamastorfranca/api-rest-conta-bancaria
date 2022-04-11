@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AutenticacaoService } from 'src/app/autenticacao/autenticacao.service';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.autenticar(this.agencia, this.numeroConta, this.senha).subscribe(
       () => {
-        this.router.navigateByUrl('contas');
+        this.router.navigate(['conta']);
+
       },
       (error) => {
         alert('Usuário ou senha inválido');

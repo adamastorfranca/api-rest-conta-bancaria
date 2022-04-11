@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
 import br.com.adamastor.banco.model.entity.ContaBancaria;
+import br.com.adamastor.banco.model.entity.TipoTransacao;
 import br.com.adamastor.banco.model.exception.AplicacaoException;
 import br.com.adamastor.banco.model.exception.ExceptionValidacoes;
-import br.com.adamastor.banco.model.form.CadastroClienteForm;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.repository.ContaBancariaRepository;
 
@@ -25,12 +25,11 @@ public class ContaBancariaService {
 	private ClienteService clienteService;
 	@Autowired
 	private AutorizacaoService autorizacaoService;
+	@Autowired
+	private TransacaoService transacaoService;
 	
 	@Transactional
 	public ContaBancaria criarConta(Cliente cliente, CadastroContaForm form) {
-		if (!form.getSenha().equals(form.getSenhaConfirmar())) {
-			throw new AplicacaoException(ExceptionValidacoes.ERRO_SENHAS_NAO_CORRESPONDEM);
-		}
 		ContaBancaria novaConta = new ContaBancaria();
 		novaConta.setAgencia("0001");
 		novaConta.adicionarAutorizacao(autorizacaoService.buscar("CLIENTE"));
@@ -66,10 +65,33 @@ public class ContaBancariaService {
 
 	@Transactional(rollbackFor = Exception.class)
 	public ContaBancariaDTO cadastrar(CadastroContaForm form) {
-		Cliente c = clienteService.criar(form.getNome(), form.getCpf(), form.getEmail(), form.getTelefone(), form.getDataNascimento());
+		if (!form.getSenha().equals(form.getSenhaConfirmar())) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_SENHAS_NAO_CORRESPONDEM);
+		}
+		Cliente c = clienteService.cadastrar(form.getNome(), form.getCpf(), form.getEmail(), form.getTelefone(), form.getDataNascimento());
 		ContaBancaria conta = criarConta(c, form);
 		return new ContaBancariaDTO(conta);
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void depositar (String agencia, String numeroConta, double valor) {
+		ContaBancaria conta = consultarConta(agencia, numeroConta);
+		
+		conta.setSaldo(conta.getSaldo() + valor);
+					
+		contaBancariaRepository.save(conta);		
+		transacaoService.salvar(TipoTransacao.DEPOSITO, valor, null, conta);
+	}
+	
+	public ContaBancaria consultarConta(String agencia, String numero) {
+		Optional<ContaBancaria> resultado = contaBancariaRepository.findByAgenciaAndNumeroConta(agencia, numero);
+		
+		if (!resultado.isPresent()) {
+			return null;
+		}
+		
+		return resultado.get();
+	}	
 	
 //	public boolean deletar(String agencia, String numero) {
 //		ContaBancaria conta = contaBancariaRepository.findByAgenciaAndNumero(agencia, numero);
@@ -89,15 +111,7 @@ public class ContaBancariaService {
 //		return c.getSaldo();
 //	}
 //
-//	public ContaBancaria consultarConta(String agencia, String numero) {
-//		ContaBancaria c = contaBancariaRepository.findByAgenciaAndNumero(agencia, numero);
-//		
-//		if (c == null) {
-//			return null;
-//		}
-//		
-//		return c;
-//	}
+
 //	
 //	public List<ConsultaContaBancariaDTO> obterContasPorCpf(String cpf){
 //		List<ConsultaContaBancariaDTO> listaContasRetorno = new ArrayList<>();
@@ -119,15 +133,6 @@ public class ContaBancariaService {
 //		return listaContasRetorno;
 //	}
 //
-//	@Transactional(rollbackFor = Exception.class)
-//	public void depositar (String agencia, String numeroConta, double valor) {
-//		ContaBancaria conta = consultarConta(agencia, numeroConta);
-//		
-//		conta.setSaldo(conta.getSaldo() + valor);
-//					
-//		contaBancariaRepository.save(conta);		
-//		transacaoService.salvar(TipoTransacao.DEPOSITO, valor, null, conta);
-//	}
 //	
 //	@Transactional(rollbackFor = Exception.class)
 //	public void sacar (String agencia, String numeroConta, double valor) {

@@ -1,0 +1,51 @@
+<h5 class="mt-4">DEPÓSITO</h5>
+
+<div id="form">
+  <form [formGroup]="formDeposito" (ngSubmit)="novoDeposito()">
+    <div class="mb-2 mt-3">
+      <label for="agencia" class="form-label">Agência</label>
+      <input class="form-control" type="text" id="agencia" placeholder="_ _ _ _" formControlName="agencia"/>
+
+      <div
+        *ngIf="
+          formDeposito.get('agencia')?.errors &&
+          formDeposito.get('agencia')?.touched &&
+          formDeposito.get('agencia')?.hasError('required')"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <label for="numeroConta" class="form-label">Número da conta</label>
+      <input class="form-control" type="text" id="numeroConta" placeholder="_ _ _ _ - _" formControlName="numeroConta"/>
+
+      <div
+        *ngIf="
+          formDeposito.get('numeroConta')?.errors &&
+          formDeposito.get('numeroConta')?.touched &&
+          formDeposito.get('numeroConta')?.hasError('required')"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <label for="valor" class="form-label">Valor</label>
+      <input class="form-control" id="valor" placeholder="0,00" formControlName="valor"/>
+
+      <div
+        *ngIf="
+          formDeposito.get('valor')?.errors &&
+          formDeposito.get('valor')?.touched &&
+          formDeposito.get('valor')?.hasError('required')"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </div>
+
+    <div class="d-grid gap-2 mt-4">
+      <button type="submit" class="btn btn-outline-light" [disabled]="formDeposito.invalid">Depositar</button>
+    </div>
+  </form>
+</div>

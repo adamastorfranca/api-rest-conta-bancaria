@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
 export class AutenticacaoService {
 
   api = environment.api;
-  auth = 'auth';
+  endpoint = 'auth';
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   autenticar(agencia: string, numeroConta: string, senha: string): Observable<any> {
-    return this.http.post(`${this.api}/${this.auth}/`, {
+    return this.httpClient.post(`${this.api}/${this.endpoint}/`, {
       agencia: agencia,
       numeroConta: numeroConta,
       senha: senha,

@@ -26,7 +26,7 @@ public class CadastroClienteForm {
 	
 	public Cliente criarCliente() {
 		Cliente c = new Cliente();
-		c.setNome(nome);
+		c.setNome(nome.toUpperCase());
 		c.setCpf(cpf);
 		c.setTelefone(telefone);
 		c.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")));

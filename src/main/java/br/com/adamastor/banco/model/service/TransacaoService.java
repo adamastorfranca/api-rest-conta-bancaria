@@ -1,7 +1,5 @@
 package br.com.adamastor.banco.model.service;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.adamastor.banco.model.dto.ConsultaExtratoPeriodoDTO;
 import br.com.adamastor.banco.model.dto.TransacaoDTO;
 import br.com.adamastor.banco.model.entity.ContaBancaria;
 import br.com.adamastor.banco.model.entity.TipoTransacao;
@@ -21,11 +18,72 @@ import br.com.adamastor.banco.model.repository.TransacaoRepository;
 @Service
 public class TransacaoService {
 	
-//	@Autowired
-//	private TransacaoRepository transacaoRepository;
-//	@Autowired
-//	private ContaBancariaService contaBancariaService;
-//	
+	@Autowired
+	private TransacaoRepository transacaoRepository;
+	
+	public void salvar(TipoTransacao tipo, double valor, ContaBancaria origem, ContaBancaria destino) {
+		Transacao transacao = new Transacao();
+		
+		if (valor <= 0) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_VALOR_INVALIDO);
+		}
+		
+		transacao.setTipo(tipo);
+		transacao.setValor(valor);
+		transacao.setOrigem(origem);
+		transacao.setDestino(destino);
+		
+		if (origem != null) {
+			transacao.setSaldoAposContaOrigem(origem.getSaldo());
+		}
+		if (destino != null) {
+			transacao.setSaldoAposContaDestino(destino.getSaldo());
+		}
+		
+		transacaoRepository.save(transacao);
+	}
+	
+	public static TransacaoDTO criarTransacaoDTO(Transacao transacao, ContaBancaria contaSolicitadora) {
+		TransacaoDTO dto = new TransacaoDTO();
+		
+		dto.setDataHora(transacao.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")));
+		dto.setValor(transacao.getValor());
+		dto.setTipo(transacao.getTipo());
+		
+		if (transacao.getTipo().equals(TipoTransacao.DEPOSITO)) {
+			dto.setSaldoApos(transacao.getSaldoAposContaDestino());
+			dto.setAgenciaDestino(transacao.getDestino().getAgencia());
+			dto.setNumeroDestino(transacao.getDestino().getNumeroConta());
+		}
+		if (transacao.getTipo().equals(TipoTransacao.SAQUE)) {
+			dto.setSaldoApos(transacao.getSaldoAposContaOrigem());
+			dto.setAgenciaOrigem(transacao.getOrigem().getAgencia());
+			dto.setNumeroOrigem(transacao.getOrigem().getNumeroConta());
+		}
+		if (transacao.getTipo().equals(TipoTransacao.TRANSFERENCIA)) {
+			dto.setAgenciaOrigem(transacao.getOrigem().getAgencia());
+			dto.setNumeroOrigem(transacao.getOrigem().getNumeroConta());
+			dto.setAgenciaDestino(transacao.getDestino().getAgencia());
+			dto.setNumeroDestino(transacao.getDestino().getNumeroConta());
+			
+			if (contaSolicitadora == transacao.getOrigem()) {
+				dto.setTipo(TipoTransacao.TRANSFERENCIA_ENVIADA);
+				dto.setSaldoApos(transacao.getSaldoAposContaOrigem());			
+			} else {
+				dto.setTipo(TipoTransacao.TRANSFERENCIA_RECEBIDA);
+				dto.setSaldoApos(transacao.getSaldoAposContaDestino());
+			}
+		} 	
+		return dto;
+	}
+
+	public List<TransacaoDTO> converterEmListaExtratoDTO(List<Transacao> transacoes, ContaBancaria contaSolicitadora){
+		List<TransacaoDTO> dto = new ArrayList<>();
+		transacoes.forEach(t ->  dto.add(criarTransacaoDTO(t, contaSolicitadora)));
+		return dto;
+	}
+
+	
 //	public List<TransacaoDTO> consultarExtrato(String agencia, String numero){
 //		ContaBancaria contaSolicitadora = contaBancariaService.consultarConta(agencia, numero);	
 //		List<Transacao> transacoesDaConta = transacaoRepository.buscarTransacoesPorConta(contaSolicitadora);
@@ -65,66 +123,5 @@ public class TransacaoService {
 //	
 //	
 //	
-//	public void salvar(TipoTransacao tipo, double valor, ContaBancaria origem, ContaBancaria destino) {
-//		Transacao transacao = new Transacao();
-//		
-//		if (valor <= 0) {
-//			throw new AplicacaoException(ExceptionValidacoes.ERRO_VALOR_INVALIDO);
-//		}
-//		
-//		transacao.setTipo(tipo);
-//		transacao.setValor(valor);
-//		transacao.setOrigem(origem);
-//		transacao.setDestino(destino);
-//		
-//		if (origem != null) {
-//			transacao.setSaldoAposContaOrigem(origem.getSaldo());
-//		}
-//		if (destino != null) {
-//			transacao.setSaldoAposContaDestino(destino.getSaldo());
-//		}
-//		
-//		transacaoRepository.save(transacao);
-//	}
-//	
-//	public static TransacaoDTO criarTransacaoDTO(Transacao transacao, ContaBancaria contaSolicitadora) {
-//		TransacaoDTO dto = new TransacaoDTO();
-//		
-//		dto.setDataHora(transacao.getDataHora().format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm")));
-//		dto.setValor(transacao.getValor());
-//		dto.setTipo(transacao.getTipo());
-//		
-//		if (transacao.getTipo().equals(TipoTransacao.DEPOSITO)) {
-//			dto.setSaldoApos(transacao.getSaldoAposContaDestino());
-//			dto.setAgenciaDestino(transacao.getDestino().getAgencia());
-//			dto.setNumeroDestino(transacao.getDestino().getNumero());
-//		}
-//		if (transacao.getTipo().equals(TipoTransacao.SAQUE)) {
-//			dto.setSaldoApos(transacao.getSaldoAposContaOrigem());
-//			dto.setAgenciaOrigem(transacao.getOrigem().getAgencia());
-//			dto.setNumeroOrigem(transacao.getOrigem().getNumero());
-//		}
-//		if (transacao.getTipo().equals(TipoTransacao.TRANSFERENCIA)) {
-//			dto.setAgenciaOrigem(transacao.getOrigem().getAgencia());
-//			dto.setNumeroOrigem(transacao.getOrigem().getNumero());
-//			dto.setAgenciaDestino(transacao.getDestino().getAgencia());
-//			dto.setNumeroDestino(transacao.getDestino().getNumero());
-//			
-//			if (contaSolicitadora == transacao.getOrigem()) {
-//				dto.setTipo(TipoTransacao.TRANSFERENCIA_ENVIADA);
-//				dto.setSaldoApos(transacao.getSaldoAposContaOrigem());			
-//			} else {
-//				dto.setTipo(TipoTransacao.TRANSFERENCIA_RECEBIDA);
-//				dto.setSaldoApos(transacao.getSaldoAposContaDestino());
-//			}
-//		} 	
-//		return dto;
-//	}
-//
-//	public List<TransacaoDTO> converterEmListaExtratoDTO(List<Transacao> transacoes, ContaBancaria contaSolicitadora){
-//		List<TransacaoDTO> dto = new ArrayList<>();
-//		transacoes.forEach(t ->  dto.add(criarTransacaoDTO(t, contaSolicitadora)));
-//		return dto;
-//	}
 
 }

@@ -5,12 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
+import br.com.adamastor.banco.model.dto.DepositoDTO;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.service.ContaBancariaService;
 
@@ -28,7 +30,14 @@ public class ContaBancariaRest {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}	
+	
+	@PutMapping(value = "/deposito", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Void> depositar(@RequestBody DepositoDTO dto){
+		contaBancariaService.depositar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
 //	
 //	@DeleteMapping(value = "/deletar/{agencia}/{numeroConta}")
 //	public ResponseEntity<Void> deletar(@PathVariable String agencia, @PathVariable  String numeroConta){
@@ -55,11 +64,7 @@ public class ContaBancariaRest {
 //		return new ResponseEntity<>(contas, HttpStatus.OK);
 //	}
 //	
-//	@PutMapping(value = "/deposito", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody ResponseEntity<Void> depositar(@RequestBody DepositoDTO dto){
-//		contaBancariaService.depositar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
+
 //	
 //	@PutMapping(value = "/saque", produces = MediaType.APPLICATION_JSON_VALUE)
 //	public @ResponseBody ResponseEntity<Void> sacar(@RequestBody SaqueDTO dto){
