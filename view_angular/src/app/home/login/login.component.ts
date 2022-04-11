@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { AutenticacaoService } from 'src/app/autenticacao/autenticacao.service';
 
 @Component({
@@ -13,7 +13,10 @@ export class LoginComponent implements OnInit {
   numeroConta='';
   senha='';
 
-  constructor(private authService: AutenticacaoService) { }
+  constructor(
+    private authService: AutenticacaoService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
@@ -21,7 +24,7 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.autenticar(this.agencia, this.numeroConta, this.senha).subscribe(
       () => {
-        console.log('Autenticado com sucesso');
+        this.router.navigateByUrl('contas');
       },
       (error) => {
         alert('Usuário ou senha inválido');

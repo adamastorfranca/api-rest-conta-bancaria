@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-black">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="font-size: 25px; font-weight: bold;" href="">BlackBank</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li>
+          <div class="dropdown">
+            <button class="btn btn-dark  dropdown-toggle" style="background-color: black;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Clientes
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" routerLink="clientes">Listar todos</a></li>
+              <li><a class="dropdown-item" routerLink="clientes/cadastrar">Cadastrar</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle" style="background-color: black;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Contas
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" routerLink="contas">Listar todos</a></li>
+              <li><a class="dropdown-item" routerLink="contas/cadastrar">Cadastrar</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle" style="background-color: black;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Transações
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item">Depósito</a></li>
+              <li><a class="dropdown-item">Saque</a></li>
+              <li><a class="dropdown-item">Transferência</a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li>
+          <div class="dropdown">
+            <button class="btn btn-dark dropdown-toggle" style="background-color: black;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Extratos
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" routerLink="contas">Completo</a></li>
+              <li><a class="dropdown-item" routerLink="contas/cadastrar">Por mês e ano</a></li>
+              <li><a class="dropdown-item" routerLink="contas/cadastrar">Por período específico</a></li>
+            </ul>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>

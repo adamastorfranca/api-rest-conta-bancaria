@@ -1,53 +1,51 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="" style="font-weight: bold; font-size: 30px;">BlackBank</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="">Página incial</a>
-        </li>
-      </ul>
+<h5 class="mt-5">ENTRAR NA CONTA</h5>
 
-    </div>
-  </div>
-</nav>
-
-<div class="container">
-  <form (ngSubmit)="login()">
-    <h2 class="formulario__titulo">Login</h2>
-
-    <div class="mb-3 mt-4">
-      <input class="form-control" type="text" placeholder="Agência"
+<div id="form">
+  <form (ngSubmit)="login()" #loginForm="ngForm">
+    <div class="mb-2 mt-3">
+      <label for="agencia" class="form-label">Agência</label>
+      <input class="form-control" type="text" placeholder="_ _ _ _"
       [(ngModel)]="agencia"
       name="agencia"
+      #campoAgencia="ngModel"
+      required
       />
+
+      <app-mensagem
+      *ngIf="campoAgencia.invalid && campoAgencia.touched"
+      mensagem="Agência obrigatória"></app-mensagem>
     </div>
 
-    <div class="mb-3">
-      <input class="form-control" placeholder="Número da conta"
+    <div class="mb-2">
+      <label for="numeroConta" class="form-label">Número da conta</label>
+      <input class="form-control" placeholder="_ _ _ _ - _"
       [(ngModel)]="numeroConta"
       name="numeroConta"
+      #campoNumeroConta="ngModel"
+      required
       />
+
+      <app-mensagem
+      *ngIf="campoNumeroConta.invalid && campoNumeroConta.touched"
+      mensagem="Número da conta obrigatória"></app-mensagem>
     </div>
 
-    <div class="mb-3">
-      <input type="password" class="form-control" placeholder="Senha"
+    <div class="mb-4">
+      <label for="Senha" class="form-label">Senha</label>
+      <input type="password" class="form-control"
       [(ngModel)]="senha"
       name="senha"
+      #campoSenha="ngModel"
+      required
       />
+
+      <app-mensagem
+      *ngIf="campoSenha.invalid  && campoSenha.touched"
+      mensagem="Senha obrigatória"></app-mensagem>
     </div>
 
-    <blockquote class="blockquote text-center mt-4">
-      <button type="submit" class="btn btn-secondary">Entrar</button>
-    </blockquote>
-
-    <blockquote class="blockquote text-center mt-5">
-      <p>Ainda não tem conta?</p>
-      <a class="btn btn-secondary me-2" role="button">Cadastrar</a>
-    </blockquote>
-
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-outline-light" [disabled]="loginForm.invalid">Entrar</button>
+    </div>
   </form>
 </div>

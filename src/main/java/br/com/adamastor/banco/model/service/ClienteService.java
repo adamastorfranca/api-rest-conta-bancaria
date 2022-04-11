@@ -1,5 +1,8 @@
 package br.com.adamastor.banco.model.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +22,11 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
-	@Autowired
-	private ContaBancariaService contaBancariaService;
 
 	@Transactional(rollbackFor = Exception.class)
-	public ClienteDTO cadastrar(CadastroClienteForm form) {
+	public Cliente cadastrar(CadastroClienteForm form) {
 		Optional<Cliente> resultado1 = clienteRepository.findByCpf(form.getCpf());
-		if (resultado1.isPresent() && !CpfUtil.validaCPF(form.getCpf())){
+		if (resultado1.isPresent()){
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_JA_CADASTRADO);
 		}
 		if (!CpfUtil.validaCPF(form.getCpf())){
@@ -35,15 +36,47 @@ public class ClienteService {
 		if (resultado2.isPresent()) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_EMAIL_JA_CADASTRADO);
 		}
-		if (!form.getSenha().equals(form.getSenhaConfirmar())) {
-			throw new AplicacaoException(ExceptionValidacoes.ERRO_SENHAS_NAO_CORRESPONDEM);
-		}
 
 		Cliente c = form.criarCliente();
-		contaBancariaService.criarConta(c, form);
 		clienteRepository.save(c);
 		
-		return new ClienteDTO(c);
+		return c;
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public Cliente criar(String nome, String cpf, String email, String telefone, String dataNascimento) {
+		Optional<Cliente> resultado1 = clienteRepository.findByCpf(cpf);
+		if (resultado1.isPresent()){
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_JA_CADASTRADO);
+		}
+		if (!CpfUtil.validaCPF(cpf)){
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
+		}
+		Optional<Cliente> resultado2 = clienteRepository.findByEmail(email);
+		if (resultado2.isPresent()) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_EMAIL_JA_CADASTRADO);
+		}
+
+		Cliente c = new Cliente();
+		c.setNome(nome);
+		c.setCpf(cpf);
+		c.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		c.setEmail(email);
+		c.setTelefone(telefone);
+		clienteRepository.save(c);
+		
+		return c;
+	}
+	
+	public Cliente buscarPorCpf(String cpf) {	
+		if (!CpfUtil.validaCPF(cpf)){
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
+		}
+		Optional<Cliente> resultado = clienteRepository.findByCpf(cpf);
+		if (resultado.isPresent()){
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_NAO_CADASTRADO);
+		}
+		return resultado.get();
 	}
 
 
@@ -82,10 +115,10 @@ public class ClienteService {
 //		return true;
 //	}
 //
-//	public List<ClienteDTO> buscarTodosClientes() {
-//		return ClienteDTO.converter(clienteRepository.findAll());
-//	}
-//
+	public List<ClienteDTO> buscarTodosClientes() {
+		return ClienteDTO.converter(clienteRepository.findAll());
+	}
+
 //	public ClienteDTO buscarClientePorCpf(String cpf) {
 //		Cliente c = clienteRepository.findByCpf(cpf);
 //

@@ -7,9 +7,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
 import br.com.adamastor.banco.model.entity.ContaBancaria;
+import br.com.adamastor.banco.model.exception.AplicacaoException;
+import br.com.adamastor.banco.model.exception.ExceptionValidacoes;
 import br.com.adamastor.banco.model.form.CadastroClienteForm;
+import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.repository.ContaBancariaRepository;
 
 @Service
@@ -18,10 +22,15 @@ public class ContaBancariaService {
 	@Autowired
 	private ContaBancariaRepository contaBancariaRepository;
 	@Autowired
+	private ClienteService clienteService;
+	@Autowired
 	private AutorizacaoService autorizacaoService;
 	
 	@Transactional
-	public void criarConta(Cliente cliente, CadastroClienteForm form) {
+	public ContaBancaria criarConta(Cliente cliente, CadastroContaForm form) {
+		if (!form.getSenha().equals(form.getSenhaConfirmar())) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_SENHAS_NAO_CORRESPONDEM);
+		}
 		ContaBancaria novaConta = new ContaBancaria();
 		novaConta.setAgencia("0001");
 		novaConta.adicionarAutorizacao(autorizacaoService.buscar("CLIENTE"));
@@ -51,37 +60,17 @@ public class ContaBancariaService {
 				contaBancariaRepository.save(novaConta);
 			}
 		}
+		return novaConta;
 	}
 	
 
-//	@Autowired
-//	private ClienteRepository clienteRepository;
-//	@Autowired
-//	private TransacaoService transacaoService;
-//	
-//	@Transactional(rollbackFor = Exception.class)
-//	public ContaBancariaDTO cadastrar(CadastroContaForm form) {
-//		Cliente c = clienteRepository.findByCpf(form.getCpf());
-//		
-//		if (c == null) {
-//			return null;
-//		}
-//		
-//		ContaBancaria conta = contaBancariaRepository.findByAgenciaAndNumero(form.getAgencia(), form.getNumero());
-//		
-//		if (conta != null) {
-//			return null;
-//		}
-//		
-//		ContaBancaria cb = null;
-//		if(!form.getAgencia().isBlank() || !form.getNumero().isBlank()) {
-//			cb = form.criarConta();
-//			cb.setCliente(c);
-//			contaBancariaRepository.save(cb);
-//		}
-//		return new ContaBancariaDTO(cb);
-//	}
-//	
+	@Transactional(rollbackFor = Exception.class)
+	public ContaBancariaDTO cadastrar(CadastroContaForm form) {
+		Cliente c = clienteService.criar(form.getNome(), form.getCpf(), form.getEmail(), form.getTelefone(), form.getDataNascimento());
+		ContaBancaria conta = criarConta(c, form);
+		return new ContaBancariaDTO(conta);
+	}
+	
 //	public boolean deletar(String agencia, String numero) {
 //		ContaBancaria conta = contaBancariaRepository.findByAgenciaAndNumero(agencia, numero);
 //		if (conta == null) {

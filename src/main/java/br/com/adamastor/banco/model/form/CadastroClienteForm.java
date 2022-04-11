@@ -23,10 +23,6 @@ public class CadastroClienteForm {
 	private String telefone;
 	@NotNull @NotEmpty
 	private String dataNascimento;
-	@NotNull @NotEmpty
-	private String senha;
-	@NotNull @NotEmpty
-	private String senhaConfirmar;
 	
 	public Cliente criarCliente() {
 		Cliente c = new Cliente();

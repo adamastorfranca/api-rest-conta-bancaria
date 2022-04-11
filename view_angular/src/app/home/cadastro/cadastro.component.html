@@ -1,0 +1,43 @@
+<h5 class="mt-4">ABRIR CONTA</h5>
+<div id="form">
+  <form [formGroup]="formCadastroConta" (submit)="cadastrar()" #cadastroForm="ngForm">
+    <div class="mb-2 mt-3">
+      <label for="nome" class="form-label">Nome completo</label>
+      <input class="form-control" formControlName="nome"/>
+    </div>
+
+    <div class="mb-2">
+      <label for="cpf" class="form-label">CPF</label>
+      <input class="form-control" formControlName="cpf"/>
+    </div>
+
+    <div class="mb-2">
+      <label for="dataNascimento" class="form-label">Data de nascimento</label>
+      <input class="form-control" formControlName="dataNascimento"/>
+    </div>
+
+    <div class="mb-2">
+      <label for="email" class="form-label">E-mail</label>
+      <input class="form-control"  formControlName="email"/>
+    </div>
+
+    <div class="mb-2">
+      <label for="telefone" class="form-label">Telefone</label>
+      <input class="form-control"  formControlName="telefone"/>
+    </div>
+
+    <div class="mb-2">
+      <label for="senha" class="form-label">Senha</label>
+      <input type="password" class="form-control"  formControlName="senha"/>
+    </div>
+
+    <div class="mb-4">
+      <label for="senhaConfimrar" class="form-label">Confimar Senha</label>
+      <input type="password" class="form-control"  formControlName="senhaConfirmar"/>
+    </div>
+
+    <div class="d-grid gap-2 mt-3">
+      <button type="submit" class="btn btn-outline-light" [disabled]="cadastroForm.invalid">Entrar</button>
+    </div>
+  </form>
+</div>

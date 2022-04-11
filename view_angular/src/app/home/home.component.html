@@ -1,23 +1,90 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
+<nav class="navbar navbar-expand navbar-dark bg-black">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="" style="font-weight: bold; font-size: 30px;">BlackBank</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="">Página inicial</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="">Quem somos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="">Atendimento</a>
+        </li>
+      </ul>
+    </div>
 
-      <a class="btn btn-secondary me-2" role="button">Cadastrar</a>
-
-      <a class="btn btn-secondary" routerLink="login" role="button">Entrar</a>
-
+    <div class="d-flex flex-row bd-highlight">
+      <a class="btn btn-outline-light" id="botao-inicio" role="button" [routerLink]="['cadastro']">Abra sua conta</a>
+      <a class="btn btn-outline-light" id="botao-inicio" role="button" [routerLink]="['login']">Acesse sua conta</a>
     </div>
   </div>
 </nav>
-  <h1>Escolha o futuro.</h1>
-  <h2>Comece a controlar melhor sua vida financeira com o BlackBank.</h2>
 
-<div class="imagem">
-  <img src="assets/img/inicio.jpg">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <router-outlet></router-outlet>
+    </div>
+
+    <div class="col-md-6">
+      <div id="frase-inicial">
+        <img id="imagem-inicial" class="rounded mx-auto d-block" src="assets/img/inicio.jpg"/>
+        <h3>Escolha o futuro.</h3>
+        <h4 class="mb-5">Comece a controlar melhor sua vida financeira com o BlackBank.</h4>
+      </div>
+    </div>
+  </div>
 </div>
-<router-outlet></router-outlet>
+
+<div class="container">
+  <h5 class="mb-5 mt-3"><strong>NOSSOS SERVIÇOS</strong></h5>
+  <div class="row">
+    <div class="col-md-2">
+        <img id="operacoes" class="rounded mx-auto d-block" src="assets/img/deposito.jpg"/>
+    </div>
+    <div class="col-md-2">
+        <img id="operacoes" class="rounded mx-auto d-block" src="assets/img/saque.png"/>
+    </div>
+    <div class="col-md-2">
+        <img id="operacoes" class="rounded mx-auto d-block" src="assets/img/tranferencia.jpg"/>
+    </div>
+    <div class="col-md-2">
+        <img id="operacoes" class="rounded mx-auto d-block" src="assets/img/extrato.png"/>
+    </div>
+    <div class="col-md-2">
+        <img id="operacoes" class="rounded mx-auto d-block" src="assets/img/clientes.jpg"/>
+    </div>
+    <div class="col-md-2">
+        <img id="operacoes" class="rounded mx-auto d-block" src="assets/img/contas.png"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+        <p class="mt-2">DEPÓSITOS</p>
+    </div>
+    <div class="col-md-2">
+        <p class="mt-2">SAQUES</p>
+    </div>
+    <div class="col-md-2">
+        <p class="mt-2">TRANSFÊNCIAS</p>
+    </div>
+    <div class="col-md-2">
+        <p class="mt-2">EXTRATOS</p>
+    </div>
+    <div class="col-md-2">
+        <p class="mt-2">BUSCAR CLIENTES</p>
+    </div>
+    <div class="col-md-2">
+        <p class="mt-2">BUSCAR CONTAS</p>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-3">
+  <img id="rodape" class="rounded mx-auto d-block" src="assets/img/rodape.png"/>
+</div>

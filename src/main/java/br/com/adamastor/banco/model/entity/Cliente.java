@@ -26,10 +26,11 @@ public class Cliente {
 	@Column(length = 11, unique = true)
 	private String cpf;
 	
+	private LocalDate dataNascimento;
+	
 	private String email;
 	
 	private String telefone;
-	
-	private LocalDate dataNascimento;
+
 	
 }

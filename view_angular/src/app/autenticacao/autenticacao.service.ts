@@ -11,13 +11,13 @@ export class AutenticacaoService {
   api = environment.api;
   auth = 'auth';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  autenticar(agencia: string, numeroConta: string, senha: string):Observable<any>{
-    return this.httpClient.post(`${this.api}/${this.auth}/`, {
+  autenticar(agencia: string, numeroConta: string, senha: string): Observable<any> {
+    return this.http.post(`${this.api}/${this.auth}/`, {
       agencia: agencia,
       numeroConta: numeroConta,
-      senha: senha
+      senha: senha,
     });
   }
 }

@@ -1,11 +1,14 @@
 package br.com.adamastor.banco.controller.rest;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +28,8 @@ public class ClienteRest {
 	
 	@PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<ClienteDTO> cadastrar(@RequestBody @Valid CadastroClienteForm form) {
-		ClienteDTO dto = clienteService.cadastrar(form);
-		if(dto == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+		ClienteDTO dto = new ClienteDTO(clienteService.cadastrar(form));
+
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
@@ -50,16 +51,16 @@ public class ClienteRest {
 //		return new ResponseEntity<>(HttpStatus.OK);
 //	}
 //	
-//	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody ResponseEntity<List<ClienteDTO>> buscarTodosClientes() {
-//		List<ClienteDTO> dto = clienteService.buscarTodosClientes();
-//		
-//		if (dto == null) {
-//			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//		}
-//		
-//		return new ResponseEntity<>(dto, HttpStatus.OK);
-//	}
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<List<ClienteDTO>> buscarTodosClientes() {
+		List<ClienteDTO> dto = clienteService.buscarTodosClientes();
+		
+		if (dto == null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
 //	
 //	@GetMapping(value = "/buscar-por-cpf/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
 //	public @ResponseBody ResponseEntity<ClienteDTO> buscarClientePorCpf(@PathVariable String cpf) {

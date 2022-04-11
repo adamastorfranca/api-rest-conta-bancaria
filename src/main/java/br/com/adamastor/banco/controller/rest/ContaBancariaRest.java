@@ -1,23 +1,34 @@
 package br.com.adamastor.banco.controller.rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
+import br.com.adamastor.banco.model.form.CadastroContaForm;
+import br.com.adamastor.banco.model.service.ContaBancariaService;
 
 @RestController
 @RequestMapping("rest/contas")
 public class ContaBancariaRest {
 
-//	@Autowired
-//	private ContaBancariaService contaBancariaService;
-//	
-//	@PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody ResponseEntity<ContaBancariaDTO> cadastrar(@RequestBody CadastroContaForm form) {
-//		ContaBancariaDTO dto = contaBancariaService.cadastrar(form);
-//		if(dto == null) {
-//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//		}
-//		return new ResponseEntity<>(dto, HttpStatus.OK);
-//	}
+	@Autowired
+	private ContaBancariaService contaBancariaService;
+	
+	@PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<ContaBancariaDTO> cadastrar(@RequestBody CadastroContaForm form) {
+		ContaBancariaDTO dto = contaBancariaService.cadastrar(form);
+		if(dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
 //	
 //	@DeleteMapping(value = "/deletar/{agencia}/{numeroConta}")
 //	public ResponseEntity<Void> deletar(@PathVariable String agencia, @PathVariable  String numeroConta){
