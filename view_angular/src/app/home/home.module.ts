@@ -8,6 +8,7 @@ import { MensagemModule } from '../componentes/mensagem/mensagem.module';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { InicialComponent } from './inicial/inicial.component';
 import { DepositoComponent } from './deposito/deposito.component';
+import { InformacoesComponent } from './cadastro/informacoes/informacoes.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { DepositoComponent } from './deposito/deposito.component';
     CadastroComponent,
     InicialComponent,
     DepositoComponent,
+    InformacoesComponent,
   ],
   imports: [
     CommonModule,

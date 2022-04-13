@@ -11,12 +11,6 @@ import { ContasService } from 'src/app/services/contas.service';
 })
 export class DepositoComponent implements OnInit {
 
-  deposito: IDepositoSaque = {
-    agencia: '',
-    numeroConta: '',
-    valor: 0
-  }
-
   formDeposito: FormGroup = new FormGroup({
     agencia: new FormControl('', Validators.required),
     numeroConta: new FormControl('', Validators.required),

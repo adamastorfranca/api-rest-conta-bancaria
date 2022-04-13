@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IConta } from 'src/app/interfaces/conta';
-import { CadastroService } from './cadastro.service';
+import { ICadastro } from 'src/app/interfaces/cadastro';
+import { ContasService } from '../../services/contas.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -15,7 +15,7 @@ export class CadastroComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private cadastroService: CadastroService,
+    private contasService: ContasService,
     private router: Router
   ) { }
 
@@ -33,9 +33,9 @@ export class CadastroComponent implements OnInit {
 
   cadastrar() {
     if (this.formCadastroConta.valid){
-      const cadastro = this.formCadastroConta.getRawValue() as IConta;
-      this.cadastroService.cadastrar(cadastro).subscribe(() => {
-        this.router.navigate(['home/login']);
+      const cadastro = this.formCadastroConta.getRawValue() as ICadastro;
+      this.contasService.cadastrar(cadastro).subscribe(() => {
+        this.router.navigate(['login']);
       },
       (error) => {
         console.log(error);

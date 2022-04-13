@@ -27,6 +27,8 @@ p {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+  padding-left: 40px;
+  padding-right: 40px;
 }
 #imagem-inicial {
   height: 240px;
@@ -52,7 +54,7 @@ p {
   margin: auto;
 }
 #form {
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-left: 100px;
+  padding-right: 100px;
   padding-bottom: 60px;
 }

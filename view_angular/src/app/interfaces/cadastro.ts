@@ -1,4 +1,4 @@
-export interface IConta {
+export interface ICadastro {
   nome: string,
   cpf: string,
   email: string,

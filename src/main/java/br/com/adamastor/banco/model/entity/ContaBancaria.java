@@ -86,8 +86,19 @@ public class ContaBancaria  implements UserDetails {
 	}
 
 	public void adicionarAutorizacao(Autorizacao autorizacao) {
-		this.autorizacoes.add(autorizacao);
-		
+		this.autorizacoes.add(autorizacao);	
 	}
+
+	public String json() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("\"id\":\"" + id + "\",");
+		sb.append("\"agencia\":\"" + agencia + "\",");
+		sb.append("\"numeroConta\":\"" + numeroConta + "\",");
+		sb.append("\"nomeCliente\":\"" + cliente.getNome() + "\",");
+		sb.append("\"cpf\":\"" + cliente.getCpf() + "\"");
+		return sb.toString();
+	}
+	
+	
 
 }

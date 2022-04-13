@@ -24,8 +24,8 @@ public class TokenService {
 		Date hoje = new Date();
 		Date expiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
 		
-		return Jwts.builder().setIssuer("API do Fórum")
-				.setSubject(logado.getId().toString())
+		return Jwts.builder()
+				.setSubject(logado.json())
 				.setIssuedAt(hoje)
 				.setExpiration(expiracao)
 				.signWith(SignatureAlgorithm.HS256, secret)
