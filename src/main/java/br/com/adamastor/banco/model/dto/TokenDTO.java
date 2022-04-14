@@ -7,8 +7,7 @@ public class TokenDTO {
 
 	public TokenDTO(String token, String tipoAutenticacao) {
 		this.token = token;
-		this.tipoAutenticacao = tipoAutenticacao;
-		
+		this.tipoAutenticacao = tipoAutenticacao;	
 	}
 
 	public String getToken() {

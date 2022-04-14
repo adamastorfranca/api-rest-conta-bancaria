@@ -25,7 +25,7 @@ public class TokenService {
 		Date expiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
 		
 		return Jwts.builder()
-				.setSubject(logado.json())
+				.setSubject(logado.informacoes())
 				.setIssuedAt(hoje)
 				.setExpiration(expiracao)
 				.signWith(SignatureAlgorithm.HS256, secret)

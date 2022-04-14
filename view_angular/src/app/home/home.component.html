@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark bg-black">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="" style="font-weight: bold; font-size: 30px;">BlackBank</a>
+    <a class="navbar-brand" routerLink="">BlackBank</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,8 +19,8 @@
     </div>
 
     <div class="d-flex flex-row bd-highlight">
-      <a class="btn btn-outline-light" id="botao-inicio" role="button" [routerLink]="['cadastro']">Abra sua conta</a>
-      <a class="btn btn-outline-light" id="botao-inicio" role="button" [routerLink]="['login']">Acesse sua conta</a>
+      <a class="btn btn-outline-light" id="botao-nav" role="button" [routerLink]="['cadastro']">Abra sua conta</a>
+      <a class="btn btn-outline-light" id="botao-nav" role="button" [routerLink]="['login']">Acesse sua conta</a>
     </div>
   </div>
 </nav>
@@ -32,59 +32,63 @@
     </div>
 
     <div class="col-md-6">
-      <div id="frase-inicial">
-        <img id="imagem-inicial" class="rounded mx-auto d-block" src="assets/img/inicio.jpg"/>
+      <div id="img-frase-inicial">
+        <img src="assets/img/inicio.jpg"/>
         <h3>Escolha o futuro.</h3>
-        <h4 class="mb-5">Comece a controlar melhor sua vida financeira com o BlackBank.</h4>
+        <h4>Comece a controlar melhor sua vida financeira com o BlackBank.</h4>
       </div>
     </div>
   </div>
 </div>
 
 <div class="container">
-  <h5 class="mb-5 mt-3"><strong>NOSSOS SERVIÇOS</strong></h5>
+  <h5 id="nossos-servicos">Nossos serviços</h5>
   <div class="row">
-    <div class="col-md-2">
-        <img id="operacoes" type="button" class="rounded mx-auto d-block" routerLink="deposito" src="assets/img/deposito.jpg"/>
+    <div class="col-md-2" type="button">
+        <img id="servicos" class="rounded mx-auto d-block" routerLink="deposito" src="assets/img/deposito.jpg"/>
+        <div class="row">
+          <a class="links" routerLink="login">Depósito</a>
+        </div>
     </div>
-    <div class="col-md-2">
-        <img id="operacoes" type="button" class="rounded mx-auto d-block" routerLink="login" src="assets/img/saque.png"/>
+
+    <div class="col-md-2" type="button">
+        <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/saque.png"/>
+        <div class="row">
+          <a class="links" routerLink="login">Saque</a>
+        </div>
     </div>
-    <div class="col-md-2">
-        <img id="operacoes" type="button" class="rounded mx-auto d-block" routerLink="login" src="assets/img/tranferencia.jpg"/>
+
+    <div class="col-md-2" type="button">
+        <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/tranferencia.jpg"/>
+        <div class="row">
+          <a class="links" routerLink="login">Transferência</a>
+        </div>
     </div>
-    <div class="col-md-2">
-        <img id="operacoes" type="button" class="rounded mx-auto d-block" routerLink="login" src="assets/img/extrato.png"/>
+
+    <div class="col-md-2" type="button">
+        <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/extrato.png"/>
+        <div class="row">
+          <a class="links" routerLink="login">Extrato</a>
+        </div>
     </div>
-    <div class="col-md-2">
-        <img id="operacoes" type="button" class="rounded mx-auto d-block" routerLink="login" src="assets/img/clientes.jpg"/>
+
+    <div class="col-md-2" type="button">
+        <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/clientes.jpg"/>
+        <div class="row">
+          <a class="links" routerLink="login">Buscar clintes</a>
+        </div>
     </div>
-    <div class="col-md-2">
-        <img id="operacoes" type="button" class="rounded mx-auto d-block" routerLink="login" src="assets/img/contas.png"/>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-2">
-        <p class="mt-2" type="button" routerLink="deposito">DEPÓSITO</p>
-    </div>
-    <div class="col-md-2">
-        <p class="mt-2" type="button" routerLink="login">SAQUE</p>
-    </div>
-    <div class="col-md-2">
-        <p class="mt-2" type="button" routerLink="login">TRANSFÊNCIA</p>
-    </div>
-    <div class="col-md-2">
-        <p class="mt-2" type="button" routerLink="login">EXTRATO</p>
-    </div>
-    <div class="col-md-2">
-        <p class="mt-2" type="button" routerLink="login">BUSCAR CLIENTE</p>
-    </div>
-    <div class="col-md-2">
-        <p class="mt-2" type="button" routerLink="login">BUSCAR CONTA</p>
+
+    <div class="col-md-2" type="button" >
+        <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/contas.png"/>
+        <div class="row">
+          <a class="links" routerLink="login">Buscar contas</a>
+        </div>
+
     </div>
   </div>
 </div>
 
-<div class="container mb-3">
+<div class="container mb-4">
   <img id="rodape" class="rounded mx-auto d-block" src="assets/img/rodape.png"/>
 </div>
