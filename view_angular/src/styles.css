@@ -14,7 +14,6 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	vertical-align: baseline;
 }
 
 article, aside, details, figcaption, figure,
@@ -24,7 +23,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
 	line-height: 1;
-  background: gray;
+  background: linear-gradient(gray, white, gray, white, gray);
 }
 
 ol, ul {
@@ -46,17 +45,23 @@ table {
 	border-spacing: 0;
 }
 
+header {
+  padding: 15px 0;
+  background-color: black;
+  border-bottom: 3px solid white;
+}
+
 .navbar-brand {
   font-weight: bold;
-  font-size: 25px;
+  font-size: 30px;
   margin-left: 15px;
 
 }
 
 .nav-link{
   text-transform: uppercase;
-  vertical-align: bottom;
-  font-size: 14px;
+  padding-top: 20px;
+  font-size: 15px;
 }
 
 #botao-nav {

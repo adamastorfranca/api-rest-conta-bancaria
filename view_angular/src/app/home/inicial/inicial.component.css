@@ -1,10 +1,13 @@
 #bem-vindo {
+  padding: 0 10%;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+
 }
 #blackbank {
   width: 80%;
+
 }
 h4 {
   text-transform: uppercase;

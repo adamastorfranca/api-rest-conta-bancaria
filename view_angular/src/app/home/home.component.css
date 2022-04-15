@@ -1,11 +1,11 @@
-.container {
+.container-black {
   background: black;
   color: white;
   text-align: center;
-  margin-top: 25px;
+  margin: 30px 30px 0 30px;
   border-radius: 15px;
   padding: 30px;
-  width: auto;
+
 }
 
 #img-frase-inicial img {
@@ -13,6 +13,7 @@
 }
 
 #img-frase-inicial {
+  padding: 0 10%;
   text-align: center;
   color: white;
   position: relative;
@@ -23,26 +24,37 @@
 #nossos-servicos {
   text-transform: uppercase;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
+.col-md-2:hover {
+  border-width: 5px;
+  transition: border;
+  transform: scale(1.2);
+}
+
+.col-md-2:active {
+  border-color: gray;
+}
+
+.col-md-2:active a{
+  color: gray;
+}
 
 .col-md-2{
   text-align: center;
   border: 2px solid white;
   border-radius: 15px;
-  margin: 0 auto;
+  margin: 15px auto;
   width: 140px;
   padding: 10px;
   height: auto;
-  margin-top: 10px;
 }
 
 #servicos {
   width: 60%;
   height: 60%;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin: 15px 0;
 }
 
 .links {
@@ -54,8 +66,16 @@
   margin-bottom: 15px;
 }
 
-.container #rodape {
-  width: 100%;
+footer {
+  background: black;
+  margin: 30px 0 0 0;
+  padding:  15px 0;
+  border-top: 3px solid white;
+}
+
+#rodape {
+  padding: 15px 20px;
+  width: 90%;
 }
 
 

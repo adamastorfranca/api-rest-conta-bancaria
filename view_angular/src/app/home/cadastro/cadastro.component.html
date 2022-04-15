@@ -1,18 +1,18 @@
-<h5 class="mt-4">CADASTRAR CONTA</h5>
+<h5>Cadastrar conta</h5>
 <div id="form">
   <form [formGroup]="formCadastroConta" (submit)="cadastrar()" #cadastroForm="ngForm">
-    <div class="mb-2 mt-3">
+    <fieldset>
       <label for="nome" class="form-label">Nome completo</label>
-      <input class="form-control" formControlName="nome"/>
+      <input id="nome" class="form-control" formControlName="nome"/>
       <app-mensagem
       *ngIf="formCadastroConta.get('nome')?.errors && formCadastroConta.get('nome')?.touched"
       mensagem="Nome obrigatório">
       </app-mensagem>
-    </div>
+    </fieldset>
 
-    <div class="mb-2">
+    <fieldset>
       <label for="cpf" class="form-label">CPF</label>
-      <input class="form-control" formControlName="cpf"/>
+      <input id="cpf" class="form-control" formControlName="cpf"/>
       <app-mensagem
       *ngIf="formCadastroConta.get('cpf')?.errors?.['required'] && formCadastroConta.get('cpf')?.touched"
       mensagem="CPF obrigatório">
@@ -21,20 +21,20 @@
       *ngIf="formCadastroConta.get('cpf')?.errors && formCadastroConta.get('cpf')?.touched"
       mensagem="CPF deve conter 11 números">
       </app-mensagem>
-    </div>
+    </fieldset>
 
-    <div class="mb-2">
+    <fieldset>
       <label for="dataNascimento" class="form-label">Data de nascimento</label>
-      <input class="form-control" formControlName="dataNascimento"/>
+      <input id="dataNascimento" class="form-control" formControlName="dataNascimento" placeholder="dd/mm/aaaa"/>
       <app-mensagem
       *ngIf="formCadastroConta.get('dataNascimento')?.errors?.['required'] && formCadastroConta.get('dataNascimento')?.touched"
       mensagem="Data de nascimento obrigatório">
       </app-mensagem>
-    </div>
+    </fieldset>
 
-    <div class="mb-2">
+    <fieldset>
       <label for="email" class="form-label">E-mail</label>
-      <input class="form-control"  formControlName="email"/>
+      <input id="email" class="form-control"  formControlName="email" placeholder="seuemail@dominio.com"/>
       <app-mensagem
       *ngIf="formCadastroConta.get('email')?.errors?.['required'] && formCadastroConta.get('email')?.touched"
       mensagem="E-mail obrigatório">
@@ -43,20 +43,20 @@
       *ngIf="formCadastroConta.get('email')?.errors?.['email'] && formCadastroConta.get('email')?.touched"
       mensagem="E-mail no formado incorreto">
       </app-mensagem>
-    </div>
+    </fieldset>
 
-    <div class="mb-2">
+    <fieldset>
       <label for="telefone" class="form-label">Telefone</label>
-      <input class="form-control"  formControlName="telefone"/>
+      <input id="telefone" class="form-control"  formControlName="telefone" placeholder="(XX) XXXXX-XXXX"/>
       <app-mensagem
       *ngIf="formCadastroConta.get('telefone')?.errors?.['required'] && formCadastroConta.get('telefone')?.touched"
       mensagem="Telefone obrigatório">
       </app-mensagem>
-    </div>
+    </fieldset>
 
-    <div class="mb-2">
+    <fieldset>
       <label for="senha" class="form-label">Senha</label>
-      <input type="password" class="form-control"  formControlName="senha"/>
+      <input id="senha" type="password" class="form-control"  formControlName="senha"/>
       <app-mensagem
       *ngIf="formCadastroConta.get('senha')?.errors?.['required'] && formCadastroConta.get('senha')?.touched"
       mensagem="Senha obrigatória">
@@ -65,11 +65,11 @@
       *ngIf="formCadastroConta.get('senha')?.errors && formCadastroConta.get('senha')?.touched"
       mensagem="Senha deve conter de 8 a 16 dígitos">
       </app-mensagem>
-    </div>
+    </fieldset>
 
-    <div class="mb-4">
+    <fieldset>
       <label for="senhaConfirmar" class="form-label">Confimar Senha</label>
-      <input type="password" class="form-control"  formControlName="senhaConfirmar"/>
+      <input id="senhaConfirmar" type="password" class="form-control"  formControlName="senhaConfirmar"/>
       <app-mensagem
       *ngIf="formCadastroConta.get('senhaConfirmar')?.errors?.['required'] && formCadastroConta.get('senhaConfirmar')?.touched"
       mensagem="Senha obrigatória">
@@ -78,11 +78,10 @@
       *ngIf="formCadastroConta.get('senhaConfirmar')?.errors && formCadastroConta.get('senhaConfirmar')?.touched"
       mensagem="Senha deve conter de 8 a 16 dígitos">
       </app-mensagem>
-    </div>
+    </fieldset>
 
-    <div class="d-grid gap-2 mt-3">
+    <div class="d-grid gap-2">
       <button type="submit" class="btn btn-outline-light" [disabled]="cadastroForm.invalid">Cadastrar</button>
-      <a type="button" class="btn btn-outline-light" routerLink="nova-conta">Cadastrar</a>
     </div>
   </form>
 </div>
