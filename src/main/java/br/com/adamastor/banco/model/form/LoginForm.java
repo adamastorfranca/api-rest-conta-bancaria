@@ -12,7 +12,8 @@ public class LoginForm {
 	private String senha;
 	
 	public UsernamePasswordAuthenticationToken converter() {
-		return new UsernamePasswordAuthenticationToken(numeroConta, senha);
+		String login =  agencia + numeroConta;
+		return new UsernamePasswordAuthenticationToken(login, senha);
 	}
 
 }

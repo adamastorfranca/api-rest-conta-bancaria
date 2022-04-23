@@ -56,6 +56,7 @@ public class ContaBancariaService {
 					digitoUltima = 1;
 				}
 				novaConta.setNumeroConta(String.valueOf(String.format("%04d-%d", numeroUltima, digitoUltima)));
+				novaConta.setLogin(novaConta.getAgencia() + novaConta.getNumeroConta());
 				contaBancariaRepository.save(novaConta);
 			}
 		}

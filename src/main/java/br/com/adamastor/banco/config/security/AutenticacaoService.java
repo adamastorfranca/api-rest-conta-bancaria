@@ -18,8 +18,8 @@ public class AutenticacaoService implements UserDetailsService {
 	ContaBancariaRepository contaBancariaRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String numeroConta) throws UsernameNotFoundException {
-		Optional<ContaBancaria> resultado = contaBancariaRepository.findByNumeroConta(numeroConta);
+	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+		Optional<ContaBancaria> resultado = contaBancariaRepository.findByLogin(login);
 		if (resultado.isPresent()) {
 			return resultado.get();
 		}

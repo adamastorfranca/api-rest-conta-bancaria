@@ -1,5 +1,6 @@
 package br.com.adamastor.banco.model.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -14,8 +15,10 @@ import lombok.Data;
 @Entity
 @Table(name = "clientes")
 @Data
-public class Cliente {
-	
+public class Cliente  implements Serializable {
+
+	private static final long serialVersionUID = 2420476756166290647L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

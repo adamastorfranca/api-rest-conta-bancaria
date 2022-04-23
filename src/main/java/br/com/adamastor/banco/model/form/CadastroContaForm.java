@@ -1,7 +1,6 @@
 package br.com.adamastor.banco.model.form;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,7 +21,7 @@ public class CadastroContaForm {
 	@NotNull @NotEmpty
 	private String telefone;
 	@NotNull @NotEmpty
-	private String dataNascimento;
+	private LocalDate dataNascimento;
 	@NotNull @NotEmpty
 	private String senha;
 	@NotNull @NotEmpty
@@ -33,7 +32,8 @@ public class CadastroContaForm {
 		c.setNome(nome);
 		c.setCpf(cpf);
 		c.setTelefone(telefone);
-		c.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		//c.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		c.setDataNascimento(dataNascimento);
 		c.setEmail(email);	
 		return c;
 	}

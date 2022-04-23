@@ -15,6 +15,6 @@ public interface ContaBancariaRepository extends CrudRepository<ContaBancaria, L
 	Long buscarUltimo();
 	List<ContaBancaria> findAll();
 	List<ContaBancaria> findByCliente(Cliente cliente);
-	Optional<ContaBancaria> findByNumeroConta(String numeroConta);
+	Optional<ContaBancaria> findByLogin(String login);
 	Optional<ContaBancaria> findByAgenciaAndNumeroConta(String agencia, String numero);
 }

@@ -41,6 +41,8 @@ public class ContaBancaria  implements UserDetails {
 	
 	private boolean ativa = true;
 	
+	private String login;
+	
 	private String senha;
 		
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -62,7 +64,7 @@ public class ContaBancaria  implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return this.numeroConta;
+		return this.login;
 	}
 
 	@Override
@@ -92,7 +94,4 @@ public class ContaBancaria  implements UserDetails {
 	public String informacoes() {
 		return String.format("%d,%s,%s,%f,%d,%s,%s", id, agencia, numeroConta, saldo, cliente.getId(), cliente.getNome(), cliente.getCpf());
 	}
-	
-	
-
 }

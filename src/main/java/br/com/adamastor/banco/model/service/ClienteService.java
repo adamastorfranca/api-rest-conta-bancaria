@@ -44,7 +44,7 @@ public class ClienteService {
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public Cliente cadastrar(String nome, String cpf, String email, String telefone, String dataNascimento) {
+	public Cliente cadastrar(String nome, String cpf, String email, String telefone, LocalDate dataNascimento) {
 		Optional<Cliente> resultado1 = clienteRepository.findByCpf(cpf);
 		if (resultado1.isPresent()){
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_JA_CADASTRADO);
@@ -60,7 +60,8 @@ public class ClienteService {
 		Cliente c = new Cliente();
 		c.setNome(nome.toUpperCase());
 		c.setCpf(cpf);
-		c.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		//c.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		c.setDataNascimento(dataNascimento);
 		c.setEmail(email);
 		c.setTelefone(telefone);
 		clienteRepository.save(c);

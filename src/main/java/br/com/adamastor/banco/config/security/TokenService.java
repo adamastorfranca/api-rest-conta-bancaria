@@ -1,7 +1,5 @@
 package br.com.adamastor.banco.config.security;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -21,13 +19,13 @@ public class TokenService {
 	
 	public String gerarToken(Authentication authentication) {
 		ContaBancaria logado = (ContaBancaria) authentication.getPrincipal();
-		Date hoje = new Date();
-		Date expiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
+//		Date hoje = new Date();
+//		Date expiracao = new Date(hoje.getTime() + Long.parseLong(expiration));
 		
 		return Jwts.builder()
 				.setSubject(logado.informacoes())
-				.setIssuedAt(hoje)
-				.setExpiration(expiracao)
+//				.setIssuedAt(hoje)
+//				.setExpiration(expiracao)
 				.signWith(SignatureAlgorithm.HS256, secret)
 				.compact();
 	}
