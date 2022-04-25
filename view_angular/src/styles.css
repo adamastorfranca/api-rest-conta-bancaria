@@ -55,7 +55,6 @@ header {
   font-weight: bold;
   font-size: 30px;
   margin-left: 15px;
-
 }
 
 .nav-link{
@@ -64,6 +63,24 @@ header {
   font-size: 15px;
 }
 
+.dropdown-toggle{
+  text-transform: uppercase;
+  padding-top: 15px;
+  font-size: 15px;
+}
+
 #botao-nav {
   margin-right: 15px;
+}
+
+footer {
+  background: black;
+  margin: 30px 0 0 0;
+  padding:  15px 0;
+  border-top: 3px solid white;
+}
+
+#rodape {
+  padding: 15px 20px;
+  width: 90%;
 }

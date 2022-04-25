@@ -1,92 +1,123 @@
 <h5>Cadastrar conta</h5>
 <div id="form">
-  <form [formGroup]="formCadastroConta" (submit)="cadastrar()" #cadastroForm="ngForm">
+  <form [formGroup]="formCadastroConta" (ngSubmit)="cadastrar()">
     <fieldset>
       <label for="nome" class="form-label">Nome completo</label>
       <input id="nome" class="form-control" formControlName="nome"/>
 
-      <app-mensagem
-      *ngIf="formCadastroConta.get('nome')?.errors && formCadastroConta.get('nome')?.touched"
-      mensagem="Nome obrigatório">
-      </app-mensagem>
+      <div
+        *ngIf="
+          formCadastroConta.get('nome')?.errors?.['required'] &&
+          formCadastroConta.get('nome')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
     </fieldset>
 
     <fieldset>
       <label for="cpf" class="form-label">CPF</label>
       <input id="cpf" class="form-control" pattern="[\d]{11}" formControlName="cpf"/>
 
-      <app-mensagem
-      *ngIf="formCadastroConta.get('cpf')?.errors?.['required'] && formCadastroConta.get('cpf')?.touched"
-      mensagem="CPF obrigatório">
-      </app-mensagem>
+      <div
+        *ngIf="
+          formCadastroConta.get('cpf')?.errors?.['required'] &&
+          formCadastroConta.get('cpf')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
 
-      <app-mensagem
-      *ngIf="formCadastroConta.get('cpf')?.invalid && formCadastroConta.get('cpf')?.touched"
-      mensagem="CPF deve conter apenas 11 números">
-      </app-mensagem>
+      <div
+        *ngIf="
+          formCadastroConta.get('cpf')?.invalid &&
+          formCadastroConta.get('cpf')?.touched"
+          class="form-text text-danger">
+          CPF deve conter apenas 11 números
+      </div>
     </fieldset>
 
     <fieldset>
       <label for="dataNascimento" class="form-label">Data de nascimento</label>
       <input id="dataNascimento" class="form-control" formControlName="dataNascimento" type="date" placeholder="dd/mm/aaaa"/>
 
-      <app-mensagem
-      *ngIf="formCadastroConta.get('dataNascimento')?.errors?.['required'] && formCadastroConta.get('dataNascimento')?.touched"
-      mensagem="Data de nascimento obrigatório">
-      </app-mensagem>
+      <div
+        *ngIf="
+          formCadastroConta.get('dataNascimento')?.errors?.['required'] &&
+          formCadastroConta.get('dataNascimento')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
     </fieldset>
 
     <fieldset>
       <label for="email" class="form-label">E-mail</label>
-      <input id="email" class="form-control"  formControlName="email" placeholder="seuemail@dominio.com"/>
+      <input id="email" class="form-control"  formControlName="email" placeholder="seuEmail@dominio.com"/>
 
-      <app-mensagem
-      *ngIf="formCadastroConta.get('email')?.errors?.['required'] && formCadastroConta.get('email')?.touched"
-      mensagem="E-mail obrigatório">
-      </app-mensagem>
+      <div
+        *ngIf="
+          formCadastroConta.get('email')?.errors?.['required'] &&
+          formCadastroConta.get('email')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
 
-      <app-mensagem
-      *ngIf="formCadastroConta.get('email')?.errors?.['email'] && formCadastroConta.get('email')?.touched"
-      mensagem="E-mail no formado incorreto">
-      </app-mensagem>
+      <div
+        *ngIf="
+          formCadastroConta.get('email')?.errors?.['email'] &&
+          formCadastroConta.get('email')?.touched"
+          class="form-text text-danger">
+          E-mail no formado incorreto
+      </div>
     </fieldset>
 
     <fieldset>
       <label for="telefone" class="form-label">Telefone</label>
       <input id="telefone" class="form-control"  formControlName="telefone" placeholder="(XX) XXXXX-XXXX"/>
 
-      <app-mensagem
-      *ngIf="formCadastroConta.get('telefone')?.errors?.['required'] && formCadastroConta.get('telefone')?.touched"
-      mensagem="Telefone obrigatório">
-      </app-mensagem>
+      <div
+        *ngIf="
+          formCadastroConta.get('telefone')?.errors?.['required'] &&
+          formCadastroConta.get('telefone')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
     </fieldset>
 
     <fieldset>
       <label for="senha" class="form-label">Senha</label>
       <input id="senha" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!=.*[ !@#$%^&*_=+-]).{8,16}$" class="form-control"  formControlName="senha"/>
 
-      <app-mensagem
-      *ngIf="formCadastroConta.get('senha')?.errors?.['required'] && formCadastroConta.get('senha')?.touched"
-      mensagem="Senha obrigatória">
-      </app-mensagem>
+      <div
+        *ngIf="
+          formCadastroConta.get('senha')?.errors?.['required'] &&
+          formCadastroConta.get('senha')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
 
-      <app-mensagem
-      *ngIf="formCadastroConta.get('senha')?.invalid && formCadastroConta.get('senha')?.touched"
-      mensagem="A senha deve conter entre 8 a 16 caracteres, deve conter pelo menos uma letra maiúscula, um número e não deve conter símbolos.">
-      </app-mensagem>
+      <div
+        *ngIf="
+          formCadastroConta.get('senha')?.invalid &&
+          formCadastroConta.get('senha')?.touched"
+          class="form-text text-danger">
+          A senha deve conter entre 8 a 16 caracteres, deve conter pelo menos uma letra maiúscula, um número e não deve conter símbolos
+      </div>
     </fieldset>
 
     <fieldset>
       <label for="senhaConfirmar" class="form-label">Confimar Senha</label>
       <input id="senhaConfirmar" type="password" class="form-control"  formControlName="senhaConfirmar"/>
-      <app-mensagem
-      *ngIf="formCadastroConta.get('senhaConfirmar')?.errors?.['required'] && formCadastroConta.get('senhaConfirmar')?.touched"
-      mensagem="Confirmação de senha obrigatória">
-    </app-mensagem>
+
+      <div
+        *ngIf="
+          formCadastroConta.get('senhaConfirmar')?.errors?.['required'] &&
+          formCadastroConta.get('senhaConfirmar')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
     </fieldset>
 
     <div class="d-grid gap-2">
-      <button type="submit" class="btn btn-outline-light" [disabled]="cadastroForm.invalid">Cadastrar</button>
+      <button type="submit" class="btn btn-outline-light" [disabled]="formCadastroConta.invalid">Cadastrar</button>
     </div>
   </form>
 </div>

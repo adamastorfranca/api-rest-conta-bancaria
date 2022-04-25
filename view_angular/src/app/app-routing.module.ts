@@ -8,7 +8,7 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
-    path: 'conta',
+    path: 'logged',
     loadChildren: () => import('./logged/logged.module').then((m) => m.LoggedModule),
   },
 ];

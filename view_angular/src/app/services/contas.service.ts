@@ -13,7 +13,6 @@ export class ContasService {
   api = environment.api;
   endpoint = 'contas';
 
-
   constructor(private http: HttpClient) { }
 
   cadastrar(conta: ICadastro): Observable<ICadastro> {

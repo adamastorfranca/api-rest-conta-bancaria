@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BemVindoComponent } from './bem-vindo/bem-vindo.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
-import { InformacoesComponent } from './cadastro/informacoes/informacoes.component';
 import { DepositoComponent } from './deposito/deposito.component';
 import { HomeComponent } from './home.component';
 import { InicialComponent } from './inicial/inicial.component';
@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'cadastro', component: CadastroComponent },
       { path: 'deposito', component: DepositoComponent },
-      { path: 'nova-conta', component: InformacoesComponent }
+      { path: 'bem-vindo', component: BemVindoComponent },
     ],
   },
 ];

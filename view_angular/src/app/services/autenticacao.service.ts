@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "src/environments/environment";
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Observable} from 'rxjs';
+import { ILogin } from '../interfaces/login';
 
 @Injectable({
   providedIn: 'root'
@@ -9,18 +10,12 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 export class AutenticacaoService {
 
   api = environment.api;
-  endpoint = 'auth';
+  private endpoint = 'auth';
 
-  constructor(
-    private httpClient: HttpClient
-  ) { }
+  constructor( private httpClient: HttpClient ) {  }
 
-  autenticar(agencia: string, numeroConta: string, senha: string): Observable<any> {
-    return this.httpClient.post(`${this.api}/${this.endpoint}/`, {
-      agencia: agencia,
-      numeroConta: numeroConta,
-      senha: senha,
-    });
+  autenticar(login: ILogin): Observable<ILogin> {
+    return this.httpClient.post<ILogin>(`${this.api}/${this.endpoint}/`, login);
   }
 
 }
