@@ -42,10 +42,7 @@ export class CadastroComponent implements OnInit {
     if (this.formCadastroConta.valid){
       const cadastro = this.formCadastroConta.getRawValue() as ICadastro;
       this.contasService.cadastrar(cadastro).subscribe((result) => {
-        this.novaConta.agencia = result.agencia;
-        this.novaConta.nomeCliente = result.nomeCliente;
-        this.novaConta.numero = result.numero;
-        console.log(this.novaConta);
+        this.novaConta = result;
         this.router.navigate(['bem-vindo']);
       },
       (error) => {

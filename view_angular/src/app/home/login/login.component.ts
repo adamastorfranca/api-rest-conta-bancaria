@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ILogin } from 'src/app/interfaces/login';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
+import { ContasService } from 'src/app/services/contas.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AutenticacaoService,
+    private contaService: ContasService,
     private router: Router
   ) { }
 
@@ -28,8 +30,15 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.formLogin.valid){
       const login = this.formLogin.getRawValue() as ILogin;
+      const agencia: string = this.formLogin.get('agencia')?.value;
+      const numeroConta: string = this.formLogin.get('numeroConta')?.value;
+      
       this.authService.autenticar(login).subscribe(() => {
-        this.router.navigate(['logged']);
+        this.contaService.buscarInformacoes(agencia, numeroConta).subscribe((result) => {
+          this.authService.contaConectada = result;
+          console.log(this.authService.contaConectada)
+        });
+        this.router.navigate(['user']);
       },
       (error) => {
         alert('Usuário ou senha inválido');

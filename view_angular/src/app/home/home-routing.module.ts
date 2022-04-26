@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { BemVindoComponent } from './bem-vindo/bem-vindo.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { DepositoComponent } from './deposito/deposito.component';

@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { DepositoComponent } from './deposito/deposito.component';
 import { BemVindoComponent } from './bem-vindo/bem-vindo.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -23,10 +24,10 @@ import { BemVindoComponent } from './bem-vindo/bem-vindo.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HomeRoutingModule,
+    RouterModule,
+    HomeRoutingModule
+
   ],
-  exports: [
-    HomeComponent,
-  ]
+  exports: [  ]
 })
 export class HomeModule { }

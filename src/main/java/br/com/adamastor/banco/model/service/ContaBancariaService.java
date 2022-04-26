@@ -94,6 +94,16 @@ public class ContaBancariaService {
 		return resultado.get();
 	}	
 	
+	public ContaBancariaDTO consultarContaDTO(String agencia, String numero) {
+		Optional<ContaBancaria> resultado = contaBancariaRepository.findByAgenciaAndNumeroConta(agencia, numero);
+		
+		if (!resultado.isPresent()) {
+			return null;
+		}
+		
+		return new ContaBancariaDTO(resultado.get());
+	}	
+	
 //	public boolean deletar(String agencia, String numero) {
 //		ContaBancaria conta = contaBancariaRepository.findByAgenciaAndNumero(agencia, numero);
 //		if (conta == null) {

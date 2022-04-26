@@ -61,16 +61,17 @@ header {
   text-transform: uppercase;
   padding-top: 20px;
   font-size: 15px;
+
 }
 
 .dropdown-toggle{
-  text-transform: uppercase;
   padding-top: 15px;
   font-size: 15px;
+  margin-right: 10px;
 }
 
 #botao-nav {
-  margin-right: 15px;
+  margin-right: 25px;
 }
 
 footer {

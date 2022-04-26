@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,6 +38,15 @@ public class ContaBancariaRest {
 	public @ResponseBody ResponseEntity<Void> depositar(@RequestBody DepositoDTO dto){
 		contaBancariaService.depositar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/informacoes/{agencia}/{numeroConta}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<ContaBancariaDTO> consultarSaldo(@PathVariable  String agencia, @PathVariable  String numeroConta){
+		ContaBancariaDTO dto = contaBancariaService.consultarContaDTO(agencia, numeroConta);
+		if (dto == null) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
 //	

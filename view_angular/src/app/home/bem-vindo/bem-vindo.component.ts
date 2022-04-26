@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ICadastrado } from 'src/app/interfaces/cadastrado';
+import { ContasService } from 'src/app/services/contas.service';
 import { CadastroComponent } from '../cadastro/cadastro.component';
 
 @Component({
@@ -9,16 +10,16 @@ import { CadastroComponent } from '../cadastro/cadastro.component';
 })
 export class BemVindoComponent implements OnInit {
 
-  cadastrado: ICadastrado = {
+  novaConta: ICadastrado = {
     nomeCliente: '',
     agencia: '',
     numero: ''
   }
 
-  constructor(private novoCadastrado: CadastroComponent) { }
+  constructor(private contasService: ContasService) { }
 
   ngOnInit(): void {
-    this.cadastrado = this.novoCadastrado.novaConta;
+    this.novaConta = this.contasService.cadastrado;
   }
 
 }

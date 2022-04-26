@@ -7,7 +7,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
           <li>
             <div class="dropdown">
               <button class="btn btn-dark dropdown-toggle" style="background-color: black;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,11 +56,38 @@
               </ul>
             </div>
           </li>
-
         </ul>
+
+        <ul id="informacoes">
+          <li id="nome">
+            Olá, {{ contaConectada.nomeCliente.split(' ')[0] }}
+          </li>
+          <li>
+            Agência: {{ contaConectada.agencia }}
+          </li>
+          <li>
+            Número: {{ contaConectada.numero }}
+          </li>
+        </ul>
+
+        <ul *ngIf="mostrarSaldo">
+          <li id="saldo" >
+            Saldo: {{ contaConectada.saldo | currency }}
+          </li>
+          <li id="mostrarSaldo" type="button" (click)="mostrarSaldo=false">
+            <i class="fa fa-eye-slash fa-lg mt-2"></i> Ocultar saldo
+          </li>
+        </ul>
+
+        <ul *ngIf="!mostrarSaldo" type="button" (click)="mostrarSaldo=true">
+          <li id="mostrarSaldo" >
+            <i class="fa fa-eye fa-lg"></i> Mostrar saldo
+          </li>
+        </ul>
+
       </div>
       <div class="d-flex flex-row bd-highlight">
-        <a class="btn btn-outline-light" id="botao-inicio" role="button" [routerLink]="['']">Sair</a>
+        <a class="btn btn-outline-light" id="botao-sair" role="button" [routerLink]="['']">Sair</a>
       </div>
     </div>
   </nav>
@@ -69,15 +95,7 @@
 
 <main>
   <div class="container-black">
-    <div class="row">
-      <div class="col-md-6">
-        <router-outlet></router-outlet>
-      </div>
-
-      <div class="col-md-6">
-        <p>Oi</p>
-      </div>
-    </div>
+    <p>Teste</p>
   </div>
 </main>
 

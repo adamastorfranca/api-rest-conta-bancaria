@@ -1,11 +1,14 @@
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { AppComponent } from './app.component';
+
 import { DEFAULT_CURRENCY_CODE,NgModule } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { ErrorsModule } from './errors/errors.module';
+import { HomeModule } from './home/home.module';
 
 registerLocaleData(localePt, 'pt');
 
@@ -16,7 +19,9 @@ registerLocaleData(localePt, 'pt');
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ErrorsModule,
+    HomeModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'pt-BR'},
