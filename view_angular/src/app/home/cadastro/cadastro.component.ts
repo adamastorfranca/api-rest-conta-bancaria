@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ICadastrado } from 'src/app/interfaces/cadastrado';
+import { IContaTemp } from 'src/app/interfaces/contaTemp';
 import { ICadastro } from 'src/app/interfaces/cadastro';
 import { ContasService } from '../../services/contas.service';
 
@@ -13,12 +13,6 @@ import { ContasService } from '../../services/contas.service';
 export class CadastroComponent implements OnInit {
 
   formCadastroConta!: FormGroup;
-
-  novaConta: ICadastrado = {
-    nomeCliente: '',
-    agencia: '',
-    numero: ''
-  }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,7 +36,9 @@ export class CadastroComponent implements OnInit {
     if (this.formCadastroConta.valid){
       const cadastro = this.formCadastroConta.getRawValue() as ICadastro;
       this.contasService.cadastrar(cadastro).subscribe((result) => {
-        this.novaConta = result;
+        this.contasService.temp.agencia = result.agencia;
+        this.contasService.temp.numero = result.numero;
+        this.contasService.temp.nomeCliente = result.nomeCliente;
         this.router.navigate(['bem-vindo']);
       },
       (error) => {

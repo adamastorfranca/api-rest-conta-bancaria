@@ -1,0 +1,63 @@
+<h5>Buscar conta</h5>
+
+<div id="form">
+  <form [formGroup]="formConsultaConta" (ngSubmit)="consulta()">
+    <fieldset>
+      <label for="agencia" class="form-label">Agência</label>
+      <input
+        class="form-control"
+        id="agencia"
+        type="text"
+        formControlName="agencia"
+        pattern="[\d]{4}"
+        placeholder="_ _ _ _"
+      />
+
+      <div
+        *ngIf="
+          formConsultaConta.get('agencia')?.errors?.['required'] &&
+          formConsultaConta.get('agencia')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+      <div
+        *ngIf="
+          formConsultaConta.get('agencia')?.invalid &&
+          formConsultaConta.get('agencia')?.touched"
+          class="form-text text-danger">
+          O número da agência deve conter 4 dígitos
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="numeroConta" class="form-label">Número da conta</label>
+      <input
+        class="form-control"
+        id="numeroConta"
+        type="text"
+        formControlName="numeroConta"
+        pattern="[\d]{4}-[\d]{1}"
+        placeholder="_ _ _ _ - _"
+      />
+
+      <div
+        *ngIf="
+          formConsultaConta.get('numeroConta')?.errors?.['required'] &&
+          formConsultaConta.get('numeroConta')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+      <div
+        *ngIf="
+          formConsultaConta.get('numeroConta')?.invalid &&
+          formConsultaConta.get('numeroConta')?.touched"
+          class="form-text text-danger">
+          O padrão é 4 números - 1 dígito
+      </div>
+    </fieldset>
+
+    <div class="d-grid gap-2">
+      <button [disabled]="!formConsultaConta.valid" type="submit" class="btn btn-outline-light">Buscar</button>
+    </div>
+  </form>
+</div>

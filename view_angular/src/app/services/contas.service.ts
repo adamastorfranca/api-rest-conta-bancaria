@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ICadastrado } from '../interfaces/cadastrado';
+import { IContaTemp } from '../interfaces/contaTemp';
 import { ICadastro } from '../interfaces/cadastro';
 import { IConta } from '../interfaces/conta';
 import { IDepositoSaque } from '../interfaces/deposito-saque';
@@ -15,10 +15,11 @@ export class ContasService {
   api = environment.api;
   endpoint = 'contas';
 
-  cadastrado: ICadastrado = {
+  temp: IContaTemp = {
     nomeCliente: '',
     agencia: '',
-    numero: ''
+    numero: '',
+    valor: 0
   }
 
   constructor(private http: HttpClient) { }
@@ -35,10 +36,10 @@ export class ContasService {
     return this.http.put(`${this.api}/${this.endpoint}/deposito`, deposito);
   }
 
-  salvarInformacoes(cadastro:ICadastro): ICadastrado{
-    this.cadastrado.nomeCliente = cadastro.nomeCliente.valueOf();
-    this.cadastrado.agencia = cadastro.agencia.valueOf();
-    this.cadastrado.numero = cadastro.numero.valueOf();
-    return this.cadastrado;
+  salvarInformacoes(cadastro:ICadastro): IContaTemp{
+    this.temp.nomeCliente = cadastro.nomeCliente.valueOf();
+    this.temp.agencia = cadastro.agencia.valueOf();
+    this.temp.numero = cadastro.numero.valueOf();
+    return this.temp;
   }
 }

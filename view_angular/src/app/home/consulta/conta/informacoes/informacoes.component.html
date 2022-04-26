@@ -1,0 +1,11 @@
+<form (ngSubmit)="confirmarAcao()">
+  <h4>Resultado da busca:</h4><br>
+  <h5>Nome: {{resultadoBusca.nomeCliente}}</h5>
+  <h5>Agência: {{resultadoBusca.agencia}}</h5>
+  <h5>Número: {{resultadoBusca.numero}}</h5>
+
+
+  <button type="submit" class="btn btn-outline-light" id="botao-confirmacao" role="button" (click)="acao = true">Depositar</button>
+
+  <button type="submit" class="btn btn-outline-light" id="botao-confirmacao" role="button" (click)="acao = false">Cancelar</button>
+</form>

@@ -1,0 +1,32 @@
+<div id="total">
+  <h5>Buscar cliente</h5>
+
+  <div id="form">
+    <form [formGroup]="formConsultaCliente" (ngSubmit)="consulta()">
+      <fieldset>
+        <label for="cpf" class="form-label">CPF</label>
+        <input id="cpf" class="form-control" pattern="[\d]{11}" formControlName="cpf"/>
+
+        <div
+          *ngIf="
+            formConsultaCliente.get('cpf')?.errors?.['required'] &&
+            formConsultaCliente.get('cpf')?.touched"
+            class="form-text text-danger">
+            Campo obrigatório
+        </div>
+
+        <div
+          *ngIf="
+            formConsultaCliente.get('cpf')?.invalid &&
+            formConsultaCliente.get('cpf')?.touched"
+            class="form-text text-danger">
+            CPF deve conter apenas 11 números
+        </div>
+      </fieldset>
+
+      <div class="d-grid gap-2">
+        <button [disabled]="!formConsultaCliente.valid" type="submit" class="btn btn-outline-light">Buscar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<form (ngSubmit)="confirmacaoDeposito()">
+  <h4>Confirme as informações:</h4><br>
+  <h5>Agência: {{paraConfirmar.agencia}}</h5>
+  <h5>Número: {{paraConfirmar.numero}}</h5>
+  <h5>Nome: {{paraConfirmar.nomeCliente}}</h5>
+  <h5>Valor: {{paraConfirmar.valor | currency}}</h5>
+
+  <button type="submit" class="btn btn-outline-light" id="botao-confirmacao" role="button" (click)="confirmarTransacao = true">Depositar</button>
+
+  <button type="submit" class="btn btn-outline-light" id="botao-confirmacao" role="button" (click)="confirmarTransacao = false">Cancelar</button>
+</form>
+

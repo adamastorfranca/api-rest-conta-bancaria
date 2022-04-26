@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ICadastrado } from 'src/app/interfaces/cadastrado';
+import { IContaTemp } from 'src/app/interfaces/contaTemp';
 import { ContasService } from 'src/app/services/contas.service';
-import { CadastroComponent } from '../cadastro/cadastro.component';
+import { CadastroComponent } from '../cadastro.component';
 
 @Component({
   selector: 'app-bem-vindo',
@@ -10,16 +10,17 @@ import { CadastroComponent } from '../cadastro/cadastro.component';
 })
 export class BemVindoComponent implements OnInit {
 
-  novaConta: ICadastrado = {
+  novaConta: IContaTemp = {
     nomeCliente: '',
     agencia: '',
-    numero: ''
+    numero: '',
+    valor: 0
   }
 
   constructor(private contasService: ContasService) { }
 
   ngOnInit(): void {
-    this.novaConta = this.contasService.cadastrado;
+    this.novaConta = this.contasService.temp;
   }
 
 }
