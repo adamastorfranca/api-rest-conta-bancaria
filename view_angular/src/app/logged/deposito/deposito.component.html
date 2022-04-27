@@ -1,0 +1,79 @@
+
+
+<div id="form-deposito">
+  <h5>DEPÓSITO</h5>
+  <form [formGroup]="formDepositoLogado" (ngSubmit)="deposito()">
+    <fieldset>
+      <label for="agencia" class="form-label">Agência</label>
+      <input
+        class="form-control"
+        type="text"
+        id="agencia"
+        placeholder="_ _ _ _"
+        formControlName="agencia"
+      />
+
+      <div
+        *ngIf="
+          formDepositoLogado.get('agencia')?.errors &&
+          formDepositoLogado.get('agencia')?.touched &&
+          formDepositoLogado.get('agencia')?.hasError('required')"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="numeroConta" class="form-label">Número da conta</label>
+      <input
+        class="form-control"
+        type="text"
+        id="numeroConta"
+        placeholder="_ _ _ _ - _"
+        formControlName="numeroConta"
+      />
+
+      <div
+        *ngIf="
+          formDepositoLogado.get('numeroConta')?.errors &&
+          formDepositoLogado.get('numeroConta')?.touched &&
+          formDepositoLogado.get('numeroConta')?.hasError('required')"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="valor" class="form-label">Valor</label>
+      <input
+        class="form-control"
+        id="valor"
+        type="number"
+        placeholder="0,00"
+        pattern="^(?=.*[0-9])(?!=.*[ !@#$%^&*_=+-]).{1,6}$"
+        formControlName="valor"
+      />
+
+      <div
+        *ngIf="
+          formDepositoLogado.get('valor')?.errors &&
+          formDepositoLogado.get('valor')?.touched &&
+          formDepositoLogado.get('valor')?.hasError('required')"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+      <div
+        *ngIf="
+          formDepositoLogado.get('valor')?.errors &&
+          formDepositoLogado.get('valor')?.touched &&
+          formDepositoLogado.get('valor')?.invalid"
+          class="form-text text-danger">
+          Valor inválido
+      </div>
+    </fieldset>
+
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-outline-light" [disabled]="formDepositoLogado.invalid">Depositar</button>
+    </div>
+  </form>
+</div>

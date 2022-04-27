@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
+import br.com.adamastor.banco.model.dto.ContaBancariaLogadaDTO;
 import br.com.adamastor.banco.model.dto.DepositoDTO;
+import br.com.adamastor.banco.model.entity.ContaBancaria;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.service.ContaBancariaService;
 
@@ -25,6 +27,12 @@ public class ContaBancariaRest {
 	@Autowired
 	private ContaBancariaService contaBancariaService;
 	
+	@PutMapping(value = "/deposito", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Void> depositar(@RequestBody DepositoDTO dto){
+		contaBancariaService.depositar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
 	@PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<ContaBancariaDTO> cadastrar(@RequestBody CadastroContaForm form) {
 		ContaBancariaDTO dto = contaBancariaService.cadastrar(form);
@@ -34,22 +42,33 @@ public class ContaBancariaRest {
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}	
 	
-	@PutMapping(value = "/deposito", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<Void> depositar(@RequestBody DepositoDTO dto){
-		contaBancariaService.depositar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
 	@GetMapping(value = "/informacoes/{agencia}/{numeroConta}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ResponseEntity<ContaBancariaDTO> consultarSaldo(@PathVariable  String agencia, @PathVariable  String numeroConta){
+	public @ResponseBody ResponseEntity<ContaBancariaDTO> consultarConta(@PathVariable  String agencia, @PathVariable  String numeroConta){
 		ContaBancariaDTO dto = contaBancariaService.consultarContaDTO(agencia, numeroConta);
 		if (dto == null) {
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
-//	
+	@GetMapping(value = "/conta-logada/{agencia}/{numeroConta}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<ContaBancariaLogadaDTO> consultarContaLogada(@PathVariable  String agencia, @PathVariable  String numeroConta){
+		ContaBancariaLogadaDTO conta = contaBancariaService.consultarContaLogadaDTO(agencia, numeroConta);
+		if (conta == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(conta, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/informacoes/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<ContaBancariaDTO> consultarContaPorCpf(@PathVariable  String cpf){
+		ContaBancariaDTO dto = contaBancariaService.consultarContaPorCpfDTO(cpf);
+		if (dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
+	
 //	@DeleteMapping(value = "/deletar/{agencia}/{numeroConta}")
 //	public ResponseEntity<Void> deletar(@PathVariable String agencia, @PathVariable  String numeroConta){
 //		boolean deletou = contaBancariaService.deletar(agencia, numeroConta);

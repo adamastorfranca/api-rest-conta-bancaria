@@ -1,2 +1,14 @@
-<h3>Depósito realizado com sucesso!</h3>
+<div id="div-comprovante">
+  <h5>Depósito realizado com sucesso!</h5>
+  <h5 id="comprovante">Comprovante</h5>
+  <h6>Data: {{ data | date:"short" }}</h6>
+  <h6>Nome: {{ depositoConfirmado.nomeCliente }}</h6>
+  <h6>Agência: {{ depositoConfirmado.agencia }}</h6>
+  <h6>Número: {{ depositoConfirmado.numero }}</h6>
+  <h6>Número: {{ depositoConfirmado.valor |currency }}</h6>
+  <a type="button" class="btn btn-outline-light" id="botao-confirmacao" routerLink="">Sair</a>
+</div>
+
+
+
 

@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IContaTemp } from '../interfaces/contaTemp';
+import { IContaTemp } from '../interfaces/conta-temp';
 import { ICadastro } from '../interfaces/cadastro';
-import { IConta } from '../interfaces/conta';
+import { IContaLogada } from '../interfaces/conta-logada';
 import { IDepositoSaque } from '../interfaces/deposito-saque';
 
 @Injectable({
@@ -22,18 +22,28 @@ export class ContasService {
     valor: 0
   }
 
+  encaminhamentoTransacao: boolean = false;
+
   constructor(private http: HttpClient) { }
 
   cadastrar(conta: ICadastro): Observable<ICadastro> {
     return this.http.post<ICadastro>(`${this.api}/${this.endpoint}/cadastrar`, conta);
   }
 
-  buscarInformacoes(agencia: string, numero: string): Observable<IConta> {
-    return this.http.get<IConta>(`${this.api}/${this.endpoint}/informacoes/${agencia}/${numero}/`);
+  buscarPorAgenciaEhNumero(agencia: string, numero: string): Observable<IContaTemp> {
+    return this.http.get<IContaTemp>(`${this.api}/${this.endpoint}/informacoes/${agencia}/${numero}/`);
+  }
+
+  buscarPorCpf(cpf: string): Observable<IContaTemp> {
+    return this.http.get<IContaTemp>(`${this.api}/${this.endpoint}/informacoes/${cpf}/`);
   }
 
   depositar(deposito: IDepositoSaque) {
     return this.http.put(`${this.api}/${this.endpoint}/deposito`, deposito);
+  }
+
+  buscarContaLogada(agencia: string, numero: string): Observable<IContaLogada> {
+    return this.http.get<IContaLogada>(`${this.api}/${this.endpoint}/conta-logada/${agencia}/${numero}/`);
   }
 
   salvarInformacoes(cadastro:ICadastro): IContaTemp{

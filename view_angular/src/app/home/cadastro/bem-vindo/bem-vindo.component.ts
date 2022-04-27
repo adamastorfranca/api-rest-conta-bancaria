@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IContaTemp } from 'src/app/interfaces/contaTemp';
+import { IContaTemp } from 'src/app/interfaces/conta-temp';
 import { ContasService } from 'src/app/services/contas.service';
 import { CadastroComponent } from '../cadastro.component';
 

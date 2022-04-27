@@ -3,14 +3,13 @@ import { IContaTemp } from 'src/app/interfaces/conta-temp';
 import { ContasService } from 'src/app/services/contas.service';
 
 @Component({
-  selector: 'app-confirmado',
-  templateUrl: './confirmado.component.html',
-  styleUrls: ['./confirmado.component.css']
+  selector: 'app-informacoes',
+  templateUrl: './informacoes.component.html',
+  styleUrls: ['./informacoes.component.css']
 })
-export class ConfirmadoComponent implements OnInit {
+export class InformacoesClienteComponent implements OnInit {
 
-  data: Date = new Date();
-  depositoConfirmado: IContaTemp = {
+  resultadoBusca: IContaTemp = {
     nomeCliente: '',
     agencia: '',
     numero: '',
@@ -22,7 +21,8 @@ export class ConfirmadoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.depositoConfirmado = this.contaService.temp;
+    this.resultadoBusca = this.contaService.temp;
+    this.contaService.encaminhamentoTransacao = true;
   }
 
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IContaTemp } from 'src/app/interfaces/contaTemp';
+import { IContaTemp } from 'src/app/interfaces/conta-temp';
 import { ContasService } from 'src/app/services/contas.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { ContasService } from 'src/app/services/contas.service';
   templateUrl: './informacoes.component.html',
   styleUrls: ['./informacoes.component.css']
 })
-export class InformacoesComponent implements OnInit {
+export class InformacoesContaComponent implements OnInit {
 
   resultadoBusca: IContaTemp = {
     nomeCliente: '',
@@ -17,23 +17,13 @@ export class InformacoesComponent implements OnInit {
     valor: 0
   }
 
-  acao: boolean | null = null;
-
   constructor(
-    private contaService: ContasService,
-    private router: Router
+    private contaService: ContasService
   ) { }
 
   ngOnInit(): void {
     this.resultadoBusca = this.contaService.temp;
+    this.contaService.encaminhamentoTransacao = true;
   }
 
-  confirmarAcao(){
-    if(this.acao === true){
-      this.router.navigate(['deposito']);
-    }
-    if(this.acao === false){
-      this.router.navigate(['consulta-conta']);
-    }
-  }
 }

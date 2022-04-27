@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IContaTemp } from 'src/app/interfaces/contaTemp';
+import { IContaTemp } from 'src/app/interfaces/conta-temp';
 import { ICadastro } from 'src/app/interfaces/cadastro';
 import { ContasService } from '../../services/contas.service';
 

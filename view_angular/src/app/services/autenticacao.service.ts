@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from "src/environments/environment";
 import { Observable} from 'rxjs';
 import { ILogin } from '../interfaces/login';
-import { IConta } from '../interfaces/conta';
+import { IContaLogada } from '../interfaces/conta-logada';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class AutenticacaoService {
   api = environment.api;
   private endpoint = 'auth';
 
-  contaConectada: IConta = {
+  contaConectada: IContaLogada = {
     id: 0,
     agencia: '',
     numero: '',
@@ -29,14 +29,14 @@ export class AutenticacaoService {
     return this.httpClient.post<ILogin>(`${this.api}/${this.endpoint}/`, login);
   }
 
-  salvarInformacoes(conta :IConta): IConta {
-    this.contaConectada.id = conta.id.valueOf();
-    this.contaConectada.agencia = conta.agencia.valueOf();
-    this.contaConectada.numero = conta.numero.valueOf();
-    this.contaConectada.saldo = conta.saldo.valueOf();
-    this.contaConectada.idCliente = conta.idCliente.valueOf();
-    this.contaConectada.nomeCliente = conta.nomeCliente.valueOf();
-    this.contaConectada.cpf = conta.cpf.valueOf();
+  salvarInformacoes(conta :IContaLogada): IContaLogada {
+    this.contaConectada.id = conta.id;
+    this.contaConectada.agencia = conta.agencia;
+    this.contaConectada.numero = conta.numero;
+    this.contaConectada.saldo = conta.saldo;
+    this.contaConectada.idCliente = conta.idCliente;
+    this.contaConectada.nomeCliente = conta.nomeCliente;
+    this.contaConectada.cpf = conta.cpf;
     return this.contaConectada;
   }
 }

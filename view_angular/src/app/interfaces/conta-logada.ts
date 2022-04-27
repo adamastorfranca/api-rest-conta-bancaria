@@ -1,4 +1,4 @@
-export interface IConta {
+export interface IContaLogada {
   id: number;
   agencia: string;
   numero: string;

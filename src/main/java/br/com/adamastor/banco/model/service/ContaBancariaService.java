@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
+import br.com.adamastor.banco.model.dto.ContaBancariaLogadaDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
 import br.com.adamastor.banco.model.entity.ContaBancaria;
 import br.com.adamastor.banco.model.entity.TipoTransacao;
@@ -74,16 +75,6 @@ public class ContaBancariaService {
 		return new ContaBancariaDTO(conta);
 	}
 	
-	@Transactional(rollbackFor = Exception.class)
-	public void depositar (String agencia, String numeroConta, double valor) {
-		ContaBancaria conta = consultarConta(agencia, numeroConta);
-		
-		conta.setSaldo(conta.getSaldo() + valor);
-					
-		contaBancariaRepository.save(conta);		
-		transacaoService.salvar(TipoTransacao.DEPOSITO, valor, null, conta);
-	}
-	
 	public ContaBancaria consultarConta(String agencia, String numero) {
 		Optional<ContaBancaria> resultado = contaBancariaRepository.findByAgenciaAndNumeroConta(agencia, numero);
 		
@@ -94,8 +85,38 @@ public class ContaBancariaService {
 		return resultado.get();
 	}	
 	
+	@Transactional(rollbackFor = Exception.class)
+	public void depositar (String agencia, String numeroConta, double valor) {
+		ContaBancaria conta = consultarConta(agencia, numeroConta);
+		
+		conta.setSaldo(conta.getSaldo() + valor);
+					
+		contaBancariaRepository.save(conta);		
+		transacaoService.salvar(TipoTransacao.DEPOSITO, valor, null, conta);
+	}
+	
+	public ContaBancariaLogadaDTO consultarContaLogadaDTO(String agencia, String numero) {
+		Optional<ContaBancaria> resultado = contaBancariaRepository.findByAgenciaAndNumeroConta(agencia, numero);
+		
+		if (!resultado.isPresent()) {
+			return null;
+		}
+		
+		return new ContaBancariaLogadaDTO(resultado.get());
+	}	
+	
 	public ContaBancariaDTO consultarContaDTO(String agencia, String numero) {
 		Optional<ContaBancaria> resultado = contaBancariaRepository.findByAgenciaAndNumeroConta(agencia, numero);
+		
+		if (!resultado.isPresent()) {
+			return null;
+		}
+		
+		return new ContaBancariaDTO(resultado.get());
+	}	
+	
+	public ContaBancariaDTO consultarContaPorCpfDTO(String cpf) {
+		Optional<ContaBancaria> resultado = contaBancariaRepository.findByClienteCpf(cpf);
 		
 		if (!resultado.isPresent()) {
 			return null;

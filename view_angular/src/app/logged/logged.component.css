@@ -1,11 +1,15 @@
 .container-black {
-  background: black;
   color: white;
   text-align: center;
   margin: 30px 30px 0 30px;
   border-radius: 15px;
   padding: 30px;
-  height: 650px
+  height: 650px;
+  width: 95%;
+  background-color: black;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 #nome {
@@ -32,3 +36,4 @@
 #botao-sair {
   margin-right: 25px;
 }
+

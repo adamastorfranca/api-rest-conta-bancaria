@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IContaTemp } from 'src/app/interfaces/contaTemp';
+import { IContaTemp } from 'src/app/interfaces/conta-temp';
 import { IDepositoSaque } from 'src/app/interfaces/deposito-saque';
 import { ContasService } from 'src/app/services/contas.service';
 
@@ -19,7 +19,7 @@ export class ConfirmarComponent implements OnInit {
     valor: 0
   }
 
- confirmarTransacao: boolean | null = null;
+ confirmarTransacao: boolean = false;
 
   constructor(
     private contaService: ContasService,
@@ -40,9 +40,6 @@ export class ConfirmarComponent implements OnInit {
       this.contaService.depositar(deposito).subscribe(() => {
         this.router.navigate(['deposito-realizado']);
       });
-    }
-    if(this.confirmarTransacao === false){
-      this.router.navigate(['deposito']);
     }
   }
 

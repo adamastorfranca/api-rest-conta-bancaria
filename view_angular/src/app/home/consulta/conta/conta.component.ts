@@ -27,12 +27,16 @@ export class ContaComponent implements OnInit {
     if (this.formConsultaConta.valid){
       const agencia: string = this.formConsultaConta.get('agencia')?.value;
       const numeroConta: string = this.formConsultaConta.get('numeroConta')?.value;
-
-      this.contaService.buscarInformacoes(agencia, numeroConta).subscribe((result) => {
+      this.contaService.buscarPorAgenciaEhNumero(agencia, numeroConta).subscribe((result) => {
         this.contaService.temp.agencia = result.agencia;
         this.contaService.temp.numero = result.numero;
         this.contaService.temp.nomeCliente = result.nomeCliente;
         this.router.navigate(['consulta-conta-informacoes']);
+      },
+      (error) => {
+        alert('A conta informada não existe');
+        console.error(error);
+        this.formConsultaConta.reset();
       });
     }
   }

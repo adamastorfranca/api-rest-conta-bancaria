@@ -4,8 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { BemVindoComponent } from './cadastro/bem-vindo/bem-vindo.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { ClienteComponent } from './consulta/cliente/cliente.component';
+import { InformacoesClienteComponent } from './consulta/cliente/informacoes/informacoes.component';
 import { ContaComponent } from './consulta/conta/conta.component';
-import { InformacoesComponent } from './consulta/conta/informacoes/informacoes.component';
+import { InformacoesContaComponent } from './consulta/conta/informacoes/informacoes.component';
 import { ConfirmadoComponent } from './deposito/confirmar/confirmado/confirmado.component';
 import { ConfirmarComponent } from './deposito/confirmar/confirmar.component';
 import { DepositoComponent } from './deposito/deposito.component';
@@ -25,8 +26,9 @@ const routes: Routes = [
       { path: 'confirmacao-deposito', component: ConfirmarComponent },
       { path: 'deposito-realizado', component: ConfirmadoComponent },
       { path: 'consulta-cliente', component: ClienteComponent },
+      { path: 'consulta-cliente-informacoes', component: InformacoesClienteComponent },
       { path: 'consulta-conta', component: ContaComponent },
-      { path: 'consulta-conta-informacoes', component: InformacoesComponent },
+      { path: 'consulta-conta-informacoes', component: InformacoesContaComponent },
     ],
   },
 ];

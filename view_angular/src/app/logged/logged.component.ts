@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IConta } from '../interfaces/conta';
+import { IContaLogada } from '../interfaces/conta-logada';
 import { AutenticacaoService } from '../services/autenticacao.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AutenticacaoService } from '../services/autenticacao.service';
 })
 export class LoggedComponent implements OnInit {
 
-  contaConectada: IConta = {
+  contaConectada: IContaLogada = {
     id: 0,
     agencia: '',
     numero: '',
@@ -18,6 +18,7 @@ export class LoggedComponent implements OnInit {
     nomeCliente: '',
     cpf: ''
   }
+  
   mostrarSaldo: boolean = true;
 
   constructor(private authService: AutenticacaoService) { }

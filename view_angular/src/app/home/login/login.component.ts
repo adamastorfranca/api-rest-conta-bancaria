@@ -32,19 +32,18 @@ export class LoginComponent implements OnInit {
       const login = this.formLogin.getRawValue() as ILogin;
       const agencia: string = this.formLogin.get('agencia')?.value;
       const numeroConta: string = this.formLogin.get('numeroConta')?.value;
-      
+
       this.authService.autenticar(login).subscribe(() => {
-        this.contaService.buscarInformacoes(agencia, numeroConta).subscribe((result) => {
+        this.contaService.buscarContaLogada(agencia, numeroConta).subscribe((result) => {
           this.authService.contaConectada = result;
-          console.log(this.authService.contaConectada)
+          this.router.navigate(['user']);
         });
-        this.router.navigate(['user']);
       },
-      (error) => {
-        alert('Usuário ou senha inválido');
-        console.log(error);
-      }
-     );
+        (error) => {
+          alert('Usuário ou senha inválido');
+          console.log(error);
+        }
+      );
     }
   }
 }

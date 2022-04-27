@@ -14,7 +14,8 @@ import { ConfirmarComponent } from './deposito/confirmar/confirmar.component';
 import { ConfirmadoComponent } from './deposito/confirmar/confirmado/confirmado.component';
 import { ClienteComponent } from './consulta/cliente/cliente.component';
 import { ContaComponent } from './consulta/conta/conta.component';
-import { InformacoesComponent } from './consulta/conta/informacoes/informacoes.component';
+import { InformacoesContaComponent } from './consulta/conta/informacoes/informacoes.component';
+import { InformacoesClienteComponent } from './consulta/cliente/informacoes/informacoes.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { InformacoesComponent } from './consulta/conta/informacoes/informacoes.c
     ConfirmadoComponent,
     ClienteComponent,
     ContaComponent,
-    InformacoesComponent,
+    InformacoesContaComponent,
+    InformacoesClienteComponent,
   ],
   imports: [
     CommonModule,
@@ -36,8 +38,7 @@ import { InformacoesComponent } from './consulta/conta/informacoes/informacoes.c
     ReactiveFormsModule,
     RouterModule,
     HomeRoutingModule
-
   ],
-  exports: [  ]
+  exports: []
 })
 export class HomeModule { }
