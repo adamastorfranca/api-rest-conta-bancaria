@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-black">
     <div class="container-fluid">
-      <a class="navbar-brand" style="font-size: 30px; font-weight: bold;" routerLink=''>BlackBank</a>
+      <a class="navbar-brand" style="font-size: 30px; font-weight: bold;" routerLink='/user'>BlackBank</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -96,6 +96,54 @@
 <main>
   <div class="container-black" style="background-image: url('assets/img/blackbanktransp.png')">
     <router-outlet></router-outlet>
+  </div>
+
+  <div class="container-black">
+    <h5 id="nossos-servicos">Serviços</h5>
+    <div class="row">
+      <div class="col-md-2" type="button" routerLink="consulta-conta">
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="consulta-conta" src="assets/img/contas.png" alt="Imagem de busca de contas"/>
+          <div class="row">
+            <a class="links" routerLink="consulta-conta">Buscar contas</a>
+          </div>
+      </div>
+
+      <div class="col-md-2" type="button" routerLink="consulta-cliente">
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="consulta-cliente" src="assets/img/clientes.jpg" alt="Imagem de busca de clientes"/>
+          <div class="row">
+            <a class="links" routerLink="consulta-cliente">Buscar clientes</a>
+          </div>
+      </div>
+
+
+      <div class="col-md-2" type="button" routerLink="deposito">
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="deposito" src="assets/img/deposito.jpg" alt="Imagem de depósito"/>
+          <div class="row">
+            <a class="links" routerLink="deposito">Depósito</a>
+          </div>
+      </div>
+
+      <div class="col-md-2" type="button" routerLink="login">
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/saque.png" alt="Imagem de saque"/>
+          <div class="row">
+            <a class="links" routerLink="login">Saque</a>
+          </div>
+      </div>
+
+      <div class="col-md-2" type="button" routerLink="login">
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/tranferencia.jpg" alt="Imagem de transferência"/>
+          <div class="row">
+            <a class="links" routerLink="login">Transferência</a>
+          </div>
+      </div>
+
+      <div class="col-md-2" type="button" routerLink="login">
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/extrato.png" alt="Imagem de extrato"/>
+          <div class="row">
+            <a class="links" routerLink="login">Extrato</a>
+          </div>
+      </div>
+    </div>
   </div>
 </main>
 

@@ -3,14 +3,15 @@ import { Router } from '@angular/router';
 
 import { IContaTemp } from 'src/app/interfaces/conta-temp';
 import { IDepositoSaque } from 'src/app/interfaces/deposito-saque';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { ContasService } from 'src/app/services/contas.service';
 
 @Component({
-  selector: 'app-confirmar',
-  templateUrl: './confirmar.component.html',
-  styleUrls: ['./confirmar.component.css']
+  selector: 'app-confirmar-deposito',
+  templateUrl: './confirmar-deposito.component.html',
+  styleUrls: ['./confirmar-deposito.component.css']
 })
-export class ConfirmarComponent implements OnInit {
+export class ConfirmarDepositoComponent implements OnInit {
 
   paraConfirmar: IContaTemp = {
     nomeCliente: '',
@@ -19,10 +20,11 @@ export class ConfirmarComponent implements OnInit {
     valor: 0
   }
 
- confirmarTransacao: boolean = false;
+ confirmarDeposito: boolean = false;
 
   constructor(
     private contaService: ContasService,
+    private authService: AutenticacaoService,
     private router: Router
   ) { }
 
@@ -30,16 +32,20 @@ export class ConfirmarComponent implements OnInit {
     this.paraConfirmar = this.contaService.temp;
   }
 
-  confirmacaoDeposito(){
+  confirmacaoTransacao(){
     const deposito: IDepositoSaque = {
        agencia: this.paraConfirmar.agencia,
        numeroConta: this.paraConfirmar.numero,
        valor: this.paraConfirmar.valor
     }
-    if(this.confirmarTransacao === true){
+    if(this.confirmarDeposito === true){
+      if (this.authService.contaConectada.agencia === deposito.agencia && this.authService.contaConectada.numero === deposito.numeroConta){
+        this.authService.contaConectada.saldo += deposito.valor;
+      }
       this.contaService.depositar(deposito).subscribe(() => {
-        this.router.navigate(['deposito-realizado']);
+        this.router.navigate(['user/deposito-confirmado']);
       });
     }
   }
+
 }

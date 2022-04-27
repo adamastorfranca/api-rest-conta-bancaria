@@ -1,8 +1,6 @@
-
-
-<div id="form-deposito">
+<div id="deposito">
   <h5>DEPÓSITO</h5>
-  <form [formGroup]="formDepositoLogado" (ngSubmit)="deposito()">
+  <form [formGroup]="formDepositoLogado" (ngSubmit)="deposito()" class="formulario">
     <fieldset>
       <label for="agencia" class="form-label">Agência</label>
       <input
@@ -77,3 +75,4 @@
     </div>
   </form>
 </div>
+

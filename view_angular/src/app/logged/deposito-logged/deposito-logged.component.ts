@@ -6,11 +6,11 @@ import { IContaTemp } from 'src/app/interfaces/conta-temp';
 import { ContasService } from 'src/app/services/contas.service';
 
 @Component({
-  selector: 'app-deposito',
-  templateUrl: './deposito.component.html',
-  styleUrls: ['./deposito.component.css']
+  selector: 'app-deposito-logged',
+  templateUrl: './deposito-logged.component.html',
+  styleUrls: ['./deposito-logged.component.css']
 })
-export class DepositoComponent implements OnInit {
+export class DepositoLoggedComponent implements OnInit {
 
   formDepositoLogado: FormGroup = new FormGroup({
     agencia: new FormControl('', Validators.required),
@@ -37,7 +37,7 @@ export class DepositoComponent implements OnInit {
       this.contasService.temp.numero = result.numero;
       this.contasService.temp.nomeCliente = result.nomeCliente;
       this.contasService.temp.valor = this.formDepositoLogado.get('valor')?.value;
-      this.router.navigate(['confirmacao-deposito']);
+      this.router.navigate(['user/confirmar-deposito']);
     },
     (error) => {
       console.log(error);
