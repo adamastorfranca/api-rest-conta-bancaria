@@ -26,6 +26,14 @@ export class ContasService {
 
   constructor(private http: HttpClient) { }
 
+  depositar(deposito: IDepositoSaque) {
+    return this.http.put(`${this.api}/${this.endpoint}/deposito`, deposito);
+  }
+
+  sacar(deposito: IDepositoSaque) {
+    return this.http.put(`${this.api}/${this.endpoint}/saque`, deposito);
+  }
+
   cadastrar(conta: ICadastro): Observable<ICadastro> {
     return this.http.post<ICadastro>(`${this.api}/${this.endpoint}/cadastrar`, conta);
   }
@@ -37,11 +45,7 @@ export class ContasService {
   buscarPorCpf(cpf: string): Observable<IContaTemp> {
     return this.http.get<IContaTemp>(`${this.api}/${this.endpoint}/informacoes/${cpf}/`);
   }
-
-  depositar(deposito: IDepositoSaque) {
-    return this.http.put(`${this.api}/${this.endpoint}/deposito`, deposito);
-  }
-
+  
   buscarContaLogada(agencia: string, numero: string): Observable<IContaLogada> {
     return this.http.get<IContaLogada>(`${this.api}/${this.endpoint}/conta-logada/${agencia}/${numero}/`);
   }
@@ -51,5 +55,11 @@ export class ContasService {
     this.temp.agencia = cadastro.agencia.valueOf();
     this.temp.numero = cadastro.numero.valueOf();
     return this.temp;
+  }
+
+  limparContaTemp() {
+    this.temp.nomeCliente = '';
+    this.temp.agencia = '';
+    this.temp.numero = '';
   }
 }

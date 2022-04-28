@@ -7,20 +7,18 @@ import { DEFAULT_CURRENCY_CODE,NgModule } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
-import { ErrorsModule } from './errors/errors.module';
 import { HomeModule } from './home/home.module';
 
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ErrorsModule,
     HomeModule
   ],
   providers: [

@@ -1,5 +1,5 @@
-#deposito {
-  margin: 20px 0;
+#consulta {
+  margin: 60px 40%;
 }
 
 h5 {
@@ -8,8 +8,7 @@ h5 {
   font-weight: bold;
 }
 
-.formulario {
-  padding: 0 30%;
+#form-consulta {
   text-align: left;
 }
 

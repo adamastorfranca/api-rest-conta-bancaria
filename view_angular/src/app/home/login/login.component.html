@@ -1,89 +1,91 @@
-<h5>Entrar na conta</h5>
+<div id="total">
+  <h5>Entrar na conta</h5>
 
-<div id="form">
-  <form [formGroup]="formLogin" (ngSubmit)="login()">
-    <fieldset>
-      <label for="agencia" class="form-label">Agência</label>
-      <input
-        class="form-control"
-        id="agencia"
-        type="text"
-        formControlName="agencia"
-        pattern="[\d]{4}"
-        placeholder="_ _ _ _"
-      />
+  <div id="form">
+    <form [formGroup]="formLogin" (ngSubmit)="login()">
+      <fieldset>
+        <label for="agencia" class="form-label">Agência</label>
+        <input
+          class="form-control"
+          id="agencia"
+          type="text"
+          formControlName="agencia"
+          pattern="[\d]{4}"
+          placeholder="_ _ _ _"
+        />
 
-      <div
-        *ngIf="
-          formLogin.get('agencia')?.errors?.['required'] &&
-          formLogin.get('agencia')?.touched"
-          class="form-text text-danger">
-          Campo obrigatório
+        <div
+          *ngIf="
+            formLogin.get('agencia')?.errors?.['required'] &&
+            formLogin.get('agencia')?.touched"
+            class="form-text text-danger">
+            Campo obrigatório
+        </div>
+        <div
+          *ngIf="
+            formLogin.get('agencia')?.invalid &&
+            formLogin.get('agencia')?.touched"
+            class="form-text text-danger">
+            O número da agência deve conter 4 dígitos
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label for="numeroConta" class="form-label">Número da conta</label>
+        <input
+          class="form-control"
+          id="numeroConta"
+          type="text"
+          formControlName="numeroConta"
+          pattern="[\d]{4}-[\d]{1}"
+          placeholder="_ _ _ _ - _"
+        />
+
+        <div
+          *ngIf="
+            formLogin.get('numeroConta')?.errors?.['required'] &&
+            formLogin.get('numeroConta')?.touched"
+            class="form-text text-danger">
+            Campo obrigatório
+        </div>
+        <div
+          *ngIf="
+            formLogin.get('numeroConta')?.invalid &&
+            formLogin.get('numeroConta')?.touched"
+            class="form-text text-danger">
+            O padrão é 4 números - 1 dígito
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label for="senha" class="form-label">Senha</label>
+        <input
+          class="form-control"
+          id="senha"
+          type="password"
+          formControlName="senha"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!=.*[ !@#$%^&*_=+-]).{8,16}$"
+        />
+
+        <div
+          *ngIf="
+            formLogin.get('senha')?.errors?.['required'] &&
+            formLogin.get('senha')?.touched"
+            class="form-text text-danger">
+            Campo obrigatório
+        </div>
+        <div
+          *ngIf="
+            formLogin.get('senha')?.invalid &&
+            formLogin.get('senha')?.touched"
+            class="form-text text-danger">
+            A senha deve conter entre 8 a 16 caracteres, deve conter pelo menos uma letra maiúscula, um número e não deve conter símbolos
+        </div>
+      </fieldset>
+
+      <div class="d-grid gap-2">
+        <button [disabled]="!formLogin.valid" type="submit" class="btn btn-outline-light">Entrar</button>
       </div>
-      <div
-        *ngIf="
-          formLogin.get('agencia')?.invalid &&
-          formLogin.get('agencia')?.touched"
-          class="form-text text-danger">
-          O número da agência deve conter 4 dígitos
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <label for="numeroConta" class="form-label">Número da conta</label>
-      <input
-        class="form-control"
-        id="numeroConta"
-        type="text"
-        formControlName="numeroConta"
-        pattern="[\d]{4}-[\d]{1}"
-        placeholder="_ _ _ _ - _"
-      />
-
-      <div
-        *ngIf="
-          formLogin.get('numeroConta')?.errors?.['required'] &&
-          formLogin.get('numeroConta')?.touched"
-          class="form-text text-danger">
-          Campo obrigatório
-      </div>
-      <div
-        *ngIf="
-          formLogin.get('numeroConta')?.invalid &&
-          formLogin.get('numeroConta')?.touched"
-          class="form-text text-danger">
-          O padrão é 4 números - 1 dígito
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <label for="senha" class="form-label">Senha</label>
-      <input
-        class="form-control"
-        id="senha"
-        type="password"
-        formControlName="senha"
-        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!=.*[ !@#$%^&*_=+-]).{8,16}$"
-      />
-
-      <div
-        *ngIf="
-          formLogin.get('senha')?.errors?.['required'] &&
-          formLogin.get('senha')?.touched"
-          class="form-text text-danger">
-          Campo obrigatório
-      </div>
-      <div
-        *ngIf="
-          formLogin.get('senha')?.invalid &&
-          formLogin.get('senha')?.touched"
-          class="form-text text-danger">
-          A senha deve conter entre 8 a 16 caracteres, deve conter pelo menos uma letra maiúscula, um número e não deve conter símbolos
-      </div>
-    </fieldset>
-
-    <div class="d-grid gap-2">
-      <button [disabled]="!formLogin.valid" type="submit" class="btn btn-outline-light">Entrar</button>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

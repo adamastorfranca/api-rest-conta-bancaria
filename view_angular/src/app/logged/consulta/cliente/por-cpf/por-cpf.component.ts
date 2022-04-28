@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { ContasService } from 'src/app/services/contas.service';
 
 @Component({
-  selector: 'app-cliente',
-  templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.css']
+  selector: 'app-por-cpf',
+  templateUrl: './por-cpf.component.html',
+  styleUrls: ['./por-cpf.component.css']
 })
-export class ClienteComponent implements OnInit {
+export class PorCpfComponent implements OnInit {
 
   formConsultaCliente: FormGroup = new FormGroup({
     cpf: new FormControl('', [Validators.required]),
@@ -30,7 +30,7 @@ export class ClienteComponent implements OnInit {
         this.contaService.temp.agencia = result.agencia;
         this.contaService.temp.numero = result.numero;
         this.contaService.temp.nomeCliente = result.nomeCliente;
-        this.router.navigate(['consulta-cliente-informacoes']);
+        this.router.navigate(['user/informacoes-conta']);
       },
       (error) => {
         alert('CPF informado não está cadastrado');
@@ -39,5 +39,4 @@ export class ClienteComponent implements OnInit {
       });
     }
   }
-
 }

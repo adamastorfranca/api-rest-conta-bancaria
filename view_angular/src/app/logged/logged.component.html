@@ -14,8 +14,7 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" routerLink="deposito">Depósito</a></li>
-                <li><a class="dropdown-item">Saque</a></li>
-                <li><a class="dropdown-item">Transferência</a></li>
+                <li><a class="dropdown-item" routerLink="saque">Saque</a></li>
               </ul>
             </div>
           </li>
@@ -26,9 +25,7 @@
                 Extratos
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" routerLink="contas">Completo</a></li>
-                <li><a class="dropdown-item" routerLink="contas/cadastrar">Por mês e ano</a></li>
-                <li><a class="dropdown-item" routerLink="contas/cadastrar">Por período específico</a></li>
+
               </ul>
             </div>
           </li>
@@ -39,8 +36,7 @@
                 Clientes
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" routerLink="clientes">Listar todos</a></li>
-                <li><a class="dropdown-item" routerLink="clientes/cadastrar">Cadastrar</a></li>
+                <li><a class="dropdown-item" routerLink="consulta-cliente-cpf">Consulta por CPF</a></li>
               </ul>
             </div>
           </li>
@@ -51,8 +47,7 @@
                 Contas
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" routerLink="contas">Listar todos</a></li>
-                <li><a class="dropdown-item" routerLink="contas/cadastrar">Cadastrar</a></li>
+                <li><a class="dropdown-item" routerLink="consulta-conta-agencia-numero">Consulta por agência e número</a></li>
               </ul>
             </div>
           </li>
@@ -102,14 +97,14 @@
     <h5 id="nossos-servicos">Serviços</h5>
     <div class="row">
       <div class="col-md-2" type="button" routerLink="consulta-conta">
-          <img id="servicos" class="rounded mx-auto d-block" routerLink="consulta-conta" src="assets/img/contas.png" alt="Imagem de busca de contas"/>
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="consulta-conta-agencia-numero" src="assets/img/contas.png" alt="Imagem de busca de contas"/>
           <div class="row">
             <a class="links" routerLink="consulta-conta">Buscar contas</a>
           </div>
       </div>
 
       <div class="col-md-2" type="button" routerLink="consulta-cliente">
-          <img id="servicos" class="rounded mx-auto d-block" routerLink="consulta-cliente" src="assets/img/clientes.jpg" alt="Imagem de busca de clientes"/>
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="consulta-cliente-cpf" src="assets/img/clientes.jpg" alt="Imagem de busca de clientes"/>
           <div class="row">
             <a class="links" routerLink="consulta-cliente">Buscar clientes</a>
           </div>
@@ -123,10 +118,10 @@
           </div>
       </div>
 
-      <div class="col-md-2" type="button" routerLink="login">
-          <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/saque.png" alt="Imagem de saque"/>
+      <div class="col-md-2" type="button" routerLink="saque">
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="saque" src="assets/img/saque.png" alt="Imagem de saque"/>
           <div class="row">
-            <a class="links" routerLink="login">Saque</a>
+            <a class="links" routerLink="saque">Saque</a>
           </div>
       </div>
 

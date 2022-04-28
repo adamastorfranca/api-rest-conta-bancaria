@@ -1,0 +1,40 @@
+<div id="saque">
+  <h5>SAQUE</h5>
+  <form [formGroup]="formSaque" (ngSubmit)="saque()" class="formulario">
+
+    <fieldset>
+      <label for="valor" class="form-label">Valor</label>
+      <input
+        class="form-control"
+        id="valor"
+        type="number"
+        placeholder="0,00"
+        pattern="/^\d*\.?\d+$/"
+        formControlName="valor"
+      />
+
+      <div
+        *ngIf="
+          formSaque.get('valor')?.errors &&
+          formSaque.get('valor')?.touched &&
+          formSaque.get('valor')?.hasError('required')"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+      <div
+        *ngIf="
+          formSaque.get('valor')?.errors &&
+          formSaque.get('valor')?.touched &&
+          formSaque.get('valor')?.invalid"
+          class="form-text text-danger">
+          Valor inválido
+      </div>
+
+    </fieldset>
+
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-outline-light" [disabled]="formSaque.invalid">Avançar</button>
+    </div>
+  </form>
+</div>
+

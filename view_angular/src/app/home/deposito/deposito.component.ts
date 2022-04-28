@@ -30,6 +30,11 @@ export class DepositoComponent implements OnInit {
   }
 
   novoDeposito(){
+    console.log(this.formDeposito.get('valor')?.value as string);
+    const valor = this.formDeposito.get('valor')?.value as string;
+    console.log(valor);
+    const valor1 = valor.replace('.', '');
+    console.log(valor1);
     const agencia: string = this.formDeposito.get('agencia')?.value;
     const numeroConta: string = this.formDeposito.get('numeroConta')?.value;
     this.contasService.buscarPorAgenciaEhNumero(agencia, numeroConta).subscribe(result => {

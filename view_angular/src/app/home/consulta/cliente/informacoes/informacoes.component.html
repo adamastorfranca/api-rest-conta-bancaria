@@ -1,8 +1,25 @@
 <div id="informacoes">
+
   <h5>Resultado da busca:</h5>
-  <h6>Nome: {{resultadoBusca.nomeCliente}}</h6>
-  <h6>Agência: {{resultadoBusca.agencia}}</h6>
-  <h6>Número: {{resultadoBusca.numero}}</h6>
+
+  <table class="table">
+    <thead class="border border-dark">
+      <tr class="border border-dark">
+        <th scope="col" class="border border-dark">Nome</th>
+        <th scope="col" class="border border-dark">{{resultadoBusca.nomeCliente}}</th>
+      </tr>
+    </thead>
+      <tbody class="border border-dark">
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Agência</th>
+          <td class="border border-dark">{{resultadoBusca.agencia}}</td>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Número da conta</th>
+          <td class="border border-dark">{{resultadoBusca.numero}}</td>
+        </tr>
+      </tbody>
+    </table>
 
   <a type="button" class="btn btn-outline-light" id="botao-confirmacao" routerLink="" routerLink="/deposito">Depositar</a>
 

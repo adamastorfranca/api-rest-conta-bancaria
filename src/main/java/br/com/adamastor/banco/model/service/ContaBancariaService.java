@@ -95,6 +95,20 @@ public class ContaBancariaService {
 		transacaoService.salvar(TipoTransacao.DEPOSITO, valor, null, conta);
 	}
 	
+	@Transactional(rollbackFor = Exception.class)
+	public void sacar (String agencia, String numeroConta, double valor) {
+		ContaBancaria conta = consultarConta(agencia, numeroConta);
+
+		if (conta.getSaldo() < valor) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_INSUFICIENTE);
+		}
+		
+		conta.setSaldo(conta.getSaldo() - valor);
+			
+		contaBancariaRepository.save(conta);
+		transacaoService.salvar(TipoTransacao.SAQUE, valor, conta, null);
+	}
+	
 	public ContaBancariaLogadaDTO consultarContaLogadaDTO(String agencia, String numero) {
 		Optional<ContaBancaria> resultado = contaBancariaRepository.findByAgenciaAndNumeroConta(agencia, numero);
 		
@@ -143,8 +157,6 @@ public class ContaBancariaService {
 //		return c.getSaldo();
 //	}
 //
-
-//	
 //	public List<ConsultaContaBancariaDTO> obterContasPorCpf(String cpf){
 //		List<ConsultaContaBancariaDTO> listaContasRetorno = new ArrayList<>();
 //		Cliente cli = clienteRepository.findByCpf(cpf);
@@ -163,21 +175,6 @@ public class ContaBancariaService {
 //		}
 //
 //		return listaContasRetorno;
-//	}
-//
-//	
-//	@Transactional(rollbackFor = Exception.class)
-//	public void sacar (String agencia, String numeroConta, double valor) {
-//		ContaBancaria conta = consultarConta(agencia, numeroConta);
-//
-//		if (conta.getSaldo() < valor) {
-//			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_INSUFICIENTE);
-//		}
-//		
-//		conta.setSaldo(conta.getSaldo() - valor);
-//			
-//		contaBancariaRepository.save(conta);
-//		transacaoService.salvar(TipoTransacao.SAQUE, valor, conta, null);
 //	}
 //	
 //	@Transactional(rollbackFor = Exception.class)

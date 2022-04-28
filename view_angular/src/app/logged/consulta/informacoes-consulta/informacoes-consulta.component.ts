@@ -4,11 +4,11 @@ import { IContaTemp } from 'src/app/interfaces/conta-temp';
 import { ContasService } from 'src/app/services/contas.service';
 
 @Component({
-  selector: 'app-informacoes',
-  templateUrl: './informacoes.component.html',
-  styleUrls: ['./informacoes.component.css']
+  selector: 'app-informacoes-consulta',
+  templateUrl: './informacoes-consulta.component.html',
+  styleUrls: ['./informacoes-consulta.component.css']
 })
-export class InformacoesContaComponent implements OnInit {
+export class InformacoesConsultaComponent implements OnInit {
 
   resultadoBusca: IContaTemp = {
     nomeCliente: '',

@@ -1,8 +1,5 @@
-#informacoes {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 10%;
+#total {
+  margin: 0 30%;
 }
 
 h5 {
@@ -15,6 +12,6 @@ table {
   border-radius: 15px;
 }
 
-.btn {
+#botao-confirmacao {
   margin: 15px 15px;
 }

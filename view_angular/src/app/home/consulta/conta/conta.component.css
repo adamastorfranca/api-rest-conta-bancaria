@@ -1,10 +1,17 @@
+#total {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 10%;
+}
+
 h5 {
   text-transform: uppercase;
   margin-bottom: 10px;
   font-weight: bold;
 }
 
-#form {
+#form-consulta {
   padding: 0 10%;
   text-align: left;
 }

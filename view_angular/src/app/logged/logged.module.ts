@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { LoggedRoutingModule } from './logged-routing.module';
 import { LoggedComponent } from './logged.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { InicialComponent } from './inicial/inicial.component';
-import { DepositoLoggedComponent } from './deposito-logged/deposito-logged.component';
-import { ConfirmarDepositoComponent } from './deposito-logged/confirmar-deposito/confirmar-deposito.component';
-import { DepositoConfirmadoComponent } from './deposito-logged/confirmar-deposito/deposito-confirmado/deposito-confirmado.component';
-import { ConsultaLoggedComponent } from './consulta-logged/consulta-logged.component';
+import { InicialComponent } from './inicio/inicial.component';
+import { DepositoLoggedComponent } from './transacoes/deposito/deposito-logged.component';
+import { ConfirmarDepositoComponent } from './transacoes/deposito/confirmar-deposito/confirmar-deposito.component';
+import { DepositoConfirmadoComponent } from './transacoes/deposito/confirmar-deposito/deposito-confirmado/deposito-confirmado.component';
+import { AgenciaNumeroComponent } from './consulta/contas/agencia-numero/agencia-numero.component';
+import { InformacoesConsultaComponent } from './consulta/informacoes-consulta/informacoes-consulta.component';
+import { PorCpfComponent } from './consulta/cliente/por-cpf/por-cpf.component';
+import { SaqueComponent } from './transacoes/saque/saque.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import { ConsultaLoggedComponent } from './consulta-logged/consulta-logged.compo
     DepositoLoggedComponent,
     ConfirmarDepositoComponent,
     DepositoConfirmadoComponent,
-    ConsultaLoggedComponent,
+    AgenciaNumeroComponent,
+    InformacoesConsultaComponent,
+    PorCpfComponent,
+    SaqueComponent,
   ],
   imports: [
     CommonModule,

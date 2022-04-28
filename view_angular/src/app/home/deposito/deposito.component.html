@@ -1,78 +1,70 @@
-<h5>DEPÓSITO</h5>
+<div id="total">
+  <h5>DEPÓSITO</h5>
 
-<div id="form">
-  <form [formGroup]="formDeposito" (ngSubmit)="novoDeposito()">
-    <fieldset>
-      <label for="agencia" class="form-label">Agência</label>
-      <input
-        class="form-control"
-        type="text"
-        id="agencia"
-        placeholder="_ _ _ _"
-        formControlName="agencia"
-      />
+  <div id="form">
+    <form [formGroup]="formDeposito" (ngSubmit)="novoDeposito()">
+      <fieldset>
+        <label for="agencia" class="form-label">Agência</label>
+        <input
+          class="form-control"
+          type="text"
+          id="agencia"
+          placeholder="_ _ _ _"
+          formControlName="agencia"
+        />
 
-      <div
-        *ngIf="
-          formDeposito.get('agencia')?.errors &&
-          formDeposito.get('agencia')?.touched &&
-          formDeposito.get('agencia')?.hasError('required')"
-          class="form-text text-danger">
-          Campo obrigatório
+        <div
+          *ngIf="
+            formDeposito.get('agencia')?.errors &&
+            formDeposito.get('agencia')?.touched &&
+            formDeposito.get('agencia')?.hasError('required')"
+            class="form-text text-danger">
+            Campo obrigatório
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label for="numeroConta" class="form-label">Número da conta</label>
+        <input
+          class="form-control"
+          type="text"
+          id="numeroConta"
+          placeholder="_ _ _ _ - _"
+          formControlName="numeroConta"
+        />
+
+        <div
+          *ngIf="
+            formDeposito.get('numeroConta')?.errors &&
+            formDeposito.get('numeroConta')?.touched &&
+            formDeposito.get('numeroConta')?.hasError('required')"
+            class="form-text text-danger">
+            Campo obrigatório
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <label for="valor" class="form-label">Valor</label>
+        <input
+          class="form-control"
+          id="valor"
+          type="text"
+          placeholder="0,00"
+          formControlName="valor"
+          onkeypress="$(this).mask('10.000,00', {reverse: true});"
+        />
+
+      </fieldset>
+
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-outline-light" [disabled]="formDeposito.invalid">Avançar</button>
       </div>
-    </fieldset>
 
-    <fieldset>
-      <label for="numeroConta" class="form-label">Número da conta</label>
-      <input
-        class="form-control"
-        type="text"
-        id="numeroConta"
-        placeholder="_ _ _ _ - _"
-        formControlName="numeroConta"
-      />
-
-      <div
-        *ngIf="
-          formDeposito.get('numeroConta')?.errors &&
-          formDeposito.get('numeroConta')?.touched &&
-          formDeposito.get('numeroConta')?.hasError('required')"
-          class="form-text text-danger">
-          Campo obrigatório
-      </div>
-    </fieldset>
-
-    <fieldset>
-      <label for="valor" class="form-label">Valor</label>
-      <input
-        class="form-control"
-        id="valor"
-        type="number"
-        placeholder="0,00"
-        pattern="^(?=.*[0-9])(?!=.*[ !@#$%^&*_=+-]).{1,6}$"
-        formControlName="valor"
-      />
-
-      <div
-        *ngIf="
-          formDeposito.get('valor')?.errors &&
-          formDeposito.get('valor')?.touched &&
-          formDeposito.get('valor')?.hasError('required')"
-          class="form-text text-danger">
-          Campo obrigatório
-      </div>
-      <div
-        *ngIf="
-          formDeposito.get('valor')?.errors &&
-          formDeposito.get('valor')?.touched &&
-          formDeposito.get('valor')?.invalid"
-          class="form-text text-danger">
-          Valor inválido
-      </div>
-    </fieldset>
-
-    <div class="d-grid gap-2">
-      <button type="submit" class="btn btn-outline-light" [disabled]="formDeposito.invalid">Depositar</button>
-    </div>
-  </form>
+      <script>
+        $(function() {
+          $('#valor').maskMoney();
+        })
+      </script>
+    </form>
+  </div>
 </div>

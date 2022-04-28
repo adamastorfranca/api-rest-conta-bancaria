@@ -5,11 +5,11 @@ import { Router } from '@angular/router';
 import { ContasService } from 'src/app/services/contas.service';
 
 @Component({
-  selector: 'app-conta',
-  templateUrl: './conta.component.html',
-  styleUrls: ['./conta.component.css']
+  selector: 'app-agencia-numero',
+  templateUrl: './agencia-numero.component.html',
+  styleUrls: ['./agencia-numero.component.css']
 })
-export class ContaComponent implements OnInit {
+export class AgenciaNumeroComponent implements OnInit {
 
   formConsultaConta: FormGroup = new FormGroup({
     agencia: new FormControl('', [Validators.required]),
@@ -32,7 +32,7 @@ export class ContaComponent implements OnInit {
         this.contaService.temp.agencia = result.agencia;
         this.contaService.temp.numero = result.numero;
         this.contaService.temp.nomeCliente = result.nomeCliente;
-        this.router.navigate(['consulta-conta-informacoes']);
+        this.router.navigate(['user/informacoes-conta']);
       },
       (error) => {
         alert('A conta informada não existe');

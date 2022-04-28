@@ -2,20 +2,20 @@
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-}
-
-#comprovante {
-  margin: 15px 0;
-  text-transform: uppercase;
-  text-decoration: underline;
+  margin: 0 10%;
 }
 
 h5 {
-  margin: 15px 0;
+  margin-bottom: 25px;
 }
 
-h6 {
-  margin: 10px 0;
+#comprovante {
+  text-transform: uppercase;
+}
+
+table {
+  background-color: white;
+  border-radius: 15px;
 }
 
 .btn {

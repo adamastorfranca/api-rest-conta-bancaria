@@ -1,11 +1,8 @@
 #informacoes {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 10%;
+  margin: 40px 30%;
 }
 
-table {
+.table {
   background-color: white;
   border-radius: 15px;
 }
@@ -13,10 +10,6 @@ table {
 h5 {
   text-transform: uppercase;
   margin-bottom: 25px;
-}
-
-h6 {
-  margin: 10px 0;
 }
 
 .btn {

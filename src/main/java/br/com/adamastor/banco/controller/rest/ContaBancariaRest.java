@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
 import br.com.adamastor.banco.model.dto.ContaBancariaLogadaDTO;
 import br.com.adamastor.banco.model.dto.DepositoDTO;
-import br.com.adamastor.banco.model.entity.ContaBancaria;
+import br.com.adamastor.banco.model.dto.SaqueDTO;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.service.ContaBancariaService;
 
@@ -30,6 +30,12 @@ public class ContaBancariaRest {
 	@PutMapping(value = "/deposito", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<Void> depositar(@RequestBody DepositoDTO dto){
 		contaBancariaService.depositar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+		
+	@PutMapping(value = "/saque", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Void> sacar(@RequestBody SaqueDTO dto){
+		contaBancariaService.sacar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
@@ -93,15 +99,7 @@ public class ContaBancariaRest {
 //		}
 //		return new ResponseEntity<>(contas, HttpStatus.OK);
 //	}
-//	
-
-//	
-//	@PutMapping(value = "/saque", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody ResponseEntity<Void> sacar(@RequestBody SaqueDTO dto){
-//		contaBancariaService.sacar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
-//		return new ResponseEntity<>(HttpStatus.OK);
-//	}
-//	
+//
 //	@PutMapping(value = "/transferencia", produces = MediaType.APPLICATION_JSON_VALUE)
 //	public @ResponseBody ResponseEntity<Void> transferir(@RequestBody TransferenciaBancariaDTO dto){
 //		contaBancariaService.transferir(dto);
