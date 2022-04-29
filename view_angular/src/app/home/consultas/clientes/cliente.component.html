@@ -17,8 +17,7 @@
 
         <div
           *ngIf="
-            formConsultaCliente.get('cpf')?.invalid &&
-            formConsultaCliente.get('cpf')?.touched"
+            formConsultaCliente.get('cpf')?.invalid"
             class="form-text text-danger">
             CPF deve conter apenas 11 números
         </div>

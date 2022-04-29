@@ -16,8 +16,8 @@ export class CadastroComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private contasService: ContasService,
-    private router: Router
+    private router: Router,
+    private contasService: ContasService
   ) { }
 
   ngOnInit(): void {

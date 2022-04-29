@@ -32,7 +32,6 @@ public class CadastroContaForm {
 		c.setNome(nome);
 		c.setCpf(cpf);
 		c.setTelefone(telefone);
-		//c.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		c.setDataNascimento(dataNascimento);
 		c.setEmail(email);	
 		return c;

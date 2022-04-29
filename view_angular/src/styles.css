@@ -61,13 +61,14 @@ header {
   text-transform: uppercase;
   padding-top: 20px;
   font-size: 15px;
-
 }
 
-.dropdown-toggle{
-  padding-top: 15px;
-  font-size: 15px;
-  margin-right: 10px;
+.dropdown-menu {
+  background-color: gray;
+}
+
+.dropdown-item {
+  font-weight: bold;
 }
 
 #botao-nav {

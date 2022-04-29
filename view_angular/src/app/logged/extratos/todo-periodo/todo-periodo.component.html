@@ -15,10 +15,10 @@
       <tr class="border border-dark">
         <th scope="row" class="border border-dark">{{ transacao.dataHora }}</th>
 
-        <td class="border border-dark" *ngIf="transacao.tipo === 'DEPOSITO'">Depósito</td>
-        <td class="border border-dark" *ngIf="transacao.tipo === 'SAQUE'">Saque</td>
-        <td class="border border-dark" *ngIf="transacao.tipo === 'TRANSFERENCIA_RECEBIDA'">Transf. Recebida</td>
-        <td class="border border-dark" *ngIf="transacao.tipo === 'TRANSFERENCIA_ENVIADA'">Transf. Enviada</td>
+        <td class="border border-dark tipo" *ngIf="transacao.tipo === 'DEPOSITO'">Depósito</td>
+        <td class="border border-dark tipo" *ngIf="transacao.tipo === 'SAQUE'">Saque</td>
+        <td class="border border-dark tipo" *ngIf="transacao.tipo === 'TRANSFERENCIA_RECEBIDA'">Transf. Recebida</td>
+        <td class="border border-dark tipo" *ngIf="transacao.tipo === 'TRANSFERENCIA_ENVIADA'">Transf. Enviada</td>
 
         <th scope="row"  *ngIf="transacao.tipo === 'DEPOSITO' || transacao.tipo === 'SAQUE'"></th>
         <th scope="row"  *ngIf="transacao.tipo === 'DEPOSITO' || transacao.tipo === 'SAQUE'"></th>

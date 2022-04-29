@@ -1,0 +1,35 @@
+<div id="div-extrato">
+  <h5>Extrato por período específico</h5>
+
+  <form [formGroup]="formExtrato" (ngSubmit)="listarPorPeriodo()" class="formulario">
+    <fieldset class="data">
+      <label for="dataInicio" class="form-label">Data início</label>
+      <input id="dataInicio" type="date" formControlName="dataInicio" class="form-control">
+
+      <div
+        *ngIf="
+          formExtrato.get('dataInicio')?.errors?.['required'] &&
+          formExtrato.get('dataInicio')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset  class="data">
+      <label for="dataFinal" class="form-label">Data final</label>
+      <input id="dataFinal" type="date" formControlName="dataFinal" class="form-control" >
+
+      <div
+        *ngIf="
+          formExtrato.get('dataFinal')?.errors?.['required'] &&
+          formExtrato.get('dataFinal')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-outline-light">Filtrar</button>
+    </div>
+  </form>
+</div>

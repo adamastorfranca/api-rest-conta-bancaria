@@ -5,16 +5,16 @@ import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 import { ExtratosService } from 'src/app/services/extratos.service';
 
 @Component({
-  selector: 'app-lista',
-  templateUrl: './lista.component.html',
-  styleUrls: ['./lista.component.css']
+  selector: 'app-lista-periodo',
+  templateUrl: './lista-periodo.component.html',
+  styleUrls: ['./lista-periodo.component.css']
 })
-export class ListaComponent implements OnInit {
+export class ListaPeriodoComponent implements OnInit {
 
   agencia: string = '';
   numeroConta: string = '';
-  mes: string = '';
-  ano: string = '';
+  dataInicio: string = '';
+  dataFinal: string = '';
 
   transacoes: IExtrato[] = [];
 
@@ -27,18 +27,7 @@ export class ListaComponent implements OnInit {
     this.transacoes = this.extratosService.transacoes;
     this.agencia = this.authService.contaConectada.agencia;
     this.numeroConta = this.authService.contaConectada.numero;
-    this.mes = this.extratosService.mes;
-    this.ano = this.extratosService.ano;
-    this.listarPorMesAno();
-  }
-
-  listarPorMesAno() {
-    this.extratosService.extratoTodoPeriodo(this.agencia, this.numeroConta).subscribe((result: IExtrato[]) => {
-      this.transacoes = result;
-    },
-    (error) => {
-      alert('Erro ao consultar extrato');
-      console.error(error);
-    });
+    this.dataInicio = this.extratosService.dataInicio;
+    this.dataFinal = this.extratosService.dataFinal;
   }
 }

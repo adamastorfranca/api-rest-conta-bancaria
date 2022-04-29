@@ -16,8 +16,14 @@ table {
   font-weight: bold;
 }
 
+.tipo {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .valores {
   text-align: end;
+  font-weight: bold;
 }
 
 #saldo-apos {

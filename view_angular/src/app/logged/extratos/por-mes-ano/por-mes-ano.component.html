@@ -11,14 +11,16 @@
     </fieldset>
 
     <fieldset>
-      <label class="form-label">Mês</label>
+      <label class="form-label">Ano</label>
         <select formControlName="anos" class="form-select">
           <option [ngValue]="null" disabled>Escolha o ano</option>
           <option *ngFor="let ano of anos" [ngValue]="ano.id">{{ano.ano}}</option>
         </select>
     </fieldset>
-    <button type="submit" class="btn btn-outline-light">Filtrar</button>
+
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-outline-light">Filtrar</button>
+    </div>
+
   </form>
-
-
 </div>

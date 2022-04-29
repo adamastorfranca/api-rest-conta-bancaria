@@ -1,4 +1,4 @@
-#div-extrato {
+#div-clientes {
   margin: 0 50px;
 }
 h5 {
@@ -11,8 +11,12 @@ table {
   border-radius: 15px;
 }
 
-.thead-extrato {
+.thead-clientes {
   text-transform: uppercase;
+  font-weight: bold;
+}
+
+#nome {
   font-weight: bold;
 }
 
@@ -31,6 +35,6 @@ table {
   font-weight: bold;
 }
 
-.btn {
+.btn-outline-light {
   margin-top: 15px;
 }

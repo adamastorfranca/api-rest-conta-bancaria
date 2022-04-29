@@ -18,6 +18,10 @@ import { ExtratosComponent } from './extratos/extratos.component';
 import { TodoPeriodoComponent } from './extratos/todo-periodo/todo-periodo.component';
 import { PorMesAnoComponent } from './extratos/por-mes-ano/por-mes-ano.component';
 import { ListaComponent } from './extratos/por-mes-ano/lista/lista.component';
+import { PeriodoEspecificoComponent } from './extratos/periodo-especifico/periodo-especifico.component';
+import { ListaPeriodoComponent } from './extratos/periodo-especifico/lista-periodo/lista-periodo.component';
+import { ListarTodosComponent } from './consultas/clientes/listar-todos/listar-todos.component';
+import { ClientesComponent } from './cadastros/clientes/clientes.component';
 
 
 const routes: Routes = [
@@ -37,14 +41,20 @@ const routes: Routes = [
       { path: 'confirmar-transferencia', component: ConfirmacaoComponent },
       { path: 'transferencia-realizada', component: ConfirmadaComponent },
 
-      { path: 'informacoes-conta', component: InformacoesConsultaComponent },
       { path: 'consulta-cliente-cpf', component: PorCpfComponent },
+      { path: 'clientes', component: ListarTodosComponent },
       { path: 'consulta-conta-agencia-numero', component: AgenciaNumeroComponent },
+      { path: 'informacoes-conta', component: InformacoesConsultaComponent },
 
       { path: 'extratos', component: ExtratosComponent },
       { path: 'extrato-todo-periodo', component: TodoPeriodoComponent },
       { path: 'extrato-por-mes-ano', component: PorMesAnoComponent },
       { path: 'transacoes-por-mes-ano', component: ListaComponent },
+      { path: 'extrato-por-periodo-especifico', component: PeriodoEspecificoComponent },
+      { path: 'transacoes-periodo-especifico', component: ListaPeriodoComponent },
+
+      { path: 'cadastro-cliente', component: ClientesComponent },
+      { path: 'edicao-cliente/:id', component: ClientesComponent }
     ]
   }
 ]

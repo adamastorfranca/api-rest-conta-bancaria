@@ -1,5 +1,5 @@
 <div id="div-extrato">
-  <h5>Extrato: {{ mes }} de {{ ano }}</h5>
+  <h5>Extrato: {{ dataInicio | date: 'shortDate' }} à {{ dataFinal | date: 'shortDate' }}</h5>
   <table class="table border border-dark">
     <thead class="border border-dark">
       <tr class="table-secondary border border-dark">
@@ -53,5 +53,5 @@
     </tbody>
   </table>
 
-  <a type="button" class="btn btn-outline-light" id="botao-confirmacao" routerLink="/user/extrato-por-mes-ano">Voltar</a>
+  <a type="button" class="btn btn-outline-light" id="botao-confirmacao" routerLink="/user/extrato-por-periodo-especifico">Voltar</a>
 </div>

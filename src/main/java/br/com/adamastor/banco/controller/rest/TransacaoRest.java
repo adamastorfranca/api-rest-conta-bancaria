@@ -8,11 +8,14 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.adamastor.banco.model.dto.TransacaoDTO;
+import br.com.adamastor.banco.model.form.ConsultaExtratoPeriodoForm;
 import br.com.adamastor.banco.model.service.TransacaoService;
 
 @RestController
@@ -41,12 +44,12 @@ public class TransacaoRest {
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
 	
-//	@PostMapping(value = "/extrato-por-periodo-especifico", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtratoPorPeriodoEspecifico(@RequestBody ConsultaExtratoPeriodoDTO form){
-//		List<TransacaoDTO> dto = transacaoService.obterExtratoPorPeriodoEspecifico(form);
-//		if (dto == null || dto.isEmpty()) {
-//			return new ResponseEntity<>(dto, HttpStatus.NO_CONTENT);
-//		}
-//		return new ResponseEntity<>(dto, HttpStatus.OK);
-//	}
+	@PostMapping(value = "/por-periodo-especifico", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<List<TransacaoDTO>> consultarExtratoPorPeriodoEspecifico(@RequestBody ConsultaExtratoPeriodoForm form){
+		List<TransacaoDTO> dto = transacaoService.obterExtratoPorPeriodoEspecifico(form);
+		if (dto == null || dto.isEmpty()) {
+			return new ResponseEntity<>(dto, HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
 }

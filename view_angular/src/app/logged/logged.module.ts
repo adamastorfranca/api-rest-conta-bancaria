@@ -21,6 +21,10 @@ import { ExtratosComponent } from './extratos/extratos.component';
 import { TodoPeriodoComponent } from './extratos/todo-periodo/todo-periodo.component';
 import { PorMesAnoComponent } from './extratos/por-mes-ano/por-mes-ano.component';
 import { ListaComponent } from './extratos/por-mes-ano/lista/lista.component';
+import { PeriodoEspecificoComponent } from './extratos/periodo-especifico/periodo-especifico.component';
+import { ListaPeriodoComponent } from './extratos/periodo-especifico/lista-periodo/lista-periodo.component';
+import { ListarTodosComponent } from './consultas/clientes/listar-todos/listar-todos.component';
+import { ClientesComponent } from './cadastros/clientes/clientes.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +45,10 @@ import { ListaComponent } from './extratos/por-mes-ano/lista/lista.component';
     TodoPeriodoComponent,
     PorMesAnoComponent,
     ListaComponent,
+    PeriodoEspecificoComponent,
+    ListaPeriodoComponent,
+    ListarTodosComponent,
+    ClientesComponent
   ],
   imports: [
     CommonModule,

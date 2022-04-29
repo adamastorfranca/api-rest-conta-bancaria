@@ -1,7 +1,6 @@
 package br.com.adamastor.banco.model.service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +12,7 @@ import br.com.adamastor.banco.model.dto.ClienteDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
 import br.com.adamastor.banco.model.exception.AplicacaoException;
 import br.com.adamastor.banco.model.exception.ExceptionValidacoes;
+import br.com.adamastor.banco.model.form.AtualizacaoClienteForm;
 import br.com.adamastor.banco.model.form.CadastroClienteForm;
 import br.com.adamastor.banco.model.repository.ClienteRepository;
 import br.com.adamastor.banco.model.util.CpfUtil;
@@ -22,7 +22,11 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
-
+	
+	public List<ClienteDTO> buscarTodosClientes() {
+		return ClienteDTO.converter(clienteRepository.findAll());
+	}
+	
 	@Transactional(rollbackFor = Exception.class)
 	public Cliente cadastrar(CadastroClienteForm form) {
 		Optional<Cliente> resultado1 = clienteRepository.findByCpf(form.getCpf());
@@ -60,13 +64,30 @@ public class ClienteService {
 		Cliente c = new Cliente();
 		c.setNome(nome.toUpperCase());
 		c.setCpf(cpf);
-		//c.setDataNascimento(LocalDate.parse(dataNascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		c.setDataNascimento(dataNascimento);
 		c.setEmail(email);
 		c.setTelefone(telefone);
 		clienteRepository.save(c);
 		
 		return c;
+	}
+	
+	public Cliente buscarPorId(Long id) {
+		Optional<Cliente> resultado = clienteRepository.findById(id);
+		if(resultado.isPresent()) {
+			return resultado.get();
+		}
+		return null;
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public Boolean deletarPorId(Long id) {
+		Optional<Cliente> resultado = clienteRepository.findById(id);
+		if(resultado.isPresent()) {
+			clienteRepository.delete(resultado.get());
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean jaExiste(String cpf) {
@@ -80,29 +101,20 @@ public class ClienteService {
 		return false;
 	}
 
-
-//	@Transactional(rollbackFor = Exception.class)
-//	public boolean atualizar(AtualizacaoClienteForm form) {
-//		if (!cpfAptoParaAtualizacaoCadastral(form.getCpf())) {
-//			return false;
-//		}
-//		
-//		Cliente c = clienteRepository.findByCpf(form.getCpf());
-//		
-//		if (form.getNome() != null && !form.getNome().isBlank()){
-//			c.setNome(form.getNome());
-//		}
-//		if (form.getEmail() != null && !form.getEmail().isBlank()){
-//			c.setEmail(form.getEmail());
-//		}
-//		if (form.getTelefone() != null && !form.getTelefone().isBlank()){
-//			c.setTelefone(form.getTelefone());
-//		}
-//		
-//		clienteRepository.save(c);
-//		
-//		return true;
-//	}
+	@Transactional(rollbackFor = Exception.class)
+	public Boolean atualizar(AtualizacaoClienteForm form) {
+		Optional<Cliente> resultado = clienteRepository.findByCpf(form.getCpf());
+		
+		if (resultado.isPresent()) {
+			Cliente c = resultado.get();
+			c.setNome(form.getNome());
+			c.setEmail(form.getEmail());
+			c.setTelefone(form.getTelefone());
+			clienteRepository.save(c);
+			return true;
+		}
+		return false;
+	}
 //
 //	@Transactional(rollbackFor = Exception.class)
 //	public boolean deletar(String cpf) {
@@ -116,10 +128,6 @@ public class ClienteService {
 //		return true;
 //	}
 //
-	public List<ClienteDTO> buscarTodosClientes() {
-		return ClienteDTO.converter(clienteRepository.findAll());
-	}
-
 //	public ClienteDTO buscarClientePorCpf(String cpf) {
 //		Cliente c = clienteRepository.findByCpf(cpf);
 //

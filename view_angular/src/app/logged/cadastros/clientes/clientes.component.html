@@ -1,0 +1,77 @@
+<div id="cadastro">
+  <h5>{{ estaEditando() ? "Edição" : "Cadastro" }} de cliente</h5>
+
+  <form [formGroup]="formCadastro" (ngSubmit)="enviar()" class="formulario">
+
+    <fieldset>
+      <label for="nome" class="form-label">Nome</label>
+      <input type="text" class="form-control" id="nome" formControlName="nome">
+      <div
+        *ngIf="
+          formCadastro.get('nome')?.errors &&
+          formCadastro.get('nome')?.hasError('required') &&
+          formCadastro.get('nome')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="cpf" class="form-label">CPF</label>
+      <input type="text" class="form-control" id="cpf" formControlName="cpf">
+      <div
+        *ngIf="
+          formCadastro.get('cpf')?.errors &&
+          formCadastro.get('cpf')?.hasError('required') &&
+          formCadastro.get('cpf')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="email" class="form-label">E-mail</label>
+      <input type="text" class="form-control" id="email" formControlName="email">
+      <div
+        *ngIf="
+          formCadastro.get('email')?.errors &&
+          formCadastro.get('email')?.hasError('required') &&
+          formCadastro.get('email')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+
+    <fieldset>
+      <label for="telefone" class="form-label">Telefone</label>
+      <input type="text" class="form-control" id="telefone" formControlName="telefone">
+      <div
+        *ngIf="
+          formCadastro.get('telefone')?.errors &&
+          formCadastro.get('telefone')?.hasError('required') &&
+          formCadastro.get('telefone')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+      <input type="date" class="form-control" id="dataNascimento" formControlName="dataNascimento">
+      <div
+        *ngIf="
+          formCadastro.get('dataNascimento')?.errors &&
+          formCadastro.get('dataNascimento')?.hasError('required') &&
+          formCadastro.get('dataNascimento')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <div class="d-grid gap-2">
+      <button [disabled]="!formCadastro.valid" type="submit" class="btn btn-outline-light">
+        Enviar</button>
+    </div>
+  </form>
+</div>

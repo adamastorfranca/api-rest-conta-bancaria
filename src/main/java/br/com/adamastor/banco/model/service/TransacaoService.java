@@ -1,5 +1,6 @@
 package br.com.adamastor.banco.model.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -15,6 +16,7 @@ import br.com.adamastor.banco.model.entity.TipoTransacao;
 import br.com.adamastor.banco.model.entity.Transacao;
 import br.com.adamastor.banco.model.exception.AplicacaoException;
 import br.com.adamastor.banco.model.exception.ExceptionValidacoes;
+import br.com.adamastor.banco.model.form.ConsultaExtratoPeriodoForm;
 import br.com.adamastor.banco.model.repository.TransacaoRepository;
 
 @Service
@@ -104,8 +106,8 @@ public class TransacaoService {
 
 	public List<TransacaoDTO> obterExtratoPorMesAno(String agencia, String numero, int mes, int ano){
 		ContaBancaria contaSolicitadora = contaBancariaService.consultarConta(agencia, numero);
-		LocalDateTime inicioPeriodo = LocalDateTime.of(ano, mes, 1, 0, 0, 00);
-		LocalDateTime finalPeriodo = LocalDateTime.of(ano, mes, Month.of(mes).maxLength(), 23, 59, 59);
+		LocalDateTime inicioPeriodo = LocalDateTime.of(ano, mes, 1, 0, 0, 1);
+		LocalDateTime finalPeriodo = LocalDateTime.of(ano, mes, Month.of(mes).maxLength(), 23, 59, 59 );
 		List<Transacao> transacoesDoPeriodo = transacaoRepository.buscarTransacoesPorPeriodo(contaSolicitadora, inicioPeriodo, finalPeriodo);
 
 		if (transacoesDoPeriodo == null || transacoesDoPeriodo.isEmpty()) {
@@ -115,20 +117,16 @@ public class TransacaoService {
 		return converterEmListaExtratoDTO(transacoesDoPeriodo, contaSolicitadora);
 	}
 	
-//	public List<TransacaoDTO> obterExtratoPorPeriodoEspecifico(ConsultaExtratoPeriodoDTO form){
-//		ContaBancaria contaSolicitadora = contaBancariaService.consultarConta(form.getAgencia(), form.getNumeroConta());
-//		LocalDateTime inicioPeriodo = LocalDateTime.of(form.getAnoInicio(), form.getMesInicio(), form.getDiaInicio(), 0, 0, 0);
-//		LocalDateTime finalPeriodo = LocalDateTime.of(form.getAnoFinal(), form.getMesFinal(), form.getDiaFinal(), 23, 59, 59);
-//		List<Transacao> transacoesDoPeriodo = transacaoRepository.buscarTransacoesPorPeriodo(contaSolicitadora, inicioPeriodo, finalPeriodo);
-//		
-//		if (transacoesDoPeriodo == null || transacoesDoPeriodo.isEmpty()) {
-//			throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);
-//		}
-//		
-//		return converterEmListaExtratoDTO(transacoesDoPeriodo, contaSolicitadora);
-//	}
-//	
-//	
-//	
-
+	public List<TransacaoDTO> obterExtratoPorPeriodoEspecifico(ConsultaExtratoPeriodoForm form){
+		ContaBancaria contaSolicitadora = contaBancariaService.consultarConta(form.getAgencia(), form.getNumeroConta());
+		LocalDateTime inicioPeriodo = LocalDateTime.of(form.getDataInicio().getYear(), form.getDataInicio().getMonthValue(), form.getDataInicio().getDayOfMonth(), 0, 0, 1);
+		LocalDateTime finalPeriodo = LocalDateTime.of(form.getDataFinal().getYear(), form.getDataFinal().getMonthValue(), form.getDataFinal().getDayOfMonth(), 23, 59, 59);
+		List<Transacao> transacoesDoPeriodo = transacaoRepository.buscarTransacoesPorPeriodo(contaSolicitadora, inicioPeriodo, finalPeriodo);
+		
+		if (transacoesDoPeriodo == null || transacoesDoPeriodo.isEmpty()) {
+			throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);
+		}
+		
+		return converterEmListaExtratoDTO(transacoesDoPeriodo, contaSolicitadora);
+	}
 }
