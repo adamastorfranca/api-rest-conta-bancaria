@@ -1,0 +1,30 @@
+#div-extrato {
+  margin: 0 50px;
+}
+h5 {
+  margin: 25px 0;
+  text-transform: uppercase;
+}
+
+table {
+  background-color: white;
+  border-radius: 15px;
+}
+
+.thead-extrato {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.valores {
+  text-align: end;
+}
+
+#saldo-apos {
+  text-align: end;
+  font-weight: bold;
+}
+
+.btn {
+  margin-top: 15px;
+}

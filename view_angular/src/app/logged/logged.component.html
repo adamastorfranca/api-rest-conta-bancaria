@@ -15,6 +15,7 @@
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" routerLink="deposito">Depósito</a></li>
                 <li><a class="dropdown-item" routerLink="saque">Saque</a></li>
+                <li><a class="dropdown-item" routerLink="transferencia">Transferência</a></li>
               </ul>
             </div>
           </li>
@@ -25,7 +26,8 @@
                 Extratos
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-
+                <li><a class="dropdown-item" routerLink="extrato-todo-periodo">Todo período</a></li>
+                <li><a class="dropdown-item" routerLink="extrato-por-mes-ano">Por mês e ano</a></li>
               </ul>
             </div>
           </li>
@@ -125,17 +127,17 @@
           </div>
       </div>
 
-      <div class="col-md-2" type="button" routerLink="login">
-          <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/tranferencia.jpg" alt="Imagem de transferência"/>
+      <div class="col-md-2" type="button" routerLink="transferencia">
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="transferencia" src="assets/img/tranferencia.jpg" alt="Imagem de transferência"/>
           <div class="row">
-            <a class="links" routerLink="login">Transferência</a>
+            <a class="links" routerLink="transferencia">Transferência</a>
           </div>
       </div>
 
-      <div class="col-md-2" type="button" routerLink="login">
-          <img id="servicos" class="rounded mx-auto d-block" routerLink="login" src="assets/img/extrato.png" alt="Imagem de extrato"/>
+      <div class="col-md-2" type="button" routerLink="extratos">
+          <img id="servicos" class="rounded mx-auto d-block" routerLink="extratos" src="assets/img/extrato.png" alt="Imagem de extrato"/>
           <div class="row">
-            <a class="links" routerLink="login">Extrato</a>
+            <a class="links" routerLink="extratos">Extrato</a>
           </div>
       </div>
     </div>

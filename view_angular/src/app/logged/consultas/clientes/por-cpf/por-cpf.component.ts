@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 
 import { ContasService } from 'src/app/services/contas.service';
 
@@ -15,12 +16,16 @@ export class PorCpfComponent implements OnInit {
     cpf: new FormControl('', [Validators.required]),
   })
 
+  cpfLogado: string = '';
+
   constructor(
     private contaService: ContasService,
+    private authService: AutenticacaoService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.cpfLogado = this.authService.contaConectada.cpf;
   }
 
   consulta(): void {

@@ -23,7 +23,9 @@ export class AutenticacaoService {
     cpf: ''
   }
 
-  constructor( private httpClient: HttpClient ) {  }
+  constructor(
+    private httpClient: HttpClient
+  ) {  }
 
   autenticar(login: ILogin): Observable<ILogin> {
     return this.httpClient.post<ILogin>(`${this.api}/${this.endpoint}/`, login);

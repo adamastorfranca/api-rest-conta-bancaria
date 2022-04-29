@@ -1,40 +1,46 @@
 <div id="saque">
-  <h5>SAQUE</h5>
+  <h5>Saque</h5>
   <form [formGroup]="formSaque" (ngSubmit)="saque()" class="formulario">
 
     <fieldset>
       <label for="valor" class="form-label">Valor</label>
-      <input
-        class="form-control"
-        id="valor"
-        type="number"
-        placeholder="0,00"
-        pattern="/^\d*\.?\d+$/"
-        formControlName="valor"
-      />
+      <input class="form-control" id="valor" type="number" placeholder="0,00" pattern="[\d,.]*"
+        formControlName="valor" />
 
-      <div
-        *ngIf="
+      <div *ngIf="
           formSaque.get('valor')?.errors &&
           formSaque.get('valor')?.touched &&
-          formSaque.get('valor')?.hasError('required')"
-          class="form-text text-danger">
-          Campo obrigatório
+          formSaque.get('valor')?.hasError('required')" class="form-text text-danger">
+        Campo obrigatório
       </div>
-      <div
-        *ngIf="
+      <div *ngIf="
           formSaque.get('valor')?.errors &&
           formSaque.get('valor')?.touched &&
-          formSaque.get('valor')?.invalid"
-          class="form-text text-danger">
-          Valor inválido
+          formSaque.get('valor')?.invalid" class="form-text text-danger">
+        Valor inválido
       </div>
+      <div *ngIf="
+          formSaque.get('valor')?.value > saldoAtual" class="form-text text-danger">
+        Saldo insuficiente
+      </div>
+    </fieldset>
 
+    <fieldset>
+      <label for="senha" class="form-label">Senha</label>
+      <input class="form-control" id="senha" type="password" formControlName="senha" />
+
+      <div *ngIf="
+            formSaque.get('senha')?.errors?.['required'] &&
+            formSaque.get('senha')?.touched" class="form-text text-danger">
+        Campo obrigatório
+      </div>
     </fieldset>
 
     <div class="d-grid gap-2">
-      <button type="submit" class="btn btn-outline-light" [disabled]="formSaque.invalid">Avançar</button>
+      <button type="submit" [disabled]="formSaque.invalid ||
+        formSaque.get('valor')?.value > saldoAtual"
+        class="btn btn-outline-light">
+        Avançar</button>
     </div>
   </form>
 </div>
-

@@ -17,6 +17,7 @@ import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
 import br.com.adamastor.banco.model.dto.ContaBancariaLogadaDTO;
 import br.com.adamastor.banco.model.dto.DepositoDTO;
 import br.com.adamastor.banco.model.dto.SaqueDTO;
+import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.service.ContaBancariaService;
 
@@ -38,6 +39,12 @@ public class ContaBancariaRest {
 		contaBancariaService.sacar(dto.getAgencia(), dto.getNumeroConta(), dto.getValor());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	@PutMapping(value = "/transferencia", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Void> transferir(@RequestBody TransferenciaBancariaDTO dto){
+		contaBancariaService.transferir(dto);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}	
 	
 	@PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<ContaBancariaDTO> cadastrar(@RequestBody CadastroContaForm form) {
@@ -74,6 +81,15 @@ public class ContaBancariaRest {
 		}
 		return new ResponseEntity<>(dto, HttpStatus.OK);
 	}
+		
+	@GetMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Double> consultarSaldo(@PathVariable  String agencia, @PathVariable  String numeroConta){
+		Double saldo = contaBancariaService.consultarSaldo(agencia, numeroConta);
+		if (saldo == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(saldo, HttpStatus.OK);
+	}
 	
 //	@DeleteMapping(value = "/deletar/{agencia}/{numeroConta}")
 //	public ResponseEntity<Void> deletar(@PathVariable String agencia, @PathVariable  String numeroConta){
@@ -83,14 +99,7 @@ public class ContaBancariaRest {
 //		}
 //		return new ResponseEntity<>(HttpStatus.OK);
 //	}
-//	
-//	@GetMapping(value = "/consultar-saldo/{agencia}/{numero}", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody ResponseEntity<Double> consultarSaldo(@PathVariable  String agencia, @PathVariable  String numeroConta){
-//		double saldo = contaBancariaService.consultarSaldo(agencia, numeroConta);
 //
-//		return new ResponseEntity<>(saldo, HttpStatus.OK);
-//	}
-//	
 //	@GetMapping(value = "/consultar-contas-por-cpf/{cpf}", produces = MediaType.APPLICATION_JSON_VALUE)
 //	public @ResponseBody ResponseEntity<List<ConsultaContaBancariaDTO>> consultarContasPorCpf(@PathVariable String cpf){
 //		List<ConsultaContaBancariaDTO> contas = contaBancariaService.obterContasPorCpf(cpf);
@@ -98,12 +107,6 @@ public class ContaBancariaRest {
 //			return new ResponseEntity<>(contas, HttpStatus.NO_CONTENT);
 //		}
 //		return new ResponseEntity<>(contas, HttpStatus.OK);
-//	}
-//
-//	@PutMapping(value = "/transferencia", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public @ResponseBody ResponseEntity<Void> transferir(@RequestBody TransferenciaBancariaDTO dto){
-//		contaBancariaService.transferir(dto);
-//		return new ResponseEntity<>(HttpStatus.OK);
 //	}
 //	
 //	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

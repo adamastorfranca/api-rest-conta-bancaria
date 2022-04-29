@@ -1,0 +1,77 @@
+<div id="transferencia">
+  <h5>Transferência</h5>
+  <form [formGroup]="formTransferencia" (ngSubmit)="transferencia()" class="formulario">
+    <fieldset>
+      <label for="agencia" class="form-label">Agência</label>
+      <input class="form-control" type="text" id="agencia" placeholder="_ _ _ _" formControlName="agencia" />
+
+      <div *ngIf="
+          formTransferencia.get('agencia')?.errors &&
+          formTransferencia.get('agencia')?.touched &&
+          formTransferencia.get('agencia')?.hasError('required')" class="form-text text-danger">
+        Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="numeroConta" class="form-label">Número da conta</label>
+      <input class="form-control" type="text" id="numeroConta" placeholder="_ _ _ _ - _"
+        formControlName="numeroConta" />
+
+      <div *ngIf="
+          formTransferencia.get('numeroConta')?.errors &&
+          formTransferencia.get('numeroConta')?.touched &&
+          formTransferencia.get('numeroConta')?.hasError('required')" class="form-text text-danger">
+        Campo obrigatório
+      </div>
+      <div
+        *ngIf="
+        formTransferencia.get('agencia')?.value === agenciaLogada && formTransferencia.get('numeroConta')?.value === numeroContaLogada"
+        class="form-text text-danger">
+        Agência e número pertencem a conta atual
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="valor" class="form-label">Valor</label>
+      <input class="form-control" id="valor" type="number" placeholder="0,00" pattern="[\d,.]*"
+        formControlName="valor" />
+
+      <div *ngIf="
+          formTransferencia.get('valor')?.errors &&
+          formTransferencia.get('valor')?.touched &&
+          formTransferencia.get('valor')?.hasError('required')" class="form-text text-danger">
+        Campo obrigatório
+      </div>
+      <div *ngIf="
+          formTransferencia.get('valor')?.errors &&
+          formTransferencia.get('valor')?.touched &&
+          formTransferencia.get('valor')?.invalid" class="form-text text-danger">
+        Valor inválido
+      </div>
+      <div *ngIf="
+          formTransferencia.get('valor')?.value > saldoAtual" class="form-text text-danger">
+        Saldo insuficiente
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="senha" class="form-label">Senha</label>
+      <input class="form-control" id="senha" type="password" formControlName="senha" />
+
+      <div *ngIf="
+        formTransferencia.get('senha')?.errors?.['required'] &&
+        formTransferencia.get('senha')?.touched" class="form-text text-danger">
+        Campo obrigatório
+      </div>
+    </fieldset>
+
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-outline-light"
+        [disabled]="formTransferencia.invalid ||
+        formTransferencia.get('valor')?.value > saldoAtual ||
+        formTransferencia.get('agencia')?.value === agenciaLogada && formTransferencia.get('numeroConta')?.value === numeroContaLogada">
+        Avançar</button>
+    </div>
+  </form>
+</div>

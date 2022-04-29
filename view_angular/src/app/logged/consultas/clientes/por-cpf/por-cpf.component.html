@@ -22,10 +22,18 @@
             class="form-text text-danger">
             CPF deve conter apenas 11 números
         </div>
+
+        <div
+        *ngIf="
+          formConsultaCliente.get('cpf')?.touched &&
+          formConsultaCliente.get('cpf')?.value === cpfLogado"
+          class="form-text text-danger">
+          CPF pertence a conta atual
+      </div>
       </fieldset>
 
       <div class="d-grid gap-2">
-        <button [disabled]="!formConsultaCliente.valid" type="submit" class="btn btn-outline-light">Buscar</button>
+        <button [disabled]="!formConsultaCliente.valid" [disabled]="formConsultaCliente.get('cpf')?.value === cpfLogado" type="submit" class="btn btn-outline-light">Buscar</button>
       </div>
     </form>
   </div>

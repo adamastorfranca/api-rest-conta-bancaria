@@ -55,10 +55,18 @@
             class="form-text text-danger">
             O padrão é 4 números - 1 dígito
         </div>
+
+        <div
+        *ngIf="
+          formConsultaConta.get('agencia')?.touched && formConsultaConta.get('numeroConta')?.touched &&
+          formConsultaConta.get('agencia')?.value === agenciaLogada && formConsultaConta.get('numeroConta')?.value === numeroContaLogada"
+          class="form-text text-danger">
+          Agência e número pertencem a conta atual
+      </div>
       </fieldset>
 
       <div class="d-grid gap-2">
-        <button [disabled]="!formConsultaConta.valid" type="submit" class="btn btn-outline-light">Buscar</button>
+        <button [disabled]="!formConsultaConta.valid" [disabled]="formConsultaConta.get('agencia')?.value === agenciaLogada && formConsultaConta.get('numeroConta')?.value === numeroContaLogada" type="submit" class="btn btn-outline-light">Buscar</button>
       </div>
     </form>
   </div>

@@ -1,0 +1,48 @@
+#tipos-extratos {
+  margin: 50px 30%;
+}
+
+#extratos {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.col-md-2:hover {
+  border-width: 5px;
+  transition: border;
+  transform: scale(1.2);
+}
+
+.col-md-2:active {
+  border-color: gray;
+}
+
+.col-md-2:active a{
+  color: gray;
+}
+
+.col-md-2{
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 15px;
+  margin: 15px auto;
+  width: 140px;
+  padding: 10px;
+  height: auto;
+}
+
+#servicos {
+  width: 60%;
+  height: 60%;
+  margin: 15px 0;
+}
+
+.links {
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  margin-bottom: 15px;
+}

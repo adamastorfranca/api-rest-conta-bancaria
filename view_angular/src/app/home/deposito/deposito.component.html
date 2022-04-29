@@ -44,27 +44,39 @@
       </fieldset>
 
       <fieldset>
+
         <label for="valor" class="form-label">Valor</label>
         <input
           class="form-control"
           id="valor"
-          type="text"
+          type="number"
           placeholder="0,00"
           formControlName="valor"
-          onkeypress="$(this).mask('10.000,00', {reverse: true});"
+          pattern="[\d,.]*"
         />
 
+        <div
+          *ngIf="
+            formDeposito.get('valor')?.errors &&
+            formDeposito.get('valor')?.touched &&
+            formDeposito.get('valor')?.hasError('required')"
+            class="form-text text-danger">
+            Campo obrigatório
+        </div>
+        <div
+          *ngIf="
+            formDeposito.get('valor')?.errors &&
+            formDeposito.get('valor')?.touched &&
+            formDeposito.get('valor')?.invalid"
+            class="form-text text-danger">
+            Valor inválido
+        </div>
       </fieldset>
 
       <div class="d-grid gap-2">
         <button type="submit" class="btn btn-outline-light" [disabled]="formDeposito.invalid">Avançar</button>
       </div>
 
-      <script>
-        $(function() {
-          $('#valor').maskMoney();
-        })
-      </script>
     </form>
   </div>
 </div>

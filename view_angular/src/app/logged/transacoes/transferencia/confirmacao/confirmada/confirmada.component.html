@@ -1,0 +1,54 @@
+<div id="div-comprovante">
+
+  <h5>Transferência realizada com sucesso!</h5>
+
+  <table class="table">
+    <thead class="border border-dark">
+      <tr class="border border-dark">
+        <th scope="col" class="border border-dark" colspan="2" id="comprovante">Comprovante</th>
+      </tr>
+    </thead>
+      <tbody class="border border-dark">
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Data</th>
+          <td class="border border-dark">{{ data | date:"short" }}</td>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="col" class="border border-dark" colspan="2" id="tipo">Conta de origem</th>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Nome</th>
+          <td class="border border-dark">{{ contaConectada.nomeCliente }}</td>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Agência</th>
+          <td class="border border-dark">{{ contaConectada.agencia }}</td>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Número da conta</th>
+          <td class="border border-dark">{{ contaConectada.numero }}</td>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="col" class="border border-dark" colspan="2" id="tipo">Conta de destino</th>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Nome</th>
+          <td class="border border-dark">{{ tranferenciaConfirmada.nomeCliente }}</td>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Agência</th>
+          <td class="border border-dark">{{ tranferenciaConfirmada.agencia }}</td>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Número da conta</th>
+          <td class="border border-dark">{{ tranferenciaConfirmada.numero }}</td>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Valor</th>
+          <td class="border border-dark">{{ tranferenciaConfirmada.valor |currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  <a type="button" class="btn btn-outline-light" id="botao-confirmacao" routerLink="/user">Página inicial</a>
+</div>

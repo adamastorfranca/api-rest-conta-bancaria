@@ -1,0 +1,20 @@
+#div-comprovante {
+  margin: 25px 40%;
+}
+
+#comprovante {
+  text-transform: uppercase;
+}
+
+h5 {
+  margin: 25px 0;
+}
+
+table {
+  background-color: white;
+  border-radius: 15px;
+}
+
+.btn {
+  margin-top: 15px;
+}

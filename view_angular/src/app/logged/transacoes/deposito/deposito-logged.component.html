@@ -1,5 +1,5 @@
 <div id="deposito">
-  <h5>DEPÓSITO</h5>
+  <h5>Depósito</h5>
   <form [formGroup]="formDepositoLogado" (ngSubmit)="deposito()" class="formulario">
     <fieldset>
       <label for="agencia" class="form-label">Agência</label>
@@ -48,7 +48,7 @@
         id="valor"
         type="number"
         placeholder="0,00"
-        pattern="^(?=.*[0-9])(?!=.*[ !@#$%^&*_=+-]).{1,6}$"
+        pattern="[\d,.]*"
         formControlName="valor"
       />
 
@@ -68,6 +68,7 @@
           class="form-text text-danger">
           Valor inválido
       </div>
+
     </fieldset>
 
     <div class="d-grid gap-2">

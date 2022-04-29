@@ -39,13 +39,11 @@ export class ConfirmarDepositoComponent implements OnInit {
        valor: this.paraConfirmar.valor
     }
     if(this.confirmarDeposito === true){
-      if (this.authService.contaConectada.agencia === deposito.agencia && this.authService.contaConectada.numero === deposito.numeroConta){
+      this.contaService.depositar(deposito).subscribe(() => {  });
+      this.router.navigate(['user/deposito-confirmado']);
+    if (this.authService.contaConectada.agencia === deposito.agencia && this.authService.contaConectada.numero === deposito.numeroConta){
         this.authService.contaConectada.saldo += deposito.valor;
       }
-      this.contaService.depositar(deposito).subscribe(() => {
-        this.router.navigate(['user/deposito-confirmado']);
-      });
     }
   }
-
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AutenticacaoService } from 'src/app/services/autenticacao.service';
 
 import { ContasService } from 'src/app/services/contas.service';
 
@@ -16,12 +17,18 @@ export class AgenciaNumeroComponent implements OnInit {
     numeroConta: new FormControl('', [Validators.required])
   })
 
+  agenciaLogada: string = '';
+  numeroContaLogada: string = '';
+
   constructor(
     private contaService: ContasService,
+    private authService: AutenticacaoService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.agenciaLogada = this.authService.contaConectada.agencia;
+    this.numeroContaLogada = this.authService.contaConectada.numero;
   }
 
   consulta(): void {

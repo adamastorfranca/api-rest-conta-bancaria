@@ -13,10 +13,14 @@ public class TransacaoDTO {
 	private double valor;
 
 	private double saldoApos;
+	
+	private String nomeClienteOrigem;
 
 	private String agenciaOrigem;
 
 	private String numeroOrigem;
+	
+	private String nomeClienteDestino;
 
 	private String agenciaDestino;
 

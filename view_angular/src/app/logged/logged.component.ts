@@ -18,7 +18,7 @@ export class LoggedComponent implements OnInit {
     nomeCliente: '',
     cpf: ''
   }
-  
+
   mostrarSaldo: boolean = true;
 
   constructor(private authService: AutenticacaoService) { }

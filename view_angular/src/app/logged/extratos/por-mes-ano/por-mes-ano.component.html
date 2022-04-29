@@ -1,0 +1,24 @@
+<div id="div-extrato">
+  <h5>Extrato por mês e ano</h5>
+
+  <form [formGroup]="formExtrato" (ngSubmit)="listarPorMesAno()" class="formulario">
+    <fieldset>
+      <label class="form-label">Mês</label>
+        <select formControlName="meses" class="form-select">
+          <option [ngValue]="null" disabled>Escolha o mês</option>
+          <option *ngFor="let mes of meses" [ngValue]="mes.id">{{mes.mes}}</option>
+        </select>
+    </fieldset>
+
+    <fieldset>
+      <label class="form-label">Mês</label>
+        <select formControlName="anos" class="form-select">
+          <option [ngValue]="null" disabled>Escolha o ano</option>
+          <option *ngFor="let ano of anos" [ngValue]="ano.id">{{ano.ano}}</option>
+        </select>
+    </fieldset>
+    <button type="submit" class="btn btn-outline-light">Filtrar</button>
+  </form>
+
+
+</div>

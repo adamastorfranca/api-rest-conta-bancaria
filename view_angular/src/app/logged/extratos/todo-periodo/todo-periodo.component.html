@@ -1,0 +1,59 @@
+<div id="div-extrato">
+  <h5>Extrato de todo período</h5>
+  <table class="table border border-dark">
+    <thead class="border border-dark">
+      <tr class="table-secondary border border-dark">
+        <th scope="col" class="border border-dark" class="thead-extrato">Data</th>
+        <th scope="col" class="border border-dark" class="thead-extrato">Tipo</th>
+        <th scope="col" class="border border-dark" class="thead-extrato">Agência</th>
+        <th scope="col" class="border border-dark" class="thead-extrato">Número</th>
+        <th scope="col" class="border border-dark" class="thead-extrato">Nome</th>
+        <th scope="col" class="border border-dark" class="thead-extrato">Valor</th>
+      </tr>
+    </thead>
+    <tbody class="border border-dark" *ngFor="let transacao of transacoes">
+      <tr class="border border-dark">
+        <th scope="row" class="border border-dark">{{ transacao.dataHora }}</th>
+
+        <td class="border border-dark" *ngIf="transacao.tipo === 'DEPOSITO'">Depósito</td>
+        <td class="border border-dark" *ngIf="transacao.tipo === 'SAQUE'">Saque</td>
+        <td class="border border-dark" *ngIf="transacao.tipo === 'TRANSFERENCIA_RECEBIDA'">Transf. Recebida</td>
+        <td class="border border-dark" *ngIf="transacao.tipo === 'TRANSFERENCIA_ENVIADA'">Transf. Enviada</td>
+
+        <th scope="row"  *ngIf="transacao.tipo === 'DEPOSITO' || transacao.tipo === 'SAQUE'"></th>
+        <th scope="row"  *ngIf="transacao.tipo === 'DEPOSITO' || transacao.tipo === 'SAQUE'"></th>
+        <th scope="row"  *ngIf="transacao.tipo === 'TRANSFERENCIA_RECEBIDA'">{{ transacao.agenciaOrigem }}</th>
+        <th scope="row"  *ngIf="transacao.tipo === 'TRANSFERENCIA_RECEBIDA'">{{ transacao.numeroOrigem }}</th>
+        <th scope="row"  *ngIf="transacao.tipo === 'TRANSFERENCIA_ENVIADA'">{{ transacao.agenciaDestino }}</th>
+        <th scope="row"  *ngIf="transacao.tipo === 'TRANSFERENCIA_ENVIADA'">{{ transacao.numeroDestino }}</th>
+
+        <th scope="row"  *ngIf="transacao.tipo === 'DEPOSITO' || transacao.tipo === 'SAQUE'"></th>
+        <th scope="row"  *ngIf="transacao.tipo === 'TRANSFERENCIA_RECEBIDA'">{{ transacao.nomeClienteOrigem }}</th>
+        <th scope="row"  *ngIf="transacao.tipo === 'TRANSFERENCIA_ENVIADA'">{{ transacao.nomeClienteDestino }}</th>
+
+        <td class="border border-dark valores"
+          *ngIf="
+            transacao.tipo === 'DEPOSITO' ||
+            transacao.tipo === 'TRANSFERENCIA_RECEBIDA'"
+            style="color: green;"
+            >{{ transacao.valor | currency }}
+        </td>
+        <td class="border border-dark valores"
+          *ngIf="
+            transacao.tipo === 'SAQUE' ||
+            transacao.tipo === 'TRANSFERENCIA_ENVIADA'"
+            style="color: red;"
+            >{{ transacao.valor | currency }}
+        </td>
+
+      </tr>
+
+      <tr class="table-secondary border border-dark">
+        <td class="border border-dark" id="saldo-apos" colspan="6">{{ transacao.saldoApos | currency }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <a type="button" class="btn btn-outline-light" id="botao-confirmacao" routerLink="/user">Página inicial</a>
+</div>

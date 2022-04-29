@@ -1,0 +1,24 @@
+<div id="div-comprovante">
+
+  <h5>Saque realizado com sucesso!</h5>
+
+  <table class="table">
+    <thead class="border border-dark">
+      <tr class="border border-dark">
+        <th scope="col" class="border border-dark" colspan="2" id="comprovante">Comprovante</th>
+      </tr>
+    </thead>
+      <tbody class="border border-dark">
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Data</th>
+          <td class="border border-dark">{{ data | date:"short" }}</td>
+        </tr>
+        <tr class="border border-dark">
+          <th scope="row" class="border border-dark">Valor</th>
+          <td class="border border-dark">{{ saqueConfirmado.valor |currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  <a type="button" class="btn btn-outline-light" id="botao-confirmacao" routerLink="/user">Página inicial</a>
+</div>
