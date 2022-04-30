@@ -42,8 +42,10 @@
             <button class="btn btn-dark dropdown-toggle" style="background-color: black;" type="button"
               id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li *ngIf="cliente.temConta == false"><a class="dropdown-item" [routerLink]="['/user/cadastro-conta', cliente.id]">Abrir conta</a></li>
               <li><a class="dropdown-item" [routerLink]="['/user/edicao-cliente', cliente.id]">Editar</a></li>
               <li><a class="dropdown-item" (click)="confirmar(cliente.id)">Remover</a></li>
+
             </ul>
           </div>
         </td>

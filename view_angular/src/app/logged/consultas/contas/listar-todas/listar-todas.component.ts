@@ -36,10 +36,10 @@ export class ListarTodasComponent implements OnInit {
     });
   }
 
-/*   confirmar(id: number) {
+  confirmar(id: number) {
     Swal.fire({
       title: 'Você está certo disso?',
-      text: "Tem certeza que deseja remover este cliente?",
+      text: "Tem certeza que deseja remover esta conta?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Remover',
@@ -48,8 +48,8 @@ export class ListarTodasComponent implements OnInit {
       if (result.isConfirmed) {
         this.contasService.remover(id).subscribe(() => {
           Swal.fire({
-            title: 'Removido!',
-            text: 'Cliente removido com sucesso!',
+            title: 'Removida!',
+            text: 'Conta removida com sucesso!',
             icon: 'success'
           });
           this.listarTodos();
@@ -58,7 +58,7 @@ export class ListarTodasComponent implements OnInit {
         });
       }
     })
-  } */
+  }
 
   depositar(cpf: string){
     this.contaService.encaminhamentoTransacao = true;

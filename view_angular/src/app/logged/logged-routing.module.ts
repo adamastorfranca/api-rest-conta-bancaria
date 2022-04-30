@@ -24,6 +24,11 @@ import { ListarTodosComponent } from './consultas/clientes/listar-todos/listar-t
 import { ClientesComponent } from './cadastros/clientes/clientes.component';
 import { ContasComponent } from './cadastros/contas/contas.component';
 import { ListarTodasComponent } from './consultas/contas/listar-todas/listar-todas.component';
+import { SemContaComponent } from './cadastros/contas/sem-conta/sem-conta.component';
+import { EdicaoComponent } from './cadastros/contas/edicao/edicao.component';
+import { AbrirComponent } from './cadastros/contas/sem-conta/abrir/abrir.component';
+import { EditarComponent } from './conta/editar/editar.component';
+import { DadosComponent } from './conta/dados/dados.component';
 
 
 const routes: Routes = [
@@ -31,6 +36,7 @@ const routes: Routes = [
     path: '', component: LoggedComponent,
     children: [
       { path: '', component: InicialComponent },
+      { path: 'informacoes-conta' , component: DadosComponent },
 
       { path: 'deposito', component: DepositoLoggedComponent },
       { path: 'confirmar-deposito', component: ConfirmarDepositoComponent },
@@ -59,7 +65,11 @@ const routes: Routes = [
       { path: 'cadastro-cliente', component: ClientesComponent },
       { path: 'edicao-cliente/:id', component: ClientesComponent },
       { path: 'cadastro-conta', component: ContasComponent },
-      { path: 'edicao-conta/:id', component: ContasComponent },
+      { path: 'edicao-conta/:id', component: EdicaoComponent },
+      { path: 'cadastro-conta/:id', component: SemContaComponent },
+      { path: 'abrir-conta', component: AbrirComponent },
+      { path: 'editar-conta/:id', component: EditarComponent}
+
     ]
   }
 ]

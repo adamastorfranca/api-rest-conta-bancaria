@@ -10,6 +10,19 @@
           <li>
             <div class="dropdown">
               <button class="btn btn-dark dropdown-toggle" style="background-color: black;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Minha conta
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" routerLink="informacoes-conta">Informações</a></li>
+                <li><a class="dropdown-item" [routerLink]="['editar-conta', contaConectada.id]">Editar</a></li>
+                <li><a class="dropdown-item" (click)="confirmar(contaConectada.id)">Excluir</a></li>
+
+              </ul>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown">
+              <button class="btn btn-dark dropdown-toggle" style="background-color: black;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 Transações
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -53,6 +66,7 @@
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" routerLink="cadastro-conta">Cadastrar</a></li>
+                <li><a class="dropdown-item" routerLink="abrir-conta">Abrir conta</a></li>
                 <li><a class="dropdown-item" routerLink="contas">Listar todas</a></li>
                 <li><a class="dropdown-item" routerLink="consulta-conta-agencia-numero">Consulta por agência e número</a></li>
               </ul>

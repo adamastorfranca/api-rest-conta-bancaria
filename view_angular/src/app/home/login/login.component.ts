@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         });
       },
         (error) => {
-          alert('Usuário ou senha inválido');
+          alert('Dados inválido');
           console.log(error);
         }
       );

@@ -1,0 +1,50 @@
+<div class="div-infos">
+  <h5>Dados da conta</h5>
+
+  <table class="table border border-dark">
+
+    <tbody class="border border-dark">
+      <tr class="border border-dark">
+        <th class="border border-dark cinza" >Nome</th>
+        <th class="border border-dark" >{{ contaLogada.nomeCliente }}</th>
+      </tr>
+      <tr class="border border-dark">
+        <th class="border border-dark cinza">CPF</th>
+        <th class="border border-dark">{{ contaLogada.cpf }}</th>
+      </tr>
+      <tr class="border border-dark">
+        <th class="border border-dark cinza">Data de Nascimento</th>
+        <th class="border border-dark">{{ dados.dataNascimento | date:'short' }}</th>
+      </tr>
+      <tr class="border border-dark">
+        <th class="border border-dark cinza">E-mail</th>
+        <th class="border border-dark">{{ dados.email }}</th>
+      </tr>
+      <tr class="border border-dark">
+        <th class="border border-dark cinza">Telefone</th>
+        <th class="border border-dark">{{ dados.telefone }}</th>
+      </tr>
+      <tr class="border border-dark">
+        <th class="border border-dark cinza">ID Cliente</th>
+        <th class="border border-dark">{{ contaLogada.idCliente }}</th>
+      </tr>
+      <tr class="border border-dark">
+        <th class="border border-dark cinza">Agência</th>
+        <th class="border border-dark">{{ contaLogada.agencia }}</th>
+      </tr>
+      <tr class="border border-dark">
+        <th class="border border-dark cinza">Nº da conta</th>
+        <th class="border border-dark">{{ contaLogada.numero }}</th>
+      </tr>
+      <tr class="border border-dark">
+        <th class="border border-dark cinza">Saldo</th>
+        <th class="border border-dark">{{ contaLogada.saldo | currency }}</th>
+      </tr>
+      <tr class="border border-dark">
+        <th class="border border-dark cinza">ID Conta</th>
+        <th class="border border-dark">{{ contaLogada.id }}</th>
+      </tr>
+
+    </tbody>
+  </table>
+</div>

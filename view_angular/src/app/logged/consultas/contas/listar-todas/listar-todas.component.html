@@ -38,7 +38,7 @@
               id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item" [routerLink]="['/user/edicao-conta', conta.id]">Editar</a></li>
-              <li><a class="dropdown-item" >Remover</a></li>
+              <li><a class="dropdown-item" (click)="confirmar(conta.id)">Remover</a></li>
             </ul>
           </div>
         </td>

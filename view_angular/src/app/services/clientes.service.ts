@@ -38,4 +38,8 @@ export class ClientesService {
   buscarPorId(id: number): Observable<ICliente> {
     return this.http.get<ICliente>(`${this.api}/${this.endpoint}/${id}`);
   }
+
+  buscarSemConta(): Observable<ICliente[]> {
+    return this.http.get<ICliente[]>(`${this.api}/${this.endpoint}/sem-conta`);
+  }
 }

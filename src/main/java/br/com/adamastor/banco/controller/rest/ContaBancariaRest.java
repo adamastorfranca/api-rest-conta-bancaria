@@ -108,7 +108,6 @@ public class ContaBancariaRest {
 		return new ResponseEntity<>(saldo, HttpStatus.OK);
 	}
 
-	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody ResponseEntity<ContaBancaria> buscarPorId(@PathVariable Long id) {
 		ContaBancaria conta = contaBancariaService.buscarPorId(id);
@@ -147,7 +146,15 @@ public class ContaBancariaRest {
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+		
+	@PostMapping(value = "/cadastro", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<ContaBancariaDTO> abrirConta(@RequestBody CadastroContaForm form) {
+		ContaBancariaDTO dto = contaBancariaService.abrirConta(form);
+		if(dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
 	
 //	@DeleteMapping(value = "/deletar/{agencia}/{numeroConta}")
 //	public ResponseEntity<Void> deletar(@PathVariable String agencia, @PathVariable  String numeroConta){

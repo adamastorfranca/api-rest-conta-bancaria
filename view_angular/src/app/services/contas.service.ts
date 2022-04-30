@@ -55,6 +55,10 @@ export class ContasService {
     return this.http.put(`${this.api}/${this.endpoint}/atualizar`, conta);
   }
 
+  remover(id: number) {
+    return this.http.delete(`${this.api}/${this.endpoint}/${id}`);
+  }
+
   buscarPorId(id: number): Observable<ICadastro> {
     return this.http.get<ICadastro>(`${this.api}/${this.endpoint}/buscar-por-id/${id}`);
   }
@@ -73,6 +77,10 @@ export class ContasService {
 
   buscarContaLogada(agencia: string, numero: string): Observable<IContaLogada> {
     return this.http.get<IContaLogada>(`${this.api}/${this.endpoint}/conta-logada/${agencia}/${numero}/`);
+  }
+
+  cadastro(conta: ICadastro): Observable<ICadastro> {
+    return this.http.post<ICadastro>(`${this.api}/${this.endpoint}/cadastro/`, conta);
   }
 
   salvarInformacoes(cadastro:ICadastro): IContaTemp{

@@ -1,0 +1,17 @@
+.div-infos {
+  margin: 0 20%;
+}
+h5 {
+  margin: 25px 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+table {
+  background-color: white;
+}
+
+.cinza {
+  background-color: gray;
+}
+

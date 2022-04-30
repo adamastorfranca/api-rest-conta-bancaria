@@ -29,6 +29,11 @@ import { ContasComponent } from './cadastros/contas/contas.component';
 import { ListarTodasComponent } from './consultas/contas/listar-todas/listar-todas.component';
 import { FilterNomeCliente } from './consultas/clientes/listar-todos/filter.pipe';
 import { FilterCpf } from './consultas/contas/listar-todas/filter.pipe';
+import { SemContaComponent } from './cadastros/contas/sem-conta/sem-conta.component';
+import { EdicaoComponent } from './cadastros/contas/edicao/edicao.component';
+import { AbrirComponent } from './cadastros/contas/sem-conta/abrir/abrir.component';
+import { EditarComponent } from './conta/editar/editar.component';
+import { DadosComponent } from './conta/dados/dados.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +61,12 @@ import { FilterCpf } from './consultas/contas/listar-todas/filter.pipe';
     FilterNomeCliente,
     ContasComponent,
     ListarTodasComponent,
-    FilterCpf
+    FilterCpf,
+    SemContaComponent,
+    EdicaoComponent,
+    AbrirComponent,
+    EditarComponent,
+    DadosComponent
   ],
   imports: [
     CommonModule,

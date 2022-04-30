@@ -10,11 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adamastor.banco.model.dto.ClienteDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
+import br.com.adamastor.banco.model.entity.ContaBancaria;
 import br.com.adamastor.banco.model.exception.AplicacaoException;
 import br.com.adamastor.banco.model.exception.ExceptionValidacoes;
 import br.com.adamastor.banco.model.form.AtualizacaoClienteForm;
 import br.com.adamastor.banco.model.form.CadastroClienteForm;
 import br.com.adamastor.banco.model.repository.ClienteRepository;
+import br.com.adamastor.banco.model.repository.ContaBancariaRepository;
 import br.com.adamastor.banco.model.util.CpfUtil;
 
 @Service
@@ -22,6 +24,8 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	@Autowired
+	private ContaBancariaRepository contaBancariaRepository;
 	
 	public List<ClienteDTO> buscarTodosClientes() {
 		return ClienteDTO.converter(clienteRepository.findAll());
@@ -85,6 +89,12 @@ public class ClienteService {
 	public Boolean deletarPorId(Long id) {
 		Optional<Cliente> resultado = clienteRepository.findById(id);
 		if(resultado.isPresent()) {
+			Cliente c = resultado.get();
+			Optional<ContaBancaria> resultado2 = contaBancariaRepository.findByClienteCpf(c.getCpf());
+			if(resultado2.isPresent()) {
+				ContaBancaria conta = resultado2.get();
+				contaBancariaRepository.delete(conta);			
+			}
 			clienteRepository.delete(resultado.get());
 			return true;
 		}

@@ -19,6 +19,7 @@ import br.com.adamastor.banco.model.exception.AplicacaoException;
 import br.com.adamastor.banco.model.exception.ExceptionValidacoes;
 import br.com.adamastor.banco.model.form.AtualizacaoContaForm;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
+import br.com.adamastor.banco.model.repository.ClienteRepository;
 import br.com.adamastor.banco.model.repository.ContaBancariaRepository;
 
 @Service
@@ -26,6 +27,8 @@ public class ContaBancariaService {
 
 	@Autowired
 	private ContaBancariaRepository contaBancariaRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
 	@Autowired
 	private ClienteService clienteService;
 	@Autowired
@@ -188,6 +191,10 @@ public class ContaBancariaService {
 	public Boolean deletarPorId(Long id) {
 		Optional<ContaBancaria> resultado = contaBancariaRepository.findById(id);
 		if(resultado.isPresent()) {
+			ContaBancaria c = resultado.get();
+			Cliente cl = c.getCliente();
+			cl.setTemConta(false);
+			clienteRepository.save(cl);
 			contaBancariaRepository.delete(resultado.get());
 			return true;
 		}
@@ -201,15 +208,32 @@ public class ContaBancariaService {
 		}
 		return null;
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public ContaBancariaDTO abrirConta(CadastroContaForm form) {
+		if (!form.getSenha().equals(form.getSenhaConfirmar())) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_SENHAS_NAO_CORRESPONDEM);
+		}
+		Optional<Cliente> resultado = clienteRepository.findByCpf(form.getCpf());
+		if(resultado.isPresent()) {
+			Cliente c = resultado.get();
+			c.setTemConta(true);
+			clienteRepository.save(c);
+			ContaBancaria conta = criarConta(c, form);
+			return new ContaBancariaDTO(conta);
+		}
+		return null;
+	}
 
-//	public boolean deletar(String agencia, String numero) {
-//		ContaBancaria conta = contaBancariaRepository.findByAgenciaAndNumero(agencia, numero);
-//		if (conta == null) {
-//			return false;
-//		}
-//		contaBancariaRepository.delete(conta);
-//		return true;	
-//	}
+	public boolean deletar(String agencia, String numero) {
+		Optional<ContaBancaria> resultado = contaBancariaRepository.findByAgenciaAndNumeroConta(agencia, numero);
+		if (resultado.isPresent()) {
+			ContaBancaria conta = resultado.get();
+			contaBancariaRepository.delete(conta);
+			return true;
+		}
+		return false;	
+	}
 	
 	public Boolean atualizar(AtualizacaoContaForm form) {
 		Optional<ContaBancaria> resultado = contaBancariaRepository.findById(form.getId());
