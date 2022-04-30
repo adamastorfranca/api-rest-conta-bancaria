@@ -34,6 +34,8 @@ public class Cliente  implements Serializable {
 	private String email;
 	
 	private String telefone;
+	
+	private Boolean temConta = false;
 
 	
 }

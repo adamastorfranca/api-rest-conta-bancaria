@@ -25,6 +25,10 @@ import { PeriodoEspecificoComponent } from './extratos/periodo-especifico/period
 import { ListaPeriodoComponent } from './extratos/periodo-especifico/lista-periodo/lista-periodo.component';
 import { ListarTodosComponent } from './consultas/clientes/listar-todos/listar-todos.component';
 import { ClientesComponent } from './cadastros/clientes/clientes.component';
+import { ContasComponent } from './cadastros/contas/contas.component';
+import { ListarTodasComponent } from './consultas/contas/listar-todas/listar-todas.component';
+import { FilterNomeCliente } from './consultas/clientes/listar-todos/filter.pipe';
+import { FilterCpf } from './consultas/contas/listar-todas/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,11 @@ import { ClientesComponent } from './cadastros/clientes/clientes.component';
     PeriodoEspecificoComponent,
     ListaPeriodoComponent,
     ListarTodosComponent,
-    ClientesComponent
+    ClientesComponent,
+    FilterNomeCliente,
+    ContasComponent,
+    ListarTodasComponent,
+    FilterCpf
   ],
   imports: [
     CommonModule,

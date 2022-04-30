@@ -21,6 +21,8 @@ public class ClienteDTO {
 	private String telefone;
 	
 	private LocalDate dataNascimento;
+	
+	private Boolean temConta;
 
 	public ClienteDTO(Cliente c) {
 		this.id = c.getId();
@@ -29,6 +31,7 @@ public class ClienteDTO {
 		this.email = c.getEmail();
 		this.telefone = c.getTelefone();
 		this.dataNascimento = c.getDataNascimento();
+		this.temConta = c.getTemConta();
 	}
 
 	public static List<ClienteDTO> converter(List<Cliente> clientes) {

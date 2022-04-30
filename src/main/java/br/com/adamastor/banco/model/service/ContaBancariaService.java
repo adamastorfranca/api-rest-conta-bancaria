@@ -1,5 +1,6 @@
 package br.com.adamastor.banco.model.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.adamastor.banco.model.dto.ContaBancariaDTO;
+import br.com.adamastor.banco.model.dto.ContaBancariaEdicaoDTO;
 import br.com.adamastor.banco.model.dto.ContaBancariaLogadaDTO;
 import br.com.adamastor.banco.model.dto.TransferenciaBancariaDTO;
 import br.com.adamastor.banco.model.entity.Cliente;
@@ -15,6 +17,7 @@ import br.com.adamastor.banco.model.entity.ContaBancaria;
 import br.com.adamastor.banco.model.entity.TipoTransacao;
 import br.com.adamastor.banco.model.exception.AplicacaoException;
 import br.com.adamastor.banco.model.exception.ExceptionValidacoes;
+import br.com.adamastor.banco.model.form.AtualizacaoContaForm;
 import br.com.adamastor.banco.model.form.CadastroContaForm;
 import br.com.adamastor.banco.model.repository.ContaBancariaRepository;
 
@@ -63,6 +66,10 @@ public class ContaBancariaService {
 			}
 		}
 		return novaConta;
+	}
+	
+	public List<ContaBancariaDTO> buscarTodasContas() {
+		return ContaBancariaDTO.converter(contaBancariaRepository.findAll());
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -167,6 +174,33 @@ public class ContaBancariaService {
 
 		return resultado.get().getSaldo();
 	}
+	
+	public ContaBancaria buscarPorId(Long id) {
+		Optional<ContaBancaria> resultado = contaBancariaRepository.findById(id);
+		if(resultado.isPresent()) {
+			return resultado.get();
+		}
+		return null;
+	}
+
+	
+	@Transactional(rollbackFor = Exception.class)
+	public Boolean deletarPorId(Long id) {
+		Optional<ContaBancaria> resultado = contaBancariaRepository.findById(id);
+		if(resultado.isPresent()) {
+			contaBancariaRepository.delete(resultado.get());
+			return true;
+		}
+		return false;
+	}
+	
+	public ContaBancariaEdicaoDTO buscarPorIdDTO(Long id) {
+		Optional<ContaBancaria> resultado = contaBancariaRepository.findById(id);
+		if(resultado.isPresent()) {
+			return new ContaBancariaEdicaoDTO(resultado.get());
+		}
+		return null;
+	}
 
 //	public boolean deletar(String agencia, String numero) {
 //		ContaBancaria conta = contaBancariaRepository.findByAgenciaAndNumero(agencia, numero);
@@ -176,28 +210,19 @@ public class ContaBancariaService {
 //		contaBancariaRepository.delete(conta);
 //		return true;	
 //	}
-//	
-//	public List<ContaBancariaDTO> buscarTodasContas() {
-//		return ContaBancariaDTO.converter(contaBancariaRepository.findAll());
-//	}
-
-//	public List<ConsultaContaBancariaDTO> obterContasPorCpf(String cpf){
-//		List<ConsultaContaBancariaDTO> listaContasRetorno = new ArrayList<>();
-//		Cliente cli = clienteRepository.findByCpf(cpf);
-//
-//		if (cli == null) {
-//			return null;
-//		}
-//		
-//		List<ContaBancaria> listaContasCliente = contaBancariaRepository.findByCliente(cli);
-//		for (ContaBancaria conta : listaContasCliente) {
-//			ConsultaContaBancariaDTO dtoConta = new ConsultaContaBancariaDTO();
-//			BeanUtils.copyProperties(conta, dtoConta);
-//			dtoConta.setCpf(conta.getCliente().getCpf());
-//			dtoConta.setNomeTitular(conta.getCliente().getNome());
-//			listaContasRetorno.add(dtoConta);
-//		}
-//
-//		return listaContasRetorno;
-//	}
+	
+	public Boolean atualizar(AtualizacaoContaForm form) {
+		Optional<ContaBancaria> resultado = contaBancariaRepository.findById(form.getId());
+		if(resultado.isPresent()) {
+			ContaBancaria conta = resultado.get();
+			conta.setAgencia(form.getAgencia());
+			conta.setNumeroConta(form.getNumero());
+			String senhaHash = new BCryptPasswordEncoder().encode(form.getSenha());
+			conta.setSenha(senhaHash);
+			conta.setLogin(form.getAgencia()+form.getNumero());
+			contaBancariaRepository.save(conta);
+		}
+				
+		return null;
+	}
 }

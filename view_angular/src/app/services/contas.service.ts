@@ -8,6 +8,7 @@ import { ICadastro } from '../interfaces/cadastro';
 import { IContaLogada } from '../interfaces/conta-logada';
 import { IDepositoSaque } from '../interfaces/deposito-saque';
 import { ITransferencia } from '../interfaces/transferencia';
+import { IContaEdicao } from '../interfaces/conta-edicao';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class ContasService {
     private http: HttpClient
   ) { }
 
+  buscarTodas(): Observable<ICadastro[]> {
+    return this.http.get<ICadastro[]>(`${this.api}/${this.endpoint}/`);
+  }
+
   depositar(deposito: IDepositoSaque) {
     return this.http.put(`${this.api}/${this.endpoint}/deposito`, deposito);
   }
@@ -44,6 +49,14 @@ export class ContasService {
 
   cadastrar(conta: ICadastro): Observable<ICadastro> {
     return this.http.post<ICadastro>(`${this.api}/${this.endpoint}/cadastrar`, conta);
+  }
+
+  editar(conta: IContaEdicao) {
+    return this.http.put(`${this.api}/${this.endpoint}/atualizar`, conta);
+  }
+
+  buscarPorId(id: number): Observable<ICadastro> {
+    return this.http.get<ICadastro>(`${this.api}/${this.endpoint}/buscar-por-id/${id}`);
   }
 
   buscarPorAgenciaEhNumero(agencia: string, numero: string): Observable<IContaTemp> {

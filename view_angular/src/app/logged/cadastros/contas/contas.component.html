@@ -1,0 +1,173 @@
+<div id="cadastro">
+  <h5>{{ estaEditando() ? "Edição" : "Cadastro" }} de conta</h5>
+
+  <form [formGroup]="formCadastro" (ngSubmit)="enviar()" class="formulario">
+
+    <fieldset>
+      <label for="agencia" class="form-label">Agência</label>
+      <input
+        class="form-control"
+        id="agencia"
+        type="text"
+        formControlName="agencia"
+        pattern="[\d]{4}"
+        placeholder="_ _ _ _"
+      />
+
+      <div
+        *ngIf="
+          formCadastro.get('agencia')?.errors?.['required'] &&
+          formCadastro.get('agencia')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+      <div
+        *ngIf="
+          formCadastro.get('agencia')?.invalid &&
+          formCadastro.get('agencia')?.touched"
+          class="form-text text-danger">
+          O número da agência deve conter 4 dígitos
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="numeroConta" class="form-label">Número da conta</label>
+      <input
+        class="form-control"
+        id="numeroConta"
+        type="text"
+        formControlName="numeroConta"
+        pattern="[\d]{4}-[\d]{1}"
+        placeholder="_ _ _ _ - _"
+      />
+
+      <div
+        *ngIf="
+          formCadastro.get('numeroConta')?.errors?.['required'] &&
+          formCadastro.get('numeroConta')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="nome" class="form-label">Nome completo</label>
+      <input id="nome" class="form-control" formControlName="nome"/>
+
+      <div
+        *ngIf="
+          formCadastro.get('nome')?.errors?.['required'] &&
+          formCadastro.get('nome')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="cpf" class="form-label">CPF</label>
+      <input id="cpf" class="form-control" pattern="[\d]{11}" formControlName="cpf"/>
+
+      <div
+        *ngIf="
+          formCadastro.get('cpf')?.errors?.['required'] &&
+          formCadastro.get('cpf')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+
+      <div
+        *ngIf="
+          formCadastro.get('cpf')?.invalid &&
+          formCadastro.get('cpf')?.touched"
+          class="form-text text-danger">
+          CPF deve conter apenas 11 números
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="dataNascimento" class="form-label">Data de nascimento</label>
+      <input id="dataNascimento" class="form-control" formControlName="dataNascimento" type="date" placeholder="dd/mm/aaaa"/>
+
+      <div
+        *ngIf="
+          formCadastro.get('dataNascimento')?.errors?.['required'] &&
+          formCadastro.get('dataNascimento')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="email" class="form-label">E-mail</label>
+      <input id="email" class="form-control"  formControlName="email" placeholder="seuEmail@dominio.com"/>
+
+      <div
+        *ngIf="
+          formCadastro.get('email')?.errors?.['required'] &&
+          formCadastro.get('email')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+
+      <div
+        *ngIf="
+          formCadastro.get('email')?.errors?.['email'] &&
+          formCadastro.get('email')?.touched"
+          class="form-text text-danger">
+          E-mail no formado incorreto
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="telefone" class="form-label">Telefone</label>
+      <input id="telefone" class="form-control"  formControlName="telefone" placeholder="(XX) XXXXX-XXXX"/>
+
+      <div
+        *ngIf="
+          formCadastro.get('telefone')?.errors?.['required'] &&
+          formCadastro.get('telefone')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="senha" class="form-label">Senha</label>
+      <input id="senha" type="password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?!=.*[ !@#$%^&*_=+-]).{8,16}$" class="form-control"  formControlName="senha"/>
+
+      <div
+        *ngIf="
+          formCadastro.get('senha')?.errors?.['required'] &&
+          formCadastro.get('senha')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+
+      <div
+        *ngIf="
+          formCadastro.get('senha')?.invalid &&
+          formCadastro.get('senha')?.touched"
+          class="form-text text-danger">
+          A senha deve conter entre 8 a 16 caracteres, deve conter pelo menos uma letra maiúscula, um número e não deve conter símbolos
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <label for="senhaConfirmar" class="form-label">Confimar Senha</label>
+      <input id="senhaConfirmar" type="password" class="form-control"  formControlName="senhaConfirmar"/>
+
+      <div
+        *ngIf="
+          formCadastro.get('senhaConfirmar')?.errors?.['required'] &&
+          formCadastro.get('senhaConfirmar')?.touched"
+          class="form-text text-danger">
+          Campo obrigatório
+      </div>
+    </fieldset>
+
+    <div class="d-grid gap-2">
+      <button [disabled]="!formCadastro.valid" type="submit" class="btn btn-outline-light">
+        Enviar</button>
+    </div>
+  </form>
+</div>

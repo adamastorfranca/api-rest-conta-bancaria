@@ -13,6 +13,7 @@ public interface ClienteRepository extends CrudRepository<Cliente, Long>{
 	Optional<Cliente> findByCpf(String cpf);
 	List<Cliente> findByNomeContains(String nome);
 	Optional<Cliente> findByEmail(String email);
+	List<Cliente> findByTemContaFalse();
 	
 
 }

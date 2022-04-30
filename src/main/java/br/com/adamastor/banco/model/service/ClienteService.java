@@ -67,6 +67,7 @@ public class ClienteService {
 		c.setDataNascimento(dataNascimento);
 		c.setEmail(email);
 		c.setTelefone(telefone);
+		c.setTemConta(true);
 		clienteRepository.save(c);
 		
 		return c;
@@ -89,17 +90,7 @@ public class ClienteService {
 		}
 		return false;
 	}
-	
-	public boolean jaExiste(String cpf) {
-		if (!CpfUtil.validaCPF(cpf)){
-			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
-		}
-		Optional<Cliente> resultado = clienteRepository.findByCpf(cpf);
-		if(resultado.isPresent()) {
-			return true;
-		}
-		return false;
-	}
+
 
 	@Transactional(rollbackFor = Exception.class)
 	public Boolean atualizar(AtualizacaoClienteForm form) {
@@ -114,8 +105,23 @@ public class ClienteService {
 			return true;
 		}
 		return false;
+	}	
+	
+	public List<ClienteDTO> buscarClientesSemConta() {
+		return ClienteDTO.converter(clienteRepository.findByTemContaFalse());
 	}
-//
+	
+	public boolean jaExiste(String cpf) {
+		if (!CpfUtil.validaCPF(cpf)){
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
+		}
+		Optional<Cliente> resultado = clienteRepository.findByCpf(cpf);
+		if(resultado.isPresent()) {
+			return true;
+		}
+		return false;
+	}
+
 //	@Transactional(rollbackFor = Exception.class)
 //	public boolean deletar(String cpf) {
 //		Cliente c = clienteRepository.findByCpf(cpf);

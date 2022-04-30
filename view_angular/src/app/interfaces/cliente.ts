@@ -4,5 +4,6 @@ export interface ICliente {
   cpf: string,
   email: string,
   telefone: string,
-  dataNascimento: string
+  dataNascimento: string,
+  temConta?: boolean
 }

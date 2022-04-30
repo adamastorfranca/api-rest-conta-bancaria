@@ -22,6 +22,8 @@ import { PeriodoEspecificoComponent } from './extratos/periodo-especifico/period
 import { ListaPeriodoComponent } from './extratos/periodo-especifico/lista-periodo/lista-periodo.component';
 import { ListarTodosComponent } from './consultas/clientes/listar-todos/listar-todos.component';
 import { ClientesComponent } from './cadastros/clientes/clientes.component';
+import { ContasComponent } from './cadastros/contas/contas.component';
+import { ListarTodasComponent } from './consultas/contas/listar-todas/listar-todas.component';
 
 
 const routes: Routes = [
@@ -43,6 +45,7 @@ const routes: Routes = [
 
       { path: 'consulta-cliente-cpf', component: PorCpfComponent },
       { path: 'clientes', component: ListarTodosComponent },
+      { path: 'contas', component: ListarTodasComponent },
       { path: 'consulta-conta-agencia-numero', component: AgenciaNumeroComponent },
       { path: 'informacoes-conta', component: InformacoesConsultaComponent },
 
@@ -54,7 +57,9 @@ const routes: Routes = [
       { path: 'transacoes-periodo-especifico', component: ListaPeriodoComponent },
 
       { path: 'cadastro-cliente', component: ClientesComponent },
-      { path: 'edicao-cliente/:id', component: ClientesComponent }
+      { path: 'edicao-cliente/:id', component: ClientesComponent },
+      { path: 'cadastro-conta', component: ContasComponent },
+      { path: 'edicao-conta/:id', component: ContasComponent },
     ]
   }
 ]

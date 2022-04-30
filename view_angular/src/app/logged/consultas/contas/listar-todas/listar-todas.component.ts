@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ICliente } from 'src/app/interfaces/cliente';
+import { ICadastro } from 'src/app/interfaces/cadastro';
 import { AutenticacaoService } from 'src/app/services/autenticacao.service';
-import { ClientesService } from 'src/app/services/clientes.service';
 import { ContasService } from 'src/app/services/contas.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-listar-todos',
-  templateUrl: './listar-todos.component.html',
-  styleUrls: ['./listar-todos.component.css']
+  selector: 'app-listar-todas',
+  templateUrl: './listar-todas.component.html',
+  styleUrls: ['./listar-todas.component.css']
 })
-export class ListarTodosComponent implements OnInit {
+export class ListarTodasComponent implements OnInit {
 
   filter: string = '';
-  clientes: ICliente[] = [];
+  contas: ICadastro[] = [];
   idConectado: number = this.authService.contaConectada.id;
 
   constructor(
     private router: Router,
-    private clienteService: ClientesService,
+    private contasService: ContasService,
     private authService: AutenticacaoService,
     private contaService: ContasService
   ) { }
@@ -30,14 +29,14 @@ export class ListarTodosComponent implements OnInit {
   }
 
   listarTodos() {
-    this.clienteService.listarTodosClientes().subscribe((result: ICliente[]) => {
-      this.clientes = result.filter((cliente: ICliente) =>{
-        return cliente.id !== this.idConectado;
+    this.contasService.buscarTodas().subscribe((result: ICadastro[]) => {
+      this.contas = result.filter((contas: ICadastro) =>{
+        return contas.id !== this.idConectado;
       })
     });
   }
 
-  confirmar(id: number) {
+/*   confirmar(id: number) {
     Swal.fire({
       title: 'Você está certo disso?',
       text: "Tem certeza que deseja remover este cliente?",
@@ -47,19 +46,19 @@ export class ListarTodosComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.clienteService.remover(id).subscribe(() => {
+        this.contasService.remover(id).subscribe(() => {
           Swal.fire({
             title: 'Removido!',
             text: 'Cliente removido com sucesso!',
             icon: 'success'
-          }).then(() => this.listarTodos());
-
+          });
+          this.listarTodos();
         }, error => {
           console.error(error);
         });
       }
     })
-  }
+  } */
 
   depositar(cpf: string){
     this.contaService.encaminhamentoTransacao = true;

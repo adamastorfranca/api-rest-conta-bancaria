@@ -58,18 +58,16 @@ export class ClientesComponent implements OnInit {
     const cliente: ICliente = this.formCadastro.value;
     if (!this.estaEditando()) {
       this.clientesService.cadastrar(cliente).subscribe((result) => {
-        Swal.fire('Sucesso', 'Cadastrado com sucesso!', 'success');
+        Swal.fire('Sucesso', 'Cadastrado com sucesso!', 'success').then(() => {this.router.navigate(['/user/clientes']);});
       });
     } else {
       this.clientesService.editar(cliente).subscribe((result) => {
-        Swal.fire('Sucesso', 'Editado com sucesso!', 'success');
+        Swal.fire('Sucesso', 'Editado com sucesso!', 'success').then(() => {this.router.navigate(['/user/clientes']);});
       });
     }
-    this.router.navigate(['/user/clientes']);
   }
 
   estaEditando() {
     return !!this.formCadastro.get("id")?.value;
   }
-
 }

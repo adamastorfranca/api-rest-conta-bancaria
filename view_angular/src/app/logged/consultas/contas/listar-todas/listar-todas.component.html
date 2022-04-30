@@ -1,9 +1,9 @@
 <div class="div-clientes">
-  <h5>Clientes</h5>
+  <h5>Contas</h5>
 
   <div class="text-center mt-3 mb-3">
     <form>
-      <label>Filtrar por nome: </label>
+      <label>Filtrar por CPF: </label>
       <input
         class="rounded"
         type="text"
@@ -16,49 +16,43 @@
     <thead class="border border-dark">
       <tr class="table-secondary border border-dark">
         <th scope="col" class="border border-dark" class="thead-clientes">ID</th>
+        <th scope="col" class="border border-dark" class="thead-clientes">Agência</th>
+        <th scope="col" class="border border-dark" class="thead-clientes">Número da conta</th>
         <th scope="col" class="border border-dark" class="thead-clientes">Nome</th>
         <th scope="col" class="border border-dark" class="thead-clientes">CPF</th>
-        <th scope="col" class="border border-dark" class="thead-clientes">Data nascimento</th>
-        <th scope="col" class="border border-dark" class="thead-clientes">Telefone</th>
-        <th scope="col" class="border border-dark" class="thead-clientes">E-mail</th>
-        <th scope="col" class="border border-dark" class="thead-clientes">Tem conta</th>
         <th scope="'col" class="border border-dark" class="thead-clientes">Ações</th>
         <th scope="'col" class="border border-dark" class="thead-clientes">Transações</th>
       </tr>
     </thead>
     <tbody class="border border-dark">
-      <tr class="border border-dark" *ngFor="let cliente of clientes | filterNomeCliente: filter">
-        <th class="border border-dark" scope="row">{{ cliente.id }}</th>
-        <td id="nome" class="border border-dark">{{ cliente.nome }}</td>
-        <td class="border border-dark">{{ cliente.cpf }}</td>
-        <td class="border border-dark">{{ cliente.dataNascimento | date: 'shortDate' }}</td>
-        <td class="border border-dark">{{ cliente.telefone }}</td>
-        <td class="border border-dark">{{ cliente.email }}</td>
-        <td class="border border-dark" *ngIf="cliente.temConta == true" style="color: green;">Sim</td>
-        <td class="border border-dark" *ngIf="cliente.temConta == false" style="color: red;">Não</td>
+      <tr class="border border-dark" *ngFor="let conta of contas | filterCpf: filter">
+        <th class="border border-dark" scope="row">{{ conta.id }}</th>
+        <td class="border border-dark">{{ conta.agencia }}</td>
+        <td class="border border-dark">{{ conta.numero }}</td>
+        <td id="nome" class="border border-dark">{{ conta.nomeCliente }}</td>
+        <td class="border border-dark">{{ conta.cpf }}</td>
         <td class="border border-dark">
           <div class="dropdown">
 
             <button class="btn btn-dark dropdown-toggle" style="background-color: black;" type="button"
               id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" [routerLink]="['/user/edicao-cliente', cliente.id]">Editar</a></li>
-              <li><a class="dropdown-item" (click)="confirmar(cliente.id)">Remover</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/user/edicao-conta', conta.id]">Editar</a></li>
+              <li><a class="dropdown-item" >Remover</a></li>
             </ul>
           </div>
         </td>
 
-        <td class="border border-dark" *ngIf="cliente.temConta == true">
-          <div class="dropdown" >
+        <td class="border border-dark">
+          <div class="dropdown">
             <button class="btn btn-dark dropdown-toggle" style="background-color: black;" type="button"
               id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" (click)="depositar(cliente.cpf)">Depositar</a></li>
-              <li><a class="dropdown-item" (click)="tranferir(cliente.cpf)">Transferir</a></li>
+              <li><a class="dropdown-item" (click)="depositar(conta.cpf)">Depositar</a></li>
+              <li><a class="dropdown-item" (click)="tranferir(conta.cpf)">Transferir</a></li>
             </ul>
           </div>
         </td>
-        <td class="border border-dark" *ngIf="cliente.temConta == false"> </td>
       </tr>
     </tbody>
   </table>

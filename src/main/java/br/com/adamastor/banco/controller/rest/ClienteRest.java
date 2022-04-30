@@ -83,6 +83,17 @@ public class ClienteRest {
 		return new ResponseEntity<>(existe, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/sem-conta", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<List<ClienteDTO>> buscarClientesSemConta() {
+		List<ClienteDTO> dto = clienteService.buscarClientesSemConta();
+		
+		if (dto == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return new ResponseEntity<>(dto, HttpStatus.OK);
+	}
+	
 //	@DeleteMapping(value = "/deletar/{cpf}")
 //	public ResponseEntity<Void> deletar(@PathVariable String cpf) {
 //		boolean deletou = clienteService.deletar(cpf);
